@@ -8,11 +8,7 @@ module.exports = {
   context: __dirname,
   devtool: PROD ? 'nosources-source-map' : 'source-map',
   entry: './src/index.js',
-  externals: {
-//    invariant: 'invariant',
-    lodash: 'lodash',
-//    warning: 'warning'
-  },
+  externals: {},
   module: {
     rules: [
       {
