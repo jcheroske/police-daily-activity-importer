@@ -33,13 +33,7 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development'
-    }),
-
-    ...(PROD ? [new UglifyJSPlugin({
-      compressor: {
-        unsafe: true
-      }
-    })] : [])
+    })
   ],
   resolve: {
     extensions: ['.js'],
