@@ -1,1 +1,1 @@
-web: ./node_modules/pm2/bin/pm2 ./ecosystem.config.js
+web: ./node_modules/pm2/bin/pm2 start ./ecosystem.config.js
