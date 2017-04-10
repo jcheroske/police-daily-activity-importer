@@ -1,6 +1,7 @@
 const { resolve } = require('path')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
+const nodeExternals = require('webpack-node-externals')
 
 const PROD = process.env.NODE_ENV === 'production'
 
@@ -8,7 +9,7 @@ module.exports = {
   context: __dirname,
   devtool: PROD ? 'nosources-source-map' : 'source-map',
   entry: './src/index.js',
-  externals: {},
+  externals: [nodeExternals()],
   module: {
     rules: [
       {

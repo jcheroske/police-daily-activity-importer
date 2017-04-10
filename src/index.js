@@ -1,17 +1,19 @@
+/* global Promise:true */
+import BluebirdPromise from 'bluebird'
 import log from 'winston'
 import getDatabase from './database'
+import getMaps from './maps'
+import getScraper from './scraper'
+
+Promise = BluebirdPromise
 
 log.info('Police Daily Activity Importer starting...')
 
-getDatabase().createIncident({
-  caseNumber: '1005',
-  offense: 'stealing',
-  reportedAt: new Date(),
-  streetAddress: '100 Main St.'
-})
-  .then(newIncident => {
-    console.log('New Incident', newIncident)
-    return getDatabase().getIncidentByCaseNumber('1005')
-  })
-  .then(fetchedIncident => console.log('Fetched Incident', fetchedIncident))
+async function importLastTwoDays () {
+  const scrapedIncidents = await getScraper().scrapeLastTwoDays()
+  const incidentsWithLocation = await getMaps().addLocationInfoToIncidents(scrapedIncidents)
+  await getDatabase().addIncidents(incidentsWithLocation)
+}
+
+importLastTwoDays()
   .catch(err => console.log(err))
