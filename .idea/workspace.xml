@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5002b79e-6d82-4111-9af8-92e1e2ec2d5d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/importIncidents" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Procfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ecosystem.config.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.js" afterPath="$PROJECT_DIR$/dist/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.js.map" afterPath="$PROJECT_DIR$/dist/index.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database.js" afterPath="$PROJECT_DIR$/src/database.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/maps.js" afterPath="$PROJECT_DIR$/src/maps.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scraper.js" afterPath="$PROJECT_DIR$/src/scraper.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,37 +31,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding>
-                <marker date="1491871263000" expanded="true" signature="1264:1572" ph="{&quot;@google/maps&quot;: &quot;^0.3.1&quot;...}" />
-                <marker date="1491871263000" expanded="true" signature="1621:2317" ph="{&quot;ava&quot;: &quot;^0.19.0&quot;...}" />
-                <marker date="1491871263000" expanded="true" signature="2335:2376" ph="{&quot;node&quot;: &quot;5.x&quot;...}" />
-                <marker date="1491871263000" expanded="true" signature="2387:2588" ph="{&quot;failFast&quot;: true...}" />
-                <marker date="1491871263000" expanded="true" signature="2402:2448" ph="[...]" />
-                <marker date="1491871263000" expanded="true" signature="2464:2491" ph="[...]" />
-                <marker date="1491871263000" expanded="true" signature="2530:2560" ph="[...]" />
-                <marker date="1491871263000" expanded="true" signature="2601:2822" ph="{...}" />
-                <marker date="1491871263000" expanded="true" signature="2618:2758" ph="[...]" />
-                <marker date="1491871263000" expanded="true" signature="2626:2735" ph="[...]" />
-                <marker date="1491871263000" expanded="true" signature="2651:2727" ph="{...}" />
-                <marker date="1491871263000" expanded="true" signature="2674:2717" ph="{&quot;node&quot;: &quot;current&quot;...}" />
-                <marker date="1491871263000" expanded="true" signature="2775:2818" ph="[...]" />
-                <marker date="1491871263000" expanded="true" signature="2855:2881" ph="{&quot;node&quot;: true...}" />
-                <marker date="1491871263000" expanded="true" signature="2898:2922" ph="[...]" />
-              </folding>
+            <state relative-caret-position="315">
+              <caret line="21" column="2" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="importIncidents" pinned="false" current-in-tab="true">
+      <file leaf-file-name="importIncidents" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/importIncidents">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -198,7 +171,6 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/ecosystem.config.js" />
         <option value="$PROJECT_DIR$/Procfile" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/src/maps.js" />
@@ -206,6 +178,7 @@
         <option value="$PROJECT_DIR$/src/scraper.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/bin/importIncidents" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -403,16 +376,16 @@
       <workItem from="1490326634652" duration="445000" />
       <workItem from="1490327128253" duration="1396000" />
       <workItem from="1491136488037" duration="1523000" />
-      <workItem from="1491534340936" duration="61896000" />
+      <workItem from="1491534340936" duration="62160000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113125000" />
+    <option name="totallyTimeSpent" value="113389000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="975" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20253165" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -422,7 +395,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.4978903" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.4978903" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -469,23 +442,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1491871263000" expanded="true" signature="1264:1572" ph="{&quot;@google/maps&quot;: &quot;^0.3.1&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="1621:2317" ph="{&quot;ava&quot;: &quot;^0.19.0&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2335:2376" ph="{&quot;node&quot;: &quot;5.x&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2387:2588" ph="{&quot;failFast&quot;: true...}" />
-            <marker date="1491871263000" expanded="true" signature="2402:2448" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2464:2491" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2530:2560" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2601:2822" ph="{...}" />
-            <marker date="1491871263000" expanded="true" signature="2618:2758" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2626:2735" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2651:2727" ph="{...}" />
-            <marker date="1491871263000" expanded="true" signature="2674:2717" ph="{&quot;node&quot;: &quot;current&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2775:2818" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2855:2881" ph="{&quot;node&quot;: true...}" />
-            <marker date="1491871263000" expanded="true" signature="2898:2922" ph="[...]" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -503,23 +460,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1491871263000" expanded="true" signature="1264:1572" ph="{&quot;@google/maps&quot;: &quot;^0.3.1&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="1621:2317" ph="{&quot;ava&quot;: &quot;^0.19.0&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2335:2376" ph="{&quot;node&quot;: &quot;5.x&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2387:2588" ph="{&quot;failFast&quot;: true...}" />
-            <marker date="1491871263000" expanded="true" signature="2402:2448" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2464:2491" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2530:2560" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2601:2822" ph="{...}" />
-            <marker date="1491871263000" expanded="true" signature="2618:2758" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2626:2735" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2651:2727" ph="{...}" />
-            <marker date="1491871263000" expanded="true" signature="2674:2717" ph="{&quot;node&quot;: &quot;current&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2775:2818" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2855:2881" ph="{&quot;node&quot;: true...}" />
-            <marker date="1491871263000" expanded="true" signature="2898:2922" ph="[...]" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -642,30 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding>
-            <marker date="1491871263000" expanded="true" signature="1264:1572" ph="{&quot;@google/maps&quot;: &quot;^0.3.1&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="1621:2317" ph="{&quot;ava&quot;: &quot;^0.19.0&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2335:2376" ph="{&quot;node&quot;: &quot;5.x&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2387:2588" ph="{&quot;failFast&quot;: true...}" />
-            <marker date="1491871263000" expanded="true" signature="2402:2448" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2464:2491" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2530:2560" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2601:2822" ph="{...}" />
-            <marker date="1491871263000" expanded="true" signature="2618:2758" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2626:2735" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2651:2727" ph="{...}" />
-            <marker date="1491871263000" expanded="true" signature="2674:2717" ph="{&quot;node&quot;: &quot;current&quot;...}" />
-            <marker date="1491871263000" expanded="true" signature="2775:2818" ph="[...]" />
-            <marker date="1491871263000" expanded="true" signature="2855:2881" ph="{&quot;node&quot;: true...}" />
-            <marker date="1491871263000" expanded="true" signature="2898:2922" ph="[...]" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -752,8 +669,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/importIncidents">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="2" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
           <folding />
         </state>
       </provider>
