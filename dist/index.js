@@ -207,7 +207,7 @@ let isIncidentUnsaved = (() => {
       }
     `
     });
-    _winston2.default.info('Databae: ');
+    _winston2.default.debug(`Database: case number ${incident.caseNumber} does not already exist`);
     return Incident == null;
   });
 

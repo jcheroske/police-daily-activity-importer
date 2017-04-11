@@ -88,7 +88,7 @@ async function isIncidentUnsaved (incident) {
       }
     `
   })
-  log.info('Databae: ')
+  log.debug(`Database: case number ${incident.caseNumber} does not already exist`)
   return Incident == null
 }
 
