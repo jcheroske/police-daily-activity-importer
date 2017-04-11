@@ -6,6 +6,8 @@ import getDatabase from './database'
 import getMaps from './maps'
 import getScraper from './scraper'
 
+log.level = 'debug'
+
 process.env.TZ = 'UTC'
 Promise = BluebirdPromise
 
