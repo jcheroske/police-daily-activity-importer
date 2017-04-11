@@ -4,23 +4,19 @@ import Xray from 'x-ray'
 import log from 'winston'
 
 let POLICE_INCIDENT_URL
-const MILLIS_IN_DAY = 1000 * 60 * 60 * 24
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-function scrapeLastTwoDays () {
-  const end = new Date()
-  const start = new Date(Date.now() - MILLIS_IN_DAY)
-
-  return scrapeRange(start, end)
+async function scrape (date) {
+  return scrapeRange(date, date)
 }
 
-async function scrapeRange (start, end) {
+async function scrapeRange (startMoment, endMoment) {
   const options = {
     method: 'POST',
     form: {
       btnGo: 'Go',
       RequestType: 'radbtnDetails',
-      ...getFormDateFields(start, end),
+      ...getFormDateFields(startMoment, endMoment),
       ...await getFormSecurityFields()
     }
   }
@@ -47,7 +43,6 @@ async function scrapeRange (start, end) {
 
   try {
     const {incidents} = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
-    incidents.splice(1)
     log.info(`Scraper: ${incidents.length} incidents retreived`)
     return incidents
   } catch (err) {
@@ -74,14 +69,14 @@ async function getFormSecurityFields () {
   }
 }
 
-const getFormDateFields = (start, end) => {
+const getFormDateFields = (startMoment, endMoment) => {
   return {
-    ddlFromMonth: start.getMonth(),
-    ddlFromDate: start.getDate(),
-    ddlFromYear: start.getFullYear(),
-    ddlToMonth: end.getMonth(),
-    ddlToDate: end.getDate(),
-    ddlToYear: end.getFullYear()
+    ddlFromMonth: startMoment.month(),
+    ddlFromDate: startMoment.date(),
+    ddlFromYear: startMoment.year(),
+    ddlToMonth: endMoment.month(),
+    ddlToDate: endMoment.date(),
+    ddlToYear: endMoment.year()
   }
 }
 
@@ -122,8 +117,7 @@ export default () => {
 
     POLICE_INCIDENT_URL = env.POLICE_INCIDENT_URL
     scraper = Object.freeze({
-      scrapeLastTwoDays,
-      scrapeRange
+      scrape
     })
     log.info('Scraper: initialized')
   }

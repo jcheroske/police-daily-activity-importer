@@ -2,14 +2,51 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import envalid, {str} from 'envalid'
 import gql from 'graphql-tag'
 import 'isomorphic-fetch'
+import moment from 'moment'
 import log from 'winston'
 
-let client
+let client, configId
+
+async function getConfigParam (name) {
+  const result = await client.query({
+    fetchPolicy: 'network-only',
+    query: gql`
+      query {
+        allConfigs {
+          id,
+          ${name}
+        }  
+      }
+    `
+  })
+
+  const config = result.data.allConfigs[0]
+  configId = config.id
+
+  return config[name]
+}
+
+async function setConfigParam (name, value) {
+  await client.mutate({
+    mutation: gql`
+      mutation {
+        updateConfig (
+          id: "${configId}",
+          ${name}: "${value}"
+        ) {
+          id
+        }
+      }
+    `
+  })
+  return undefined
+}
 
 async function addIncidents (incidents) {
   for (const incident of incidents) {
     await addIncident(incident)
   }
+  log.info(`Database: saved ${incidents.length} incidents`)
 }
 
 async function addIncident (incident) {
@@ -19,7 +56,7 @@ async function addIncident (incident) {
 }
 
 async function createIncident (incident) {
-  log.info('Creating new Incident', incident)
+  log.debug('Creating new Incident', incident)
   const {data: {createIncident}} = await client.mutate({
     mutation: gql`
       mutation {
@@ -41,6 +78,7 @@ async function createIncident (incident) {
 
 async function isIncidentUnsaved (incident) {
   const {data: {Incident}} = await client.query({
+    fetchPolicy: 'network-only',
     query: gql`
       query {
         Incident(caseNumber: "${incident.caseNumber}") {
@@ -67,7 +105,7 @@ export default () => {
         uri: env.GRAPH_QL_ENDPOINT
       })
     })
-    database = Object.freeze({addIncidents})
+    database = Object.freeze({getConfigParam, setConfigParam, addIncidents})
     log.info('Database: successfully connected to GraphQL endpoint.')
   }
   return database

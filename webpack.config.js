@@ -7,7 +7,7 @@ const PROD = process.env.NODE_ENV === 'production'
 
 module.exports = {
   context: __dirname,
-  devtool: PROD ? 'nosources-source-map' : 'source-map',
+  devtool: 'source-map',
   entry: './src/index.js',
   externals: [nodeExternals()],
   module: {

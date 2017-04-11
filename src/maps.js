@@ -24,12 +24,13 @@ async function addLocationInfoToIncidents (incidents) {
       })
     }
   }
+  log.info(`Maps: geocoded ${newIncidents.length} incidents`)
   return newIncidents
 }
 
 async function geocodeAddress ({streetAddress, city, state}) {
   const address = [streetAddress, city, state].join(', ')
-  log.info(`Maps: about to geocode ${address}`)
+  log.debug(`Maps: about to geocode ${address}`)
   let response
   try {
     response = await client.geocode({address}).asPromise()
@@ -42,7 +43,7 @@ async function geocodeAddress ({streetAddress, city, state}) {
     return undefined
   } else {
     const {formatted_address: address, geometry: {location: {lat, lng}}} = response.json.results[0]
-    log.info(`Maps: geocode successful: ${address} ${lat} ${lng}`)
+    log.debug(`Maps: geocode successful: ${address} ${lat} ${lng}`)
     return {address, lat, lng}
   }
 }
