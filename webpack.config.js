@@ -2,6 +2,8 @@ const { resolve } = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
+//const PROD = process.env.NODE_ENV === 'production'
+
 module.exports = {
   context: __dirname,
   devtool: 'source-map',
