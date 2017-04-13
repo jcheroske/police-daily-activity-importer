@@ -1,29 +1,28 @@
 /* global Promise:true */
 import BluebirdPromise from 'bluebird'
-import moment from 'moment'
-import log from 'winston'
+import moment from 'moment-timezone'
 import getDatabase from './database'
+import log from './log'
 import getMaps from './maps'
 import getScraper from './scraper'
 
-log.level = 'debug'
-
-process.env.TZ = 'UTC'
 Promise = BluebirdPromise
 
-const MAPS_REQUESTS_PER_DAY = 2450
-
 run()
-  .catch(err => log.error(err))
+// deleteAll()
+   .catch(err => log.error(err))
+
+async function deleteAll () {
+  await getDatabase().deleteAllIncidents()
+  await getDatabase().setConfigParam('lastImportedDate', moment.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString())
+}
 
 async function run () {
   log.info('Police Daily Activity Importer starting...')
-  let numMapsRequests = 0
+
   while (true) {
     const lastImportDateStr = await getDatabase().getConfigParam('lastImportedDate')
-    console.log(lastImportDateStr)
-    const dateToImport = moment(lastImportDateStr).add(1, 'days')
-    console.log(dateToImport)
+    const dateToImport = moment.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days')
 
     if (!dateToImport.isBefore(moment(), 'date')) {
       log.info('Up to date. Exiting...')
@@ -33,14 +32,15 @@ async function run () {
     log.info(`Importing ${dateToImport.toString()}`)
 
     const scrapedIncidents = await getScraper().scrape(dateToImport)
-    if (scrapedIncidents.length + numMapsRequests > MAPS_REQUESTS_PER_DAY) {
-      log.info('Import suspended: maps quota exceeded.')
-      break
+    for (const scrapedIncident of scrapedIncidents) {
+      if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
+        const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
+        if (incidentWithLocation !== undefined) {
+          getDatabase().createIncident(incidentWithLocation)
+        }
+      }
     }
-    const incidentsWithLocation = await getMaps().addLocationInfoToIncidents(scrapedIncidents)
-    await getDatabase().addIncidents(incidentsWithLocation)
     await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-    numMapsRequests += scrapedIncidents.length
-    log.info(`${dateToImport.toString()} successfully imported. Quota remaining: ${MAPS_REQUESTS_PER_DAY - numMapsRequests}`)
+    log.info(`${dateToImport.toString()} successfully imported.`)
   }
 }

@@ -1,22 +1,18 @@
 import envalid, {str} from 'envalid'
+import moment from 'moment-timezone'
 import makeDriver from 'request-x-ray'
 import Xray from 'x-ray'
-import log from 'winston'
+import log from './log'
 
 let POLICE_INCIDENT_URL
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 async function scrape (date) {
-  return scrapeRange(date, date)
-}
-
-async function scrapeRange (startMoment, endMoment) {
   const options = {
     method: 'POST',
     form: {
       btnGo: 'Go',
       RequestType: 'radbtnDetails',
-      ...getFormDateFields(startMoment, endMoment),
+      ...getFormDateFields(date, date),
       ...await getFormSecurityFields()
     }
   }
@@ -33,7 +29,7 @@ async function scrapeRange (startMoment, endMoment) {
 
   const selector = {
     incidents: xRay('td.info', [{
-      reportedAt: 'b:nth-of-type(1) | parseDate',
+      reportedAt: `b:nth-of-type(1) | parseDate:${date.toISOString()}`,
       streetAddress: 'b:nth-of-type(2) | parseAddress | trim',
       offense: 'b:nth-of-type(3) | trim',
       caseNumber: 'b:nth-of-type(4) | trim',
@@ -44,6 +40,7 @@ async function scrapeRange (startMoment, endMoment) {
   try {
     const {incidents} = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
     log.info(`Scraper: ${incidents.length} incidents retreived`)
+    log.debug('Scraped incidents', incidents)
     return incidents
   } catch (err) {
     log.error('Scraper: error while fetching incidents', err)
@@ -71,29 +68,19 @@ async function getFormSecurityFields () {
 
 const getFormDateFields = (startMoment, endMoment) => {
   return {
-    ddlFromMonth: startMoment.month(),
+    ddlFromMonth: startMoment.month() + 1,
     ddlFromDate: startMoment.date(),
     ddlFromYear: startMoment.year(),
-    ddlToMonth: endMoment.month(),
+    ddlToMonth: endMoment.month() + 1,
     ddlToDate: endMoment.date(),
     ddlToYear: endMoment.year()
   }
 }
 
-const parseDate = value => {
-  if (!value) return undefined
+const parseDate = (value, defaultDate) => {
+  if (!value) return defaultDate
 
-  const re = /([A-Z][a-z]{2})\s+(\d{1,2})\s+(\d{4})\s+(\d{1,2}):(\d{2})(AM|PM)/
-  const result = re.exec(value)
-  const date = [
-    result[3], // year
-    MONTHS.indexOf(result[1]), // month
-    result[2], // day
-    result[6] === 'PM' && Number(result[4]) < 12 ? Number(result[4]) + 12 : result[4], // hour
-    result[5] // minute
-  ]
-
-  return new Date(...date)
+  return moment.tz(value, 'MMM DD YYYY hh:mmA', 'America/Los_Angeles').toISOString()
 }
 
 const parseAddress = value => value.replace('BLK', '').replace(/\s+/g, ' ')

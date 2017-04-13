@@ -2,10 +2,23 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import envalid, {str} from 'envalid'
 import gql from 'graphql-tag'
 import 'isomorphic-fetch'
-import moment from 'moment'
-import log from 'winston'
+import log from './log'
 
 let client, configId
+
+async function getConfigId () {
+  const result = await client.query({
+    fetchPolicy: 'network-only',
+    query: gql`
+      query {
+        allConfigs {
+          id
+        }  
+      }
+    `
+  })
+  configId = result.data.allConfigs[0].id
+}
 
 async function getConfigParam (name) {
   const result = await client.query({
@@ -19,11 +32,7 @@ async function getConfigParam (name) {
       }
     `
   })
-
-  const config = result.data.allConfigs[0]
-  configId = config.id
-
-  return config[name]
+  return result.data.allConfigs[0][name]
 }
 
 async function setConfigParam (name, value) {
@@ -42,19 +51,6 @@ async function setConfigParam (name, value) {
   return undefined
 }
 
-async function addIncidents (incidents) {
-  for (const incident of incidents) {
-    await addIncident(incident)
-  }
-  log.info(`Database: saved ${incidents.length} incidents`)
-}
-
-async function addIncident (incident) {
-  if (await isIncidentUnsaved(incident)) {
-    createIncident(incident)
-  }
-}
-
 async function createIncident (incident) {
   log.debug('Creating new Incident', incident)
   const {data: {createIncident}} = await client.mutate({
@@ -64,7 +60,7 @@ async function createIncident (incident) {
           caseNumber: "${incident.caseNumber}"
           description: "${incident.description}"
           offense: "${incident.offense}"
-          reportedAt: "${incident.reportedAt.toISOString()}"
+          reportedAt: "${incident.reportedAt}"
           streetAddress: "${incident.streetAddress}"
         ) {
           id,
@@ -88,8 +84,36 @@ async function isIncidentUnsaved (incident) {
       }
     `
   })
-  log.debug(`Database: case number ${incident.caseNumber} does not already exist`)
+  log.debug(`Database: case number ${incident.caseNumber} ${Incident == null ? 'does not exist' : 'already exists'} in the database`)
   return Incident == null
+}
+
+async function deleteAllIncidents () {
+  const {data: {allIncidents}} = await client.query({
+    fetchPolicy: 'network-only',
+    query: gql`
+      query {
+        allIncidents {
+          id
+        }
+      }
+    `
+  })
+
+  for (const incident of allIncidents) {
+    await client.mutate({
+      mutation: gql`
+        mutation {
+          deleteIncident(
+            id: "${incident.id}"
+          ) {
+            id
+          }
+        }
+      `
+    })
+    log.debug(`Database: incident ${incident.id} deleted`)
+  }
 }
 
 let database
@@ -105,7 +129,16 @@ export default () => {
         uri: env.GRAPH_QL_ENDPOINT
       })
     })
-    database = Object.freeze({getConfigParam, setConfigParam, addIncidents})
+
+    getConfigId()
+
+    database = Object.freeze({
+      getConfigParam,
+      setConfigParam,
+      createIncident,
+      isIncidentUnsaved,
+      deleteAllIncidents
+    })
     log.info('Database: successfully connected to GraphQL endpoint.')
   }
   return database
