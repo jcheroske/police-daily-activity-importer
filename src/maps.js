@@ -13,40 +13,64 @@ export class QueryLimitExceeded extends ExtendableError {
 let googleGeocode
 
 async function addLocationInfoToIncident (incident) {
-  const locationInfo = await geocodeAddress({
-    streetAddress: incident.streetAddress,
-    city: 'Bellingham',
-    state: 'WA'
-  })
-
-  return locationInfo ? {
-    ...incident,
-    streetAddress: locationInfo.address.split(',')[0].trim(),
-    zipCode: locationInfo.address.match(/\d{5}/)[0],
-    lat: locationInfo.lat,
-    lng: locationInfo.lng
-  } : undefined
-}
-
-async function geocodeAddress ({streetAddress, city, state}) {
-  const rawAddress = [streetAddress, city, state].join(', ')
+  const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ')
   log.debug(`Maps: about to geocode ${rawAddress}`)
 
   const response = await googleGeocode({address: rawAddress})
 
+  if (!response || !response.json) {
+    log.warn('Maps: empty response or json payload', response)
+    return undefined
+  }
+
   const {status, results} = response.json
-  if (status === 'OVER_QUERY_LIMIT') {
+
+  if (response.json.status === 'OVER_QUERY_LIMIT') {
+    log.warn('Maps: Query limit exceeded')
     throw new QueryLimitExceeded()
   }
 
   if (status !== 'OK') {
-    log.warn(`Maps: geocode failed for ${rawAddress} with status ${status}`)
+    log.warn('Maps: Non-OK status received', status)
     return undefined
   }
 
-  const {formatted_address: address, geometry: {location: {lat, lng}}} = results[0]
-  log.debug(`Maps: geocode successful: ${address} ${lat} ${lng}`)
-  return {address, lat, lng}
+  if (!results || !results[0]) {
+    log.warn('Maps: missing results payload', results)
+    return undefined
+  }
+
+  const {formatted_address: formattedAddress, geometry} = results[0]
+
+  if (!formattedAddress) {
+    log.warn('Maps: missing formatted address', results[0])
+    return undefined
+  }
+
+  if (!geometry || !geometry.location || !geometry.location.lat || !geometry.location.lng) {
+    log.warn('Maps: missing or incomplete geometry object', results[0])
+    return undefined
+  }
+
+  const streetAddressRegExResult = formattedAddress.split(',')
+  if (!streetAddressRegExResult || !streetAddressRegExResult[0]) {
+    log.warn('Maps: street address extraction failed', formattedAddress)
+    return undefined
+  }
+
+  const streetAddress = streetAddressRegExResult[0].trim()
+
+  const zipCodeRegExResult = formattedAddress.match(/\d{5}/)
+  if (!zipCodeRegExResult || !zipCodeRegExResult[0]) {
+    log.warn('Maps: zip code extraction failed', formattedAddress)
+    return undefined
+  }
+
+  const zipCode = zipCodeRegExResult[0]
+
+  const {lat, lng} = geometry.location
+
+  log.debug('Maps: geocode successful', streetAddress, zipCode, lat, lng)
 }
 
 let maps

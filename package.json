@@ -25,11 +25,11 @@
     "build:prod": "NODE_ENV=production webpack --progress --colors",
     "build:watch": "NODE_ENV=development webpack --progress --colors --watch",
     "clean": "rimraf dist/*",
-    "deploy": "git push heroku master",
+    "commit": "git add -A && git commit -m \"${MSG:-NPM Commit}\" && git push origin master",
+    "deploy": "npm run build:prod && git add -A && git commit -m \"Production Build\" && git push heroku master",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "modules": "rimraf node_modules/* && npm i",
-    "push": "git add -A && git commit -m \"${MSG:-Quick Commit}\" && git push origin master",
     "start": "node ./dist/index.js",
     "test": "ava --concurrency=5",
     "test:watch": "npm run test -- --watch"
