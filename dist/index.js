@@ -347,24 +347,24 @@ let addLocationInfoToIncident = (() => {
     }
 
     if (status !== 'OK') {
-      _log2.default.warn('Maps: Non-OK status received', status);
+      _log2.default.warn('Maps: Non-OK status received', rawAddress, status);
       return undefined;
     }
 
     if (!results || !results[0]) {
-      _log2.default.warn('Maps: missing results payload', results);
+      _log2.default.warn('Maps: missing results payload', rawAddress, results);
       return undefined;
     }
 
     const { formatted_address: formattedAddress, geometry } = results[0];
 
     if (!formattedAddress) {
-      _log2.default.warn('Maps: missing formatted address', results[0]);
+      _log2.default.warn('Maps: missing formatted address', rawAddress, results[0]);
       return undefined;
     }
 
     if (!geometry || !geometry.location || !geometry.location.lat || !geometry.location.lng) {
-      _log2.default.warn('Maps: missing or incomplete geometry object', results[0]);
+      _log2.default.warn('Maps: missing or incomplete geometry object', rawAddress, results[0]);
       return undefined;
     }
 
@@ -442,7 +442,7 @@ exports.default = () => {
       Promise
     });
 
-    googleGeocode = Promise.promisify((0, _simpleRateLimiter2.default)(client.geocode.bind(client)).to(45).per(1000));
+    googleGeocode = client.geocode.bind(client);
 
     maps = Object.freeze({ addLocationInfoToIncident });
     _log2.default.info('Maps: initialized');

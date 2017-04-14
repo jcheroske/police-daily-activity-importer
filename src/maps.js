@@ -31,24 +31,24 @@ async function addLocationInfoToIncident (incident) {
   }
 
   if (status !== 'OK') {
-    log.warn('Maps: Non-OK status received', status)
+    log.warn('Maps: Non-OK status received', rawAddress, status)
     return undefined
   }
 
   if (!results || !results[0]) {
-    log.warn('Maps: missing results payload', results)
+    log.warn('Maps: missing results payload', rawAddress, results)
     return undefined
   }
 
   const {formatted_address: formattedAddress, geometry} = results[0]
 
   if (!formattedAddress) {
-    log.warn('Maps: missing formatted address', results[0])
+    log.warn('Maps: missing formatted address', rawAddress, results[0])
     return undefined
   }
 
   if (!geometry || !geometry.location || !geometry.location.lat || !geometry.location.lng) {
-    log.warn('Maps: missing or incomplete geometry object', results[0])
+    log.warn('Maps: missing or incomplete geometry object', rawAddress, results[0])
     return undefined
   }
 
@@ -87,7 +87,7 @@ export default () => {
       Promise
     })
 
-    googleGeocode = Promise.promisify(rateLimiter(::client.geocode).to(45).per(1000))
+    googleGeocode = ::client.geocode
 
     maps = Object.freeze({addLocationInfoToIncident})
     log.info('Maps: initialized')
