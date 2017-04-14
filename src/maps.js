@@ -16,7 +16,13 @@ async function addLocationInfoToIncident (incident) {
   const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ')
   log.debug(`Maps: about to geocode ${rawAddress}`)
 
-  const response = await googleGeocode({address: rawAddress})
+  let response
+  try {
+    response = await googleGeocode({address: rawAddress})
+  } catch (err) {
+    log.error('Maps: error when invoking Google maps API', err)
+    throw err
+  }
 
   if (!response || !response.json) {
     log.warn('Maps: empty response or json payload', response)
@@ -87,7 +93,7 @@ export default () => {
       Promise
     })
 
-    googleGeocode = ::client.geocode
+    googleGeocode = Promise.promisify(::client.geocode)
 
     maps = Object.freeze({addLocationInfoToIncident})
     log.info('Maps: initialized')
