@@ -48,7 +48,10 @@ async function scrape (date) {
   }
 }
 
+let securityFields
 async function getFormSecurityFields () {
+  if (securityFields) return securityFields
+
   const selector = {
     '__VIEWSTATE': 'input[name="__VIEWSTATE"]@value',
     '__VIEWSTATEGENERATOR': 'input[name="__VIEWSTATEGENERATOR"]@value',
@@ -57,7 +60,7 @@ async function getFormSecurityFields () {
 
   const xRay = Xray()
   try {
-    const securityFields = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
+    securityFields = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
     log.info('Scraper: obtained security fields')
     return securityFields
   } catch (err) {
