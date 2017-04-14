@@ -25,14 +25,13 @@ async function getConfigParam (name) {
     fetchPolicy: 'network-only',
     query: gql`
       query {
-        allConfigs {
-          id,
+        Config(id: "${configId}") {
           ${name}
         }  
       }
     `
   })
-  return result.data.allConfigs[0][name]
+  return result.data.Config[name]
 }
 
 async function setConfigParam (name, value) {
@@ -117,28 +116,28 @@ async function deleteAllIncidents () {
 }
 
 let database
-export default () => {
-  if (!database) {
-    const env = envalid.cleanEnv(process.env, {
-      GRAPH_QL_ENDPOINT: str({desc: 'GraphQL endpoint URL'})
-    })
 
-    client = new ApolloClient({
-      networkInterface: createNetworkInterface({
-        uri: env.GRAPH_QL_ENDPOINT
-      })
-    })
+export async function init () {
+  const env = envalid.cleanEnv(process.env, {
+    GRAPH_QL_ENDPOINT: str({desc: 'GraphQL endpoint URL'})
+  })
 
-    getConfigId()
-
-    database = Object.freeze({
-      getConfigParam,
-      setConfigParam,
-      createIncident,
-      isIncidentUnsaved,
-      deleteAllIncidents
+  client = new ApolloClient({
+    networkInterface: createNetworkInterface({
+      uri: env.GRAPH_QL_ENDPOINT
     })
-    log.info('Database: initialized')
-  }
-  return database
+  })
+
+  await getConfigId()
+
+  database = Object.freeze({
+    getConfigParam,
+    setConfigParam,
+    createIncident,
+    isIncidentUnsaved,
+    deleteAllIncidents
+  })
+  log.verbose('Database: initialized')
 }
+
+export default () => database

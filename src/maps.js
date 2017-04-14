@@ -1,7 +1,6 @@
 import GoogleMaps from '@google/maps'
 import envalid, {str} from 'envalid'
 import ExtendableError from 'es6-error'
-import rateLimiter from 'simple-rate-limiter'
 import log from './log'
 
 export class QueryLimitExceeded extends ExtendableError {
@@ -20,6 +19,9 @@ async function addLocationInfoToIncident (incident) {
   try {
     response = await googleGeocode({address: rawAddress})
   } catch (err) {
+    if (err.message === 'timeout') {
+      throw new QueryLimitExceeded()
+    }
     log.error('Maps: error when invoking Google maps API', err)
     throw err
   }
@@ -80,23 +82,22 @@ async function addLocationInfoToIncident (incident) {
 }
 
 let maps
-export default () => {
-  if (!maps) {
-    const env = envalid.cleanEnv(process.env, {
-      GOOGLE_MAPS_API_KEY: str({desc: 'Google maps node API key'})
-    })
 
-    const client = GoogleMaps.createClient({
-      key: env.GOOGLE_MAPS_API_KEY,
-      'rate.limit': 40,
-      timeout: 5000,
-      Promise
-    })
+export async function init () {
+  const env = envalid.cleanEnv(process.env, {
+    GOOGLE_MAPS_API_KEY: str({desc: 'Google maps node API key'})
+  })
 
-    googleGeocode = Promise.promisify(::client.geocode)
+  const client = GoogleMaps.createClient({
+    key: env.GOOGLE_MAPS_API_KEY,
+    'rate.limit': 40,
+    timeout: 10000
+  })
 
-    maps = Object.freeze({addLocationInfoToIncident})
-    log.info('Maps: initialized')
-  }
-  return maps
+  googleGeocode = Promise.promisify(::client.geocode)
+
+  maps = Object.freeze({addLocationInfoToIncident})
+  log.verbose('Maps: initialized')
 }
+
+export default () => maps

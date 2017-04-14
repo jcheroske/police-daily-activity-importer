@@ -1,46 +1,59 @@
 /* global Promise:true */
 import BluebirdPromise from 'bluebird'
 import moment from 'moment-timezone'
-import getDatabase from './database'
+import getDatabase, {init as initDb} from './database'
 import log from './log'
-import getMaps from './maps'
-import getScraper from './scraper'
+import getMaps, {init as initMaps, QueryLimitExceeded} from './maps'
+import getScraper, {init as initScraper} from './scraper'
 
 Promise = BluebirdPromise
 
-run()
-// deleteAll()
-   .catch(err => log.error(err))
+async function init () {
+  await initDb()
+  await initScraper()
+  await initMaps()
+}
 
-async function deleteAll () {
+export async function deleteAllIncidents () {
+  await init()
   await getDatabase().deleteAllIncidents()
   await getDatabase().setConfigParam('lastImportedDate', moment.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString())
 }
 
-async function run () {
-  log.info('Police Daily Activity Importer starting...')
+export async function importIncidents () {
+  try {
+    log.info('Police Daily Activity Importer starting...')
 
-  while (true) {
-    const lastImportDateStr = await getDatabase().getConfigParam('lastImportedDate')
-    const dateToImport = moment.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days')
+    await init()
 
-    if (!dateToImport.isBefore(moment(), 'date')) {
-      log.info('Up to date. Exiting...')
-      break
-    }
+    while (true) {
+      const lastImportDateStr = await getDatabase().getConfigParam('lastImportedDate')
+      const dateToImport = moment.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days')
 
-    log.info(`Importing ${dateToImport.toString()}`)
+      if (!dateToImport.isBefore(moment(), 'date')) {
+        log.info('Up to date. Exiting...')
+        break
+      }
 
-    const scrapedIncidents = await getScraper().scrape(dateToImport)
-    for (const scrapedIncident of scrapedIncidents) {
-      if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
-        const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
-        if (incidentWithLocation !== undefined) {
-          getDatabase().createIncident(incidentWithLocation)
+      log.info(`Importing ${dateToImport.toString()}`)
+
+      const scrapedIncidents = await getScraper().scrape(dateToImport)
+      for (const scrapedIncident of scrapedIncidents) {
+        if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
+          const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
+          if (incidentWithLocation !== undefined) {
+            getDatabase().createIncident(incidentWithLocation)
+          }
         }
       }
+      await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
+      log.info(`${dateToImport.toString()} successfully imported.`)
     }
-    await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-    log.info(`${dateToImport.toString()} successfully imported.`)
+  } catch (err) {
+    if (err instanceof QueryLimitExceeded) {
+      log.info('Google geocode quota exhausted. Exiting...')
+    } else {
+      log.error(err)
+    }
   }
 }

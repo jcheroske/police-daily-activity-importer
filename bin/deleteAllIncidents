@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const deleteAllIncidents = require('../dist/index.js').deleteAllIncidents
+
+deleteAllIncidents()

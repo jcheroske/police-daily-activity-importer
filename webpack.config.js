@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
-//const PROD = process.env.NODE_ENV === 'production'
+// const PROD = process.env.NODE_ENV === 'production'
 
 module.exports = {
   context: __dirname,
@@ -27,6 +27,7 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
+    libraryTarget: 'commonjs',
     path: resolve(__dirname, './dist')
   },
   plugins: [

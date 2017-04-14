@@ -39,7 +39,7 @@ async function scrape (date) {
 
   try {
     const {incidents} = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
-    log.info(`Scraper: ${incidents.length} incidents retreived`)
+    log.info(`Scraper: ${incidents.length} incidents scraped`)
     log.debug('Scraped incidents', incidents)
     return incidents
   } catch (err) {
@@ -61,7 +61,7 @@ async function getFormSecurityFields () {
   const xRay = Xray()
   try {
     securityFields = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
-    log.info('Scraper: obtained security fields')
+    log.verbose('Scraper: obtained security fields')
     return securityFields
   } catch (err) {
     log.error('Scraper: error while fetching security fields', err)
@@ -99,17 +99,17 @@ const parseDescription = value => {
 const trim = value => value.trim()
 
 let scraper
-export default () => {
-  if (!scraper) {
-    const env = envalid.cleanEnv(process.env, {
-      POLICE_INCIDENT_URL: str({desc: 'Police daily activity URL'})
-    })
 
-    POLICE_INCIDENT_URL = env.POLICE_INCIDENT_URL
-    scraper = Object.freeze({
-      scrape
-    })
-    log.info('Scraper: initialized')
-  }
-  return scraper
+export async function init () {
+  const env = envalid.cleanEnv(process.env, {
+    POLICE_INCIDENT_URL: str({desc: 'Police daily activity URL'})
+  })
+
+  POLICE_INCIDENT_URL = env.POLICE_INCIDENT_URL
+  scraper = Object.freeze({
+    scrape
+  })
+  log.verbose('Scraper: initialized')
 }
+
+export default () => scraper

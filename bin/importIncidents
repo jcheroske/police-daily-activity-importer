@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-process.env.NODE_ENV = 'production'
+const importIncidents = require('../dist/index.js').importIncidents
 
-require('../dist/index.js')
-
+importIncidents()

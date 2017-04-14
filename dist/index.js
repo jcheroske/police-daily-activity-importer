@@ -1,4 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
+(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _winston = __webpack_require__(15);
+var _winston = __webpack_require__(14);
 
 var _winston2 = _interopRequireDefault(_winston);
 
@@ -116,6 +116,7 @@ module.exports = require("moment-timezone");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.init = undefined;
 
 let getConfigId = (() => {
   var _ref = _asyncToGenerator(function* () {
@@ -143,14 +144,13 @@ let getConfigParam = (() => {
       fetchPolicy: 'network-only',
       query: _graphqlTag2.default`
       query {
-        allConfigs {
-          id,
+        Config(id: "${configId}") {
           ${name}
         }  
       }
     `
     });
-    return result.data.allConfigs[0][name];
+    return result.data.Config[name];
   });
 
   return function getConfigParam(_x) {
@@ -263,6 +263,35 @@ let deleteAllIncidents = (() => {
   };
 })();
 
+let init = exports.init = (() => {
+  var _ref7 = _asyncToGenerator(function* () {
+    const env = _envalid2.default.cleanEnv(process.env, {
+      GRAPH_QL_ENDPOINT: (0, _envalid.str)({ desc: 'GraphQL endpoint URL' })
+    });
+
+    client = new _apolloClient2.default({
+      networkInterface: (0, _apolloClient.createNetworkInterface)({
+        uri: env.GRAPH_QL_ENDPOINT
+      })
+    });
+
+    yield getConfigId();
+
+    database = Object.freeze({
+      getConfigParam,
+      setConfigParam,
+      createIncident,
+      isIncidentUnsaved,
+      deleteAllIncidents
+    });
+    _log2.default.verbose('Database: initialized');
+  });
+
+  return function init() {
+    return _ref7.apply(this, arguments);
+  };
+})();
+
 var _apolloClient = __webpack_require__(9);
 
 var _apolloClient2 = _interopRequireDefault(_apolloClient);
@@ -289,31 +318,7 @@ let client, configId;
 
 let database;
 
-exports.default = () => {
-  if (!database) {
-    const env = _envalid2.default.cleanEnv(process.env, {
-      GRAPH_QL_ENDPOINT: (0, _envalid.str)({ desc: 'GraphQL endpoint URL' })
-    });
-
-    client = new _apolloClient2.default({
-      networkInterface: (0, _apolloClient.createNetworkInterface)({
-        uri: env.GRAPH_QL_ENDPOINT
-      })
-    });
-
-    getConfigId();
-
-    database = Object.freeze({
-      getConfigParam,
-      setConfigParam,
-      createIncident,
-      isIncidentUnsaved,
-      deleteAllIncidents
-    });
-    _log2.default.info('Database: initialized');
-  }
-  return database;
-};
+exports.default = () => database;
 
 /***/ }),
 /* 4 */
@@ -325,7 +330,7 @@ exports.default = () => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.QueryLimitExceeded = undefined;
+exports.init = exports.QueryLimitExceeded = undefined;
 
 let addLocationInfoToIncident = (() => {
   var _ref = _asyncToGenerator(function* (incident) {
@@ -336,6 +341,9 @@ let addLocationInfoToIncident = (() => {
     try {
       response = yield googleGeocode({ address: rawAddress });
     } catch (err) {
+      if (err.message === 'timeout') {
+        throw new QueryLimitExceeded();
+      }
       _log2.default.error('Maps: error when invoking Google maps API', err);
       throw err;
     }
@@ -400,6 +408,29 @@ let addLocationInfoToIncident = (() => {
   };
 })();
 
+let init = exports.init = (() => {
+  var _ref2 = _asyncToGenerator(function* () {
+    const env = _envalid2.default.cleanEnv(process.env, {
+      GOOGLE_MAPS_API_KEY: (0, _envalid.str)({ desc: 'Google maps node API key' })
+    });
+
+    const client = _maps2.default.createClient({
+      key: env.GOOGLE_MAPS_API_KEY,
+      'rate.limit': 40,
+      timeout: 10000
+    });
+
+    googleGeocode = Promise.promisify(client.geocode.bind(client));
+
+    maps = Object.freeze({ addLocationInfoToIncident });
+    _log2.default.verbose('Maps: initialized');
+  });
+
+  return function init() {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
 var _maps = __webpack_require__(8);
 
 var _maps2 = _interopRequireDefault(_maps);
@@ -411,10 +442,6 @@ var _envalid2 = _interopRequireDefault(_envalid);
 var _es6Error = __webpack_require__(10);
 
 var _es6Error2 = _interopRequireDefault(_es6Error);
-
-var _simpleRateLimiter = __webpack_require__(14);
-
-var _simpleRateLimiter2 = _interopRequireDefault(_simpleRateLimiter);
 
 var _log = __webpack_require__(0);
 
@@ -435,26 +462,7 @@ let googleGeocode;
 
 let maps;
 
-exports.default = () => {
-  if (!maps) {
-    const env = _envalid2.default.cleanEnv(process.env, {
-      GOOGLE_MAPS_API_KEY: (0, _envalid.str)({ desc: 'Google maps node API key' })
-    });
-
-    const client = _maps2.default.createClient({
-      key: env.GOOGLE_MAPS_API_KEY,
-      'rate.limit': 40,
-      timeout: 5000,
-      Promise
-    });
-
-    googleGeocode = Promise.promisify(client.geocode.bind(client));
-
-    maps = Object.freeze({ addLocationInfoToIncident });
-    _log2.default.info('Maps: initialized');
-  }
-  return maps;
-};
+exports.default = () => maps;
 
 /***/ }),
 /* 5 */
@@ -466,6 +474,7 @@ exports.default = () => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.init = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -503,7 +512,7 @@ let scrape = (() => {
       const { incidents } = yield Promise.fromCallback(function (cb) {
         return xRay(POLICE_INCIDENT_URL, selector)(cb);
       });
-      _log2.default.info(`Scraper: ${incidents.length} incidents retreived`);
+      _log2.default.info(`Scraper: ${incidents.length} incidents scraped`);
       _log2.default.debug('Scraped incidents', incidents);
       return incidents;
     } catch (err) {
@@ -532,7 +541,7 @@ let getFormSecurityFields = (() => {
       securityFields = yield Promise.fromCallback(function (cb) {
         return xRay(POLICE_INCIDENT_URL, selector)(cb);
       });
-      _log2.default.info('Scraper: obtained security fields');
+      _log2.default.verbose('Scraper: obtained security fields');
       return securityFields;
     } catch (err) {
       _log2.default.error('Scraper: error while fetching security fields', err);
@@ -542,6 +551,24 @@ let getFormSecurityFields = (() => {
 
   return function getFormSecurityFields() {
     return _ref2.apply(this, arguments);
+  };
+})();
+
+let init = exports.init = (() => {
+  var _ref3 = _asyncToGenerator(function* () {
+    const env = _envalid2.default.cleanEnv(process.env, {
+      POLICE_INCIDENT_URL: (0, _envalid.str)({ desc: 'Police daily activity URL' })
+    });
+
+    POLICE_INCIDENT_URL = env.POLICE_INCIDENT_URL;
+    scraper = Object.freeze({
+      scrape
+    });
+    _log2.default.verbose('Scraper: initialized');
+  });
+
+  return function init() {
+    return _ref3.apply(this, arguments);
   };
 })();
 
@@ -557,7 +584,7 @@ var _requestXRay = __webpack_require__(13);
 
 var _requestXRay2 = _interopRequireDefault(_requestXRay);
 
-var _xRay = __webpack_require__(16);
+var _xRay = __webpack_require__(15);
 
 var _xRay2 = _interopRequireDefault(_xRay);
 
@@ -605,20 +632,7 @@ const trim = value => value.trim();
 
 let scraper;
 
-exports.default = () => {
-  if (!scraper) {
-    const env = _envalid2.default.cleanEnv(process.env, {
-      POLICE_INCIDENT_URL: (0, _envalid.str)({ desc: 'Police daily activity URL' })
-    });
-
-    POLICE_INCIDENT_URL = env.POLICE_INCIDENT_URL;
-    scraper = Object.freeze({
-      scrape
-    });
-    _log2.default.info('Scraper: initialized');
-  }
-  return scraper;
-};
+exports.default = () => scraper;
 
 /***/ }),
 /* 6 */
@@ -633,48 +647,76 @@ module.exports = require("bluebird");
 "use strict";
 
 
-let deleteAll = (() => {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.importIncidents = exports.deleteAllIncidents = undefined;
+
+let init = (() => {
   var _ref = _asyncToGenerator(function* () {
-    yield (0, _database2.default)().deleteAllIncidents();
-    yield (0, _database2.default)().setConfigParam('lastImportedDate', _momentTimezone2.default.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString());
+    yield (0, _database.init)();
+    yield (0, _scraper.init)();
+    yield (0, _maps.init)();
   });
 
-  return function deleteAll() {
+  return function init() {
     return _ref.apply(this, arguments);
   };
 })();
 
-let run = (() => {
+let deleteAllIncidents = exports.deleteAllIncidents = (() => {
   var _ref2 = _asyncToGenerator(function* () {
-    _log2.default.info('Police Daily Activity Importer starting...');
+    yield init();
+    yield (0, _database2.default)().deleteAllIncidents();
+    yield (0, _database2.default)().setConfigParam('lastImportedDate', _momentTimezone2.default.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString());
+  });
 
-    while (true) {
-      const lastImportDateStr = yield (0, _database2.default)().getConfigParam('lastImportedDate');
-      const dateToImport = _momentTimezone2.default.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days');
+  return function deleteAllIncidents() {
+    return _ref2.apply(this, arguments);
+  };
+})();
 
-      if (!dateToImport.isBefore((0, _momentTimezone2.default)(), 'date')) {
-        _log2.default.info('Up to date. Exiting...');
-        break;
-      }
+let importIncidents = exports.importIncidents = (() => {
+  var _ref3 = _asyncToGenerator(function* () {
+    try {
+      _log2.default.info('Police Daily Activity Importer starting...');
 
-      _log2.default.info(`Importing ${dateToImport.toString()}`);
+      yield init();
 
-      const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
-      for (const scrapedIncident of scrapedIncidents) {
-        if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
-          const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
-          if (incidentWithLocation !== undefined) {
-            (0, _database2.default)().createIncident(incidentWithLocation);
+      while (true) {
+        const lastImportDateStr = yield (0, _database2.default)().getConfigParam('lastImportedDate');
+        const dateToImport = _momentTimezone2.default.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days');
+
+        if (!dateToImport.isBefore((0, _momentTimezone2.default)(), 'date')) {
+          _log2.default.info('Up to date. Exiting...');
+          break;
+        }
+
+        _log2.default.info(`Importing ${dateToImport.toString()}`);
+
+        const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
+        for (const scrapedIncident of scrapedIncidents) {
+          if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
+            const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
+            if (incidentWithLocation !== undefined) {
+              (0, _database2.default)().createIncident(incidentWithLocation);
+            }
           }
         }
+        yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
+        _log2.default.info(`${dateToImport.toString()} successfully imported.`);
       }
-      yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
-      _log2.default.info(`${dateToImport.toString()} successfully imported.`);
+    } catch (err) {
+      if (err instanceof _maps.QueryLimitExceeded) {
+        _log2.default.info('Google geocode quota exhausted. Exiting...');
+      } else {
+        _log2.default.error(err);
+      }
     }
   });
 
-  return function run() {
-    return _ref2.apply(this, arguments);
+  return function importIncidents() {
+    return _ref3.apply(this, arguments);
   };
 })();
 
@@ -708,10 +750,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 Promise = _bluebird2.default;
-
-run()
-// deleteAll()
-.catch(err => _log2.default.error(err));
 
 /***/ }),
 /* 8 */
@@ -753,20 +791,14 @@ module.exports = require("request-x-ray");
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("simple-rate-limiter");
+module.exports = require("winston");
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("winston");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
 module.exports = require("x-ray");
 
 /***/ })
-/******/ ]);
+/******/ ])));
 //# sourceMappingURL=index.js.map

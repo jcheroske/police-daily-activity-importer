@@ -27,10 +27,10 @@
     "clean": "rimraf dist/*",
     "commit": "git add -A && git commit -m \"${MSG:-NPM Commit}\" && git push origin master",
     "deploy": "npm run build:prod && git add -A && git commit -m \"Production Build\" && git push heroku master",
+    "import": "node ./bin/importIncidents",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "modules": "rimraf node_modules/* && npm i",
-    "start": "node ./dist/index.js",
     "test": "ava --concurrency=5",
     "test:watch": "npm run test -- --watch"
   },
@@ -49,7 +49,6 @@
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "request-x-ray": "^0.1.4",
-    "simple-rate-limiter": "^0.2.3",
     "winston": "^2.3.1",
     "x-ray": "^2.3.2"
   },
