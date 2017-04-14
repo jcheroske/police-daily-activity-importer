@@ -123,7 +123,6 @@ export default () => {
       GRAPH_QL_ENDPOINT: str({desc: 'GraphQL endpoint URL'})
     })
 
-    log.info('Database: connecting to GraphQL endpoint.')
     client = new ApolloClient({
       networkInterface: createNetworkInterface({
         uri: env.GRAPH_QL_ENDPOINT
@@ -139,7 +138,7 @@ export default () => {
       isIncidentUnsaved,
       deleteAllIncidents
     })
-    log.info('Database: successfully connected to GraphQL endpoint.')
+    log.info('Database: initialized')
   }
   return database
 }

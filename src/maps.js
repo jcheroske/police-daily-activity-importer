@@ -58,6 +58,8 @@ export default () => {
 
     const client = GoogleMaps.createClient({
       key: env.GOOGLE_MAPS_API_KEY,
+      'rate.limit': 40,
+      timeout: 5000,
       Promise
     })
 
