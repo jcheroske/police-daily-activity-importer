@@ -131,8 +131,6 @@ let getConfigId = (() => {
     `
     });
 
-    console.log(result);
-
     if (!result || !result.data || !result.data.allConfigs || !result.data.allConfigs[0] || !result.data.allConfigs[0].id) {
       _log2.default.error('Database: getConfigId(): malformed GraphQL result', result);
       throw new Error('Database: getConfigId(): malformed GraphQL result');
