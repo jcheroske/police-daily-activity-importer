@@ -26,6 +26,7 @@ export async function deleteAllIncidents () {
 }
 
 export async function importIncidents () {
+  let numNewIncidents = 0
   try {
     log.info('Police Daily Activity Importer starting...')
 
@@ -36,31 +37,32 @@ export async function importIncidents () {
       const dateToImport = moment.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days')
 
       if (!dateToImport.isBefore(moment(), 'date')) {
-        log.info('Importing complete. Exiting...')
         break
       }
 
       log.info(`Beginning import for ${dateToImport.toString()}`)
 
-      let numNewIncidents = 0
+      let numNewIncidentsOnDay = 0
       const scrapedIncidents = await getScraper().scrape(dateToImport)
       for (const scrapedIncident of scrapedIncidents) {
         if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
           const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
           if (incidentWithLocation !== undefined) {
             await getDatabase().createIncident(incidentWithLocation)
+            numNewIncidentsOnDay++
             numNewIncidents++
           }
         }
       }
       await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-      log.info(`Successfully imported ${numNewIncidents} new incidents.`)
+      log.info(`Successfully imported ${numNewIncidentsOnDay} new incidents for ${dateToImport.toString()}.`)
     }
   } catch (err) {
     if (err instanceof QueryLimitExceeded) {
-      log.info('Google geocode quota exhausted. Exiting...')
+      log.warn('Google geocode quota exhausted.')
     } else {
       log.error(err)
     }
   }
+  log.info(`Importing complete. ${numNewIncidents} incidents added. Exiting...`)
 }

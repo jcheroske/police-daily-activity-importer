@@ -78,9 +78,11 @@ async function createIncident (incident) {
           offense: "${incident.offense}"
           reportedAt: "${incident.reportedAt}"
           streetAddress: "${incident.streetAddress}"
+          zipCode: "${incident.zipCode}"
+          lat: ${incident.lat}
+          lng: ${incident.lng}
         ) {
-          id,
-          caseNumber
+          id
         }
       }
     `
@@ -100,8 +102,7 @@ async function isIncidentUnsaved (incident) {
     query: gql`
       query {
         Incident(caseNumber: "${incident.caseNumber}") {
-          id,
-          caseNumber
+          id
         }  
       }
     `

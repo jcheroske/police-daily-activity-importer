@@ -209,9 +209,11 @@ let createIncident = (() => {
           offense: "${incident.offense}"
           reportedAt: "${incident.reportedAt}"
           streetAddress: "${incident.streetAddress}"
+          zipCode: "${incident.zipCode}"
+          lat: ${incident.lat}
+          lng: ${incident.lng}
         ) {
-          id,
-          caseNumber
+          id
         }
       }
     `
@@ -237,8 +239,7 @@ let isIncidentUnsaved = (() => {
       query: _graphqlTag2.default`
       query {
         Incident(caseNumber: "${incident.caseNumber}") {
-          id,
-          caseNumber
+          id
         }  
       }
     `
@@ -739,6 +740,7 @@ let deleteAllIncidents = exports.deleteAllIncidents = (() => {
 
 let importIncidents = exports.importIncidents = (() => {
   var _ref3 = _asyncToGenerator(function* () {
+    let numNewIncidents = 0;
     try {
       _log2.default.info('Police Daily Activity Importer starting...');
 
@@ -749,33 +751,34 @@ let importIncidents = exports.importIncidents = (() => {
         const dateToImport = _momentTimezone2.default.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days');
 
         if (!dateToImport.isBefore((0, _momentTimezone2.default)(), 'date')) {
-          _log2.default.info('Importing complete. Exiting...');
           break;
         }
 
         _log2.default.info(`Beginning import for ${dateToImport.toString()}`);
 
-        let numNewIncidents = 0;
+        let numNewIncidentsOnDay = 0;
         const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
         for (const scrapedIncident of scrapedIncidents) {
           if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
             const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
             if (incidentWithLocation !== undefined) {
               yield (0, _database2.default)().createIncident(incidentWithLocation);
+              numNewIncidentsOnDay++;
               numNewIncidents++;
             }
           }
         }
         yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
-        _log2.default.info(`Successfully imported ${numNewIncidents} new incidents.`);
+        _log2.default.info(`Successfully imported ${numNewIncidentsOnDay} new incidents for ${dateToImport.toString()}.`);
       }
     } catch (err) {
       if (err instanceof _maps.QueryLimitExceeded) {
-        _log2.default.info('Google geocode quota exhausted. Exiting...');
+        _log2.default.warn('Google geocode quota exhausted.');
       } else {
         _log2.default.error(err);
       }
     }
+    _log2.default.info(`Importing complete. ${numNewIncidents} incidents added. Exiting...`);
   });
 
   return function importIncidents() {
