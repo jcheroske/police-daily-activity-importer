@@ -26,7 +26,7 @@
     "build:watch": "NODE_ENV=development webpack --progress --colors --watch",
     "clean": "rimraf dist/*",
     "commit": "git add -A && git commit -m \"${MSG:-NPM Commit}\" && git push origin master",
-    "deploy": "npm run build:prod && git add -A && git commit -m \"Production Build\" && git push heroku master",
+    "deploy": "npm run build:prod && npm run commit && git push heroku master",
     "import": "node ./bin/importIncidents",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

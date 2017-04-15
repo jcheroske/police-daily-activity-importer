@@ -40,7 +40,7 @@ export async function importIncidents () {
         break
       }
 
-      log.info(`${dateToImport.toString()} beginning import.`)
+      log.info(`Beginning import for ${dateToImport.toString()}`)
 
       let numNewIncidents = 0
       const scrapedIncidents = await getScraper().scrape(dateToImport)
@@ -54,7 +54,7 @@ export async function importIncidents () {
         }
       }
       await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-      log.info(`${dateToImport.toString()} successfully imported ${numNewIncidents} new incidents.`)
+      log.info(`Successfully imported ${numNewIncidents} new incidents.`)
     }
   } catch (err) {
     if (err instanceof QueryLimitExceeded) {

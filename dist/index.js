@@ -753,7 +753,7 @@ let importIncidents = exports.importIncidents = (() => {
           break;
         }
 
-        _log2.default.info(`${dateToImport.toString()} beginning import.`);
+        _log2.default.info(`Beginning import for ${dateToImport.toString()}`);
 
         let numNewIncidents = 0;
         const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
@@ -767,7 +767,7 @@ let importIncidents = exports.importIncidents = (() => {
           }
         }
         yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
-        _log2.default.info(`${dateToImport.toString()} successfully imported ${numNewIncidents} new incidents.`);
+        _log2.default.info(`Successfully imported ${numNewIncidents} new incidents.`);
       }
     } catch (err) {
       if (err instanceof _maps.QueryLimitExceeded) {
