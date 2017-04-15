@@ -17,6 +17,13 @@ async function getConfigId () {
       }
     `
   })
+
+  console.log(result)
+
+  if (!result || !result.data || !result.data.allConfigs || !result.data.allConfigs[0] || !result.data.allConfigs[0].id) {
+    log.error('Database: getConfigId(): malformed GraphQL result', result)
+    throw new Error('Database: getConfigId(): malformed GraphQL result')
+  }
   configId = result.data.allConfigs[0].id
 }
 
@@ -31,11 +38,17 @@ async function getConfigParam (name) {
       }
     `
   })
+
+  if (!result || !result.data || !result.data.Config || !result.data.Config[name]) {
+    log.error('Database: getConfigParam(): malformed GraphQL result', name, result)
+    throw new Error('Database: getConfigParam(): malformed GraphQL result')
+  }
+
   return result.data.Config[name]
 }
 
 async function setConfigParam (name, value) {
-  await client.mutate({
+  const result = await client.mutate({
     mutation: gql`
       mutation {
         updateConfig (
@@ -47,12 +60,18 @@ async function setConfigParam (name, value) {
       }
     `
   })
+
+  if (!result || !result.data || !result.data.updateConfig) {
+    log.error('Database: setConfigParam(): malformed GraphQL result', name, value, result)
+    throw new Error('Database: setConfigParam(): malformed GraphQL result')
+  }
+
   return undefined
 }
 
 async function createIncident (incident) {
   log.debug('Creating new Incident', incident)
-  const {data: {createIncident}} = await client.mutate({
+  const result = await client.mutate({
     mutation: gql`
       mutation {
         createIncident(
@@ -68,11 +87,17 @@ async function createIncident (incident) {
       }
     `
   })
-  return createIncident
+
+  if (!result || !result.data || !result.data.createIncident) {
+    log.error('Database: createIncident(): malformed GraphQL result', incident, result)
+    throw new Error('Database: createIncident(): malformed GraphQL result')
+  }
+
+  return result.data.createIncident
 }
 
 async function isIncidentUnsaved (incident) {
-  const {data: {Incident}} = await client.query({
+  const result = await client.query({
     fetchPolicy: 'network-only',
     query: gql`
       query {
@@ -83,12 +108,19 @@ async function isIncidentUnsaved (incident) {
       }
     `
   })
-  log.debug(`Database: case number ${incident.caseNumber} ${Incident == null ? 'does not exist' : 'already exists'} in the database`)
-  return Incident == null
+
+  if (!result || !result.data) {
+    log.error('Database: isIncidentUnsaved(): malformed GraphQL result', incident, result)
+    throw new Error('Database: isIncidentUnsaved(): malformed GraphQL result')
+  }
+
+  const returnValue = result.data.Incident == null
+  log.debug(`Database: case number ${incident.caseNumber} ${returnValue ? 'does not exist' : 'already exists'} in the database`)
+  return returnValue
 }
 
 async function deleteAllIncidents () {
-  const {data: {allIncidents}} = await client.query({
+  const allIncidentsResult = await client.query({
     fetchPolicy: 'network-only',
     query: gql`
       query {
@@ -99,8 +131,13 @@ async function deleteAllIncidents () {
     `
   })
 
-  for (const incident of allIncidents) {
-    await client.mutate({
+  if (!allIncidentsResult || !allIncidentsResult.data || !allIncidentsResult.data.allIncidents) {
+    log.error('Database: deleteAllIncidents(): malformed GraphQL result', allIncidentsResult)
+    throw new Error('Database: deleteAllIncidents(): malformed GraphQL result')
+  }
+
+  for (const incident of allIncidentsResult.data.allIncidents) {
+    const deleteIncidentResult = await client.mutate({
       mutation: gql`
         mutation {
           deleteIncident(
@@ -111,6 +148,12 @@ async function deleteAllIncidents () {
         }
       `
     })
+
+    if (!deleteIncidentResult || !deleteIncidentResult.data || !deleteIncidentResult.data.deleteIncident) {
+      log.error('Database: deleteAllIncidents(): malformed GraphQL result', deleteIncidentResult)
+      throw new Error('Database: deleteAllIncidents(): malformed GraphQL result')
+    }
+
     log.debug(`Database: incident ${incident.id} deleted`)
   }
 }

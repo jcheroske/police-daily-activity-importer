@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _winston = __webpack_require__(14);
+var _winston = __webpack_require__(15);
 
 var _winston2 = _interopRequireDefault(_winston);
 
@@ -130,6 +130,13 @@ let getConfigId = (() => {
       }
     `
     });
+
+    console.log(result);
+
+    if (!result || !result.data || !result.data.allConfigs || !result.data.allConfigs[0] || !result.data.allConfigs[0].id) {
+      _log2.default.error('Database: getConfigId(): malformed GraphQL result', result);
+      throw new Error('Database: getConfigId(): malformed GraphQL result');
+    }
     configId = result.data.allConfigs[0].id;
   });
 
@@ -150,6 +157,12 @@ let getConfigParam = (() => {
       }
     `
     });
+
+    if (!result || !result.data || !result.data.Config || !result.data.Config[name]) {
+      _log2.default.error('Database: getConfigParam(): malformed GraphQL result', name, result);
+      throw new Error('Database: getConfigParam(): malformed GraphQL result');
+    }
+
     return result.data.Config[name];
   });
 
@@ -160,7 +173,7 @@ let getConfigParam = (() => {
 
 let setConfigParam = (() => {
   var _ref3 = _asyncToGenerator(function* (name, value) {
-    yield client.mutate({
+    const result = yield client.mutate({
       mutation: _graphqlTag2.default`
       mutation {
         updateConfig (
@@ -172,6 +185,12 @@ let setConfigParam = (() => {
       }
     `
     });
+
+    if (!result || !result.data || !result.data.updateConfig) {
+      _log2.default.error('Database: setConfigParam(): malformed GraphQL result', name, value, result);
+      throw new Error('Database: setConfigParam(): malformed GraphQL result');
+    }
+
     return undefined;
   });
 
@@ -183,7 +202,7 @@ let setConfigParam = (() => {
 let createIncident = (() => {
   var _ref4 = _asyncToGenerator(function* (incident) {
     _log2.default.debug('Creating new Incident', incident);
-    const { data: { createIncident } } = yield client.mutate({
+    const result = yield client.mutate({
       mutation: _graphqlTag2.default`
       mutation {
         createIncident(
@@ -199,7 +218,13 @@ let createIncident = (() => {
       }
     `
     });
-    return createIncident;
+
+    if (!result || !result.data || !result.data.createIncident) {
+      _log2.default.error('Database: createIncident(): malformed GraphQL result', incident, result);
+      throw new Error('Database: createIncident(): malformed GraphQL result');
+    }
+
+    return result.data.createIncident;
   });
 
   return function createIncident(_x4) {
@@ -209,7 +234,7 @@ let createIncident = (() => {
 
 let isIncidentUnsaved = (() => {
   var _ref5 = _asyncToGenerator(function* (incident) {
-    const { data: { Incident } } = yield client.query({
+    const result = yield client.query({
       fetchPolicy: 'network-only',
       query: _graphqlTag2.default`
       query {
@@ -220,8 +245,15 @@ let isIncidentUnsaved = (() => {
       }
     `
     });
-    _log2.default.debug(`Database: case number ${incident.caseNumber} ${Incident == null ? 'does not exist' : 'already exists'} in the database`);
-    return Incident == null;
+
+    if (!result || !result.data) {
+      _log2.default.error('Database: isIncidentUnsaved(): malformed GraphQL result', incident, result);
+      throw new Error('Database: isIncidentUnsaved(): malformed GraphQL result');
+    }
+
+    const returnValue = result.data.Incident == null;
+    _log2.default.debug(`Database: case number ${incident.caseNumber} ${returnValue ? 'does not exist' : 'already exists'} in the database`);
+    return returnValue;
   });
 
   return function isIncidentUnsaved(_x5) {
@@ -231,7 +263,7 @@ let isIncidentUnsaved = (() => {
 
 let deleteAllIncidents = (() => {
   var _ref6 = _asyncToGenerator(function* () {
-    const { data: { allIncidents } } = yield client.query({
+    const allIncidentsResult = yield client.query({
       fetchPolicy: 'network-only',
       query: _graphqlTag2.default`
       query {
@@ -242,8 +274,13 @@ let deleteAllIncidents = (() => {
     `
     });
 
-    for (const incident of allIncidents) {
-      yield client.mutate({
+    if (!allIncidentsResult || !allIncidentsResult.data || !allIncidentsResult.data.allIncidents) {
+      _log2.default.error('Database: deleteAllIncidents(): malformed GraphQL result', allIncidentsResult);
+      throw new Error('Database: deleteAllIncidents(): malformed GraphQL result');
+    }
+
+    for (const incident of allIncidentsResult.data.allIncidents) {
+      const deleteIncidentResult = yield client.mutate({
         mutation: _graphqlTag2.default`
         mutation {
           deleteIncident(
@@ -254,6 +291,12 @@ let deleteAllIncidents = (() => {
         }
       `
       });
+
+      if (!deleteIncidentResult || !deleteIncidentResult.data || !deleteIncidentResult.data.deleteIncident) {
+        _log2.default.error('Database: deleteAllIncidents(): malformed GraphQL result', deleteIncidentResult);
+        throw new Error('Database: deleteAllIncidents(): malformed GraphQL result');
+      }
+
       _log2.default.debug(`Database: incident ${incident.id} deleted`);
     }
   });
@@ -508,17 +551,25 @@ let scrape = (() => {
       }])
     };
 
+    let result;
     try {
-      const { incidents } = yield Promise.fromCallback(function (cb) {
+      result = yield Promise.fromCallback(function (cb) {
         return xRay(POLICE_INCIDENT_URL, selector)(cb);
       });
-      _log2.default.info(`Scraper: ${incidents.length} incidents scraped`);
-      _log2.default.debug('Scraped incidents', incidents);
-      return incidents;
     } catch (err) {
       _log2.default.error('Scraper: error while fetching incidents', err);
       throw err;
     }
+
+    if (!result || !result.incidents) {
+      _log2.default.error('Scraper: malformed scraper result', result);
+      throw new Error('Scraper: malformed scraper result');
+    }
+
+    const { incidents } = result;
+    _log2.default.info(`Scraper: ${incidents.length} incidents scraped`);
+    _log2.default.debug('Scraped incidents', incidents);
+    return incidents;
   });
 
   return function scrape(_x) {
@@ -541,12 +592,17 @@ let getFormSecurityFields = (() => {
       securityFields = yield Promise.fromCallback(function (cb) {
         return xRay(POLICE_INCIDENT_URL, selector)(cb);
       });
-      _log2.default.verbose('Scraper: obtained security fields');
-      return securityFields;
     } catch (err) {
       _log2.default.error('Scraper: error while fetching security fields', err);
       throw err;
     }
+
+    if (!securityFields || (0, _lodash.isEmpty)(securityFields)) {
+      _log2.default.error('Scraper: malformed security fields', securityFields);
+      throw new Error('Scraper: malformed security fields');
+    }
+    _log2.default.verbose('Scraper: obtained security fields');
+    return securityFields;
   });
 
   return function getFormSecurityFields() {
@@ -576,15 +632,17 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
+var _lodash = __webpack_require__(13);
+
 var _momentTimezone = __webpack_require__(2);
 
 var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
-var _requestXRay = __webpack_require__(13);
+var _requestXRay = __webpack_require__(14);
 
 var _requestXRay2 = _interopRequireDefault(_requestXRay);
 
-var _xRay = __webpack_require__(15);
+var _xRay = __webpack_require__(16);
 
 var _xRay2 = _interopRequireDefault(_xRay);
 
@@ -666,9 +724,14 @@ let init = (() => {
 
 let deleteAllIncidents = exports.deleteAllIncidents = (() => {
   var _ref2 = _asyncToGenerator(function* () {
-    yield init();
-    yield (0, _database2.default)().deleteAllIncidents();
-    yield (0, _database2.default)().setConfigParam('lastImportedDate', _momentTimezone2.default.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString());
+    try {
+      _log2.default.info('Deleting all incidents from database');
+      yield init();
+      yield (0, _database2.default)().deleteAllIncidents();
+      yield (0, _database2.default)().setConfigParam('lastImportedDate', _momentTimezone2.default.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString());
+    } catch (err) {
+      _log2.default.error(err);
+    }
   });
 
   return function deleteAllIncidents() {
@@ -785,16 +848,22 @@ module.exports = require("isomorphic-fetch");
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = require("request-x-ray");
+module.exports = require("lodash");
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("winston");
+module.exports = require("request-x-ray");
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("winston");
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("x-ray");

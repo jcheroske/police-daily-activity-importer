@@ -1,4 +1,5 @@
 import envalid, {str} from 'envalid'
+import {isEmpty} from 'lodash'
 import moment from 'moment-timezone'
 import makeDriver from 'request-x-ray'
 import Xray from 'x-ray'
@@ -37,15 +38,23 @@ async function scrape (date) {
     }])
   }
 
+  let result
   try {
-    const {incidents} = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
-    log.info(`Scraper: ${incidents.length} incidents scraped`)
-    log.debug('Scraped incidents', incidents)
-    return incidents
+    result = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
   } catch (err) {
     log.error('Scraper: error while fetching incidents', err)
     throw err
   }
+
+  if (!result || !result.incidents) {
+    log.error('Scraper: malformed scraper result', result)
+    throw new Error('Scraper: malformed scraper result')
+  }
+
+  const {incidents} = result
+  log.info(`Scraper: ${incidents.length} incidents scraped`)
+  log.debug('Scraped incidents', incidents)
+  return incidents
 }
 
 let securityFields
@@ -61,12 +70,17 @@ async function getFormSecurityFields () {
   const xRay = Xray()
   try {
     securityFields = await Promise.fromCallback(cb => xRay(POLICE_INCIDENT_URL, selector)(cb))
-    log.verbose('Scraper: obtained security fields')
-    return securityFields
   } catch (err) {
     log.error('Scraper: error while fetching security fields', err)
     throw err
   }
+
+  if (!securityFields || isEmpty(securityFields)) {
+    log.error('Scraper: malformed security fields', securityFields)
+    throw new Error('Scraper: malformed security fields')
+  }
+  log.verbose('Scraper: obtained security fields')
+  return securityFields
 }
 
 const getFormDateFields = (startMoment, endMoment) => {

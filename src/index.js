@@ -15,9 +15,14 @@ async function init () {
 }
 
 export async function deleteAllIncidents () {
-  await init()
-  await getDatabase().deleteAllIncidents()
-  await getDatabase().setConfigParam('lastImportedDate', moment.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString())
+  try {
+    log.info('Deleting all incidents from database')
+    await init()
+    await getDatabase().deleteAllIncidents()
+    await getDatabase().setConfigParam('lastImportedDate', moment.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString())
+  } catch (err) {
+    log.error(err)
+  }
 }
 
 export async function importIncidents () {
