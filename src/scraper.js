@@ -52,7 +52,7 @@ async function scrape (date) {
   }
 
   const {incidents} = result
-  log.info(`Scraper: ${incidents.length} incidents scraped`)
+  log.verbose(`Scraper: ${incidents.length} incidents scraped`)
   log.debug('Scraped incidents', incidents)
   return incidents
 }

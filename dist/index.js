@@ -565,7 +565,7 @@ let scrape = (() => {
     }
 
     const { incidents } = result;
-    _log2.default.info(`Scraper: ${incidents.length} incidents scraped`);
+    _log2.default.verbose(`Scraper: ${incidents.length} incidents scraped`);
     _log2.default.debug('Scraped incidents', incidents);
     return incidents;
   });
@@ -749,23 +749,25 @@ let importIncidents = exports.importIncidents = (() => {
         const dateToImport = _momentTimezone2.default.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days');
 
         if (!dateToImport.isBefore((0, _momentTimezone2.default)(), 'date')) {
-          _log2.default.info('Up to date. Exiting...');
+          _log2.default.info('Importing complete. Exiting...');
           break;
         }
 
-        _log2.default.info(`Importing ${dateToImport.toString()}`);
+        _log2.default.info(`${dateToImport.toString()} beginning import.`);
 
+        let numNewIncidents = 0;
         const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
         for (const scrapedIncident of scrapedIncidents) {
           if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
             const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
             if (incidentWithLocation !== undefined) {
-              (0, _database2.default)().createIncident(incidentWithLocation);
+              yield (0, _database2.default)().createIncident(incidentWithLocation);
+              numNewIncidents++;
             }
           }
         }
         yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
-        _log2.default.info(`${dateToImport.toString()} successfully imported.`);
+        _log2.default.info(`${dateToImport.toString()} successfully imported ${numNewIncidents} new incidents.`);
       }
     } catch (err) {
       if (err instanceof _maps.QueryLimitExceeded) {

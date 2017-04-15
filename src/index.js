@@ -36,23 +36,25 @@ export async function importIncidents () {
       const dateToImport = moment.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days')
 
       if (!dateToImport.isBefore(moment(), 'date')) {
-        log.info('Up to date. Exiting...')
+        log.info('Importing complete. Exiting...')
         break
       }
 
-      log.info(`Importing ${dateToImport.toString()}`)
+      log.info(`${dateToImport.toString()} beginning import.`)
 
+      let numNewIncidents = 0
       const scrapedIncidents = await getScraper().scrape(dateToImport)
       for (const scrapedIncident of scrapedIncidents) {
         if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
           const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
           if (incidentWithLocation !== undefined) {
-            getDatabase().createIncident(incidentWithLocation)
+            await getDatabase().createIncident(incidentWithLocation)
+            numNewIncidents++
           }
         }
       }
       await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-      log.info(`${dateToImport.toString()} successfully imported.`)
+      log.info(`${dateToImport.toString()} successfully imported ${numNewIncidents} new incidents.`)
     }
   } catch (err) {
     if (err instanceof QueryLimitExceeded) {
