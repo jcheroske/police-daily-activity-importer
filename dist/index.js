@@ -308,14 +308,26 @@ let deleteAllIncidents = (() => {
 let init = exports.init = (() => {
   var _ref7 = _asyncToGenerator(function* () {
     const env = _envalid2.default.cleanEnv(process.env, {
+      GRAPHCOOL_AUTHENTICATION_TOKEN: (0, _envalid.str)({ desc: 'Graphcool Authentication Token' }),
       GRAPH_QL_ENDPOINT: (0, _envalid.str)({ desc: 'GraphQL endpoint URL' })
     });
 
-    client = new _apolloClient2.default({
-      networkInterface: (0, _apolloClient.createNetworkInterface)({
-        uri: env.GRAPH_QL_ENDPOINT
-      })
+    const networkInterface = (0, _apolloClient.createNetworkInterface)({
+      uri: env.GRAPH_QL_ENDPOINT
     });
+
+    networkInterface.use([{
+      applyMiddleware(req, next) {
+        if (!req.options.headers) {
+          req.options.headers = {};
+        }
+
+        req.options.headers.authorization = `Bearer ${env.GRAPHCOOL_AUTHENTICATION_TOKEN}`;
+        next();
+      }
+    }]);
+
+    client = new _apolloClient2.default({ networkInterface });
 
     yield getConfigId();
 

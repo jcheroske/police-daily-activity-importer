@@ -161,14 +161,26 @@ let database
 
 export async function init () {
   const env = envalid.cleanEnv(process.env, {
+    GRAPHCOOL_AUTHENTICATION_TOKEN: str({desc: 'Graphcool Authentication Token'}),
     GRAPH_QL_ENDPOINT: str({desc: 'GraphQL endpoint URL'})
   })
 
-  client = new ApolloClient({
-    networkInterface: createNetworkInterface({
-      uri: env.GRAPH_QL_ENDPOINT
-    })
+  const networkInterface = createNetworkInterface({
+    uri: env.GRAPH_QL_ENDPOINT
   })
+
+  networkInterface.use([{
+    applyMiddleware (req, next) {
+      if (!req.options.headers) {
+        req.options.headers = {}
+      }
+
+      req.options.headers.authorization = `Bearer ${env.GRAPHCOOL_AUTHENTICATION_TOKEN}`
+      next()
+    }
+  }])
+
+  client = new ApolloClient({networkInterface})
 
   await getConfigId()
 
