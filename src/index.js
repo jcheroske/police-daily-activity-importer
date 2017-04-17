@@ -70,11 +70,6 @@ export async function importIncidents () {
           }
         }
         await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-      } catch (err) {
-        if (err instanceof QueryLimitExceeded) {
-          dayStats.noLocation++
-        }
-        throw err
       } finally {
         log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
         for (const prop in totalStats) {
