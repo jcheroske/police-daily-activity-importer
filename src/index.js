@@ -58,7 +58,7 @@ export async function importIncidents () {
 
       try {
         const scrapedIncidents = await getScraper().scrape(dateToImport)
-        dayStats.total = scrapedIncidents.length
+        dayStats.scraped = scrapedIncidents.length
         for (const scrapedIncident of scrapedIncidents) {
           if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
             const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)

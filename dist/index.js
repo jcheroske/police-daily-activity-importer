@@ -792,7 +792,7 @@ let importIncidents = exports.importIncidents = (() => {
 
         try {
           const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
-          dayStats.total = scrapedIncidents.length;
+          dayStats.scraped = scrapedIncidents.length;
           for (const scrapedIncident of scrapedIncidents) {
             if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
               const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
