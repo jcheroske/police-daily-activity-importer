@@ -787,24 +787,33 @@ let importIncidents = exports.importIncidents = (() => {
           alreadyExists: 0,
           noLocation: 0
         };
-        const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
-        for (const scrapedIncident of scrapedIncidents) {
-          if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
-            const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
-            if (incidentWithLocation !== undefined) {
-              yield (0, _database2.default)().createIncident(incidentWithLocation);
-              dayStats.imported++;
+
+        try {
+          const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
+          for (const scrapedIncident of scrapedIncidents) {
+            if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
+              const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
+              if (incidentWithLocation !== undefined) {
+                yield (0, _database2.default)().createIncident(incidentWithLocation);
+                dayStats.imported++;
+              } else {
+                dayStats.noLocation++;
+              }
             } else {
-              dayStats.noLocation++;
+              dayStats.alreadyExists++;
             }
-          } else {
-            dayStats.alreadyExists++;
           }
-        }
-        yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
-        _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
-        for (const prop in totalStats) {
-          totalStats[prop] += dayStats[prop];
+          yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
+        } catch (err) {
+          if (err instanceof _maps.QueryLimitExceeded) {
+            dayStats.noLocation++;
+          }
+          throw err;
+        } finally {
+          _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
+          for (const prop in totalStats) {
+            totalStats[prop] += dayStats[prop];
+          }
         }
       }
     } catch (err) {
