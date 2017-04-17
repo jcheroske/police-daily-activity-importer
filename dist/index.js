@@ -763,6 +763,7 @@ let deleteAllIncidents = exports.deleteAllIncidents = (() => {
 let importIncidents = exports.importIncidents = (() => {
   var _ref3 = _asyncToGenerator(function* () {
     const totalStats = {
+      total: 0,
       imported: 0,
       alreadyExists: 0,
       noLocation: 0

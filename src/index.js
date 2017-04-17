@@ -29,6 +29,7 @@ export async function deleteAllIncidents () {
 
 export async function importIncidents () {
   const totalStats = {
+    total: 0,
     imported: 0,
     alreadyExists: 0,
     noLocation: 0
