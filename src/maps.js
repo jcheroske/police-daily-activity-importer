@@ -79,6 +79,14 @@ async function addLocationInfoToIncident (incident) {
   const {lat, lng} = geometry.location
 
   log.debug('Maps: geocode successful', streetAddress, zipCode, lat, lng)
+
+  return {
+    ...incident,
+    streetAddress,
+    zipCode,
+    lat,
+    lng
+  }
 }
 
 let maps

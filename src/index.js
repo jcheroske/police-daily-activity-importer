@@ -8,6 +8,8 @@ import getScraper, {init as initScraper} from './scraper'
 
 Promise = BluebirdPromise
 
+const DATE_FORMAT = 'MM/DD/YYYY'
+
 async function init () {
   await initDb()
   await initScraper()
@@ -26,7 +28,11 @@ export async function deleteAllIncidents () {
 }
 
 export async function importIncidents () {
-  let numNewIncidents = 0
+  const totalStats = {
+    imported: 0,
+    alreadyExists: 0,
+    noLocation: 0
+  }
   try {
     log.info('Police Daily Activity Importer starting...')
 
@@ -40,22 +46,32 @@ export async function importIncidents () {
         break
       }
 
-      log.info(`Beginning import for ${dateToImport.toString()}`)
+      log.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`)
 
-      let numNewIncidentsOnDay = 0
+      const dayStats = {
+        imported: 0,
+        alreadyExists: 0,
+        noLocation: 0
+      }
       const scrapedIncidents = await getScraper().scrape(dateToImport)
       for (const scrapedIncident of scrapedIncidents) {
         if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
           const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
           if (incidentWithLocation !== undefined) {
             await getDatabase().createIncident(incidentWithLocation)
-            numNewIncidentsOnDay++
-            numNewIncidents++
+            dayStats.imported++
+          } else {
+            dayStats.noLocation++
           }
+        } else {
+          dayStats.alreadyExists++
         }
       }
       await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
-      log.info(`Successfully imported ${numNewIncidentsOnDay} new incidents for ${dateToImport.toString()}.`)
+      log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
+      for (const prop in totalStats) {
+        totalStats[prop] += dayStats[prop]
+      }
     }
   } catch (err) {
     if (err instanceof QueryLimitExceeded) {
@@ -64,5 +80,5 @@ export async function importIncidents () {
       log.error(err)
     }
   }
-  log.info(`Importing complete. ${numNewIncidents} incidents added. Exiting...`)
+  log.info(`Finished: imported: ${totalStats.imported}, skipped: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`)
 }

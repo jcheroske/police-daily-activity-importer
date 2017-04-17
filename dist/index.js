@@ -84,7 +84,7 @@ var _winston2 = _interopRequireDefault(_winston);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const consoleTransport = new _winston2.default.transports.Console({
-  level:  true ? 'info' : 'debug',
+  level:  true ? 'info' : 'verbose',
   colorize: true,
   stderrLevels: ['error']
 });
@@ -224,6 +224,7 @@ let createIncident = (() => {
       throw new Error('Database: createIncident(): malformed GraphQL result');
     }
 
+    _log2.default.debug('Database: created new incident', incident.caseNumber);
     return result.data.createIncident;
   });
 
@@ -386,6 +387,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.init = exports.QueryLimitExceeded = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 let addLocationInfoToIncident = (() => {
   var _ref = _asyncToGenerator(function* (incident) {
     const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ');
@@ -455,6 +458,13 @@ let addLocationInfoToIncident = (() => {
     const { lat, lng } = geometry.location;
 
     _log2.default.debug('Maps: geocode successful', streetAddress, zipCode, lat, lng);
+
+    return _extends({}, incident, {
+      streetAddress,
+      zipCode,
+      lat,
+      lng
+    });
   });
 
   return function addLocationInfoToIncident(_x) {
@@ -752,7 +762,11 @@ let deleteAllIncidents = exports.deleteAllIncidents = (() => {
 
 let importIncidents = exports.importIncidents = (() => {
   var _ref3 = _asyncToGenerator(function* () {
-    let numNewIncidents = 0;
+    const totalStats = {
+      imported: 0,
+      alreadyExists: 0,
+      noLocation: 0
+    };
     try {
       _log2.default.info('Police Daily Activity Importer starting...');
 
@@ -766,22 +780,32 @@ let importIncidents = exports.importIncidents = (() => {
           break;
         }
 
-        _log2.default.info(`Beginning import for ${dateToImport.toString()}`);
+        _log2.default.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`);
 
-        let numNewIncidentsOnDay = 0;
+        const dayStats = {
+          imported: 0,
+          alreadyExists: 0,
+          noLocation: 0
+        };
         const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
         for (const scrapedIncident of scrapedIncidents) {
           if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
             const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
             if (incidentWithLocation !== undefined) {
               yield (0, _database2.default)().createIncident(incidentWithLocation);
-              numNewIncidentsOnDay++;
-              numNewIncidents++;
+              dayStats.imported++;
+            } else {
+              dayStats.noLocation++;
             }
+          } else {
+            dayStats.alreadyExists++;
           }
         }
         yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
-        _log2.default.info(`Successfully imported ${numNewIncidentsOnDay} new incidents for ${dateToImport.toString()}.`);
+        _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
+        for (const prop in totalStats) {
+          totalStats[prop] += dayStats[prop];
+        }
       }
     } catch (err) {
       if (err instanceof _maps.QueryLimitExceeded) {
@@ -790,7 +814,7 @@ let importIncidents = exports.importIncidents = (() => {
         _log2.default.error(err);
       }
     }
-    _log2.default.info(`Importing complete. ${numNewIncidents} incidents added. Exiting...`);
+    _log2.default.info(`Finished: imported: ${totalStats.imported}, skipped: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`);
   });
 
   return function importIncidents() {
@@ -828,6 +852,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 Promise = _bluebird2.default;
+
+const DATE_FORMAT = 'MM/DD/YYYY';
 
 /***/ }),
 /* 8 */

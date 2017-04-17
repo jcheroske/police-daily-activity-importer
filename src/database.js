@@ -93,6 +93,7 @@ async function createIncident (incident) {
     throw new Error('Database: createIncident(): malformed GraphQL result')
   }
 
+  log.debug('Database: created new incident', incident.caseNumber)
   return result.data.createIncident
 }
 
