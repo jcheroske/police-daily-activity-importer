@@ -29,7 +29,7 @@ export async function deleteAllIncidents () {
 
 export async function importIncidents () {
   const totalStats = {
-    total: 0,
+    scraped: 0,
     imported: 0,
     alreadyExists: 0,
     noLocation: 0
@@ -50,7 +50,7 @@ export async function importIncidents () {
       log.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`)
 
       const dayStats = {
-        total: 0,
+        scraped: 0,
         imported: 0,
         alreadyExists: 0,
         noLocation: 0
@@ -74,7 +74,7 @@ export async function importIncidents () {
         }
         await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
       } finally {
-        log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: total: ${dayStats.total}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
+        log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: scraped: ${dayStats.scraped}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
         for (const prop in totalStats) {
           totalStats[prop] += dayStats[prop]
         }
@@ -87,5 +87,5 @@ export async function importIncidents () {
       log.error(err)
     }
   }
-  log.info(`Finished: total: ${totalStats.total}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`)
+  log.info(`Finished: scraped: ${totalStats.scraped}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`)
 }

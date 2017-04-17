@@ -763,7 +763,7 @@ let deleteAllIncidents = exports.deleteAllIncidents = (() => {
 let importIncidents = exports.importIncidents = (() => {
   var _ref3 = _asyncToGenerator(function* () {
     const totalStats = {
-      total: 0,
+      scraped: 0,
       imported: 0,
       alreadyExists: 0,
       noLocation: 0
@@ -784,7 +784,7 @@ let importIncidents = exports.importIncidents = (() => {
         _log2.default.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`);
 
         const dayStats = {
-          total: 0,
+          scraped: 0,
           imported: 0,
           alreadyExists: 0,
           noLocation: 0
@@ -808,7 +808,7 @@ let importIncidents = exports.importIncidents = (() => {
           }
           yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
         } finally {
-          _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: total: ${dayStats.total}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
+          _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: scraped: ${dayStats.scraped}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
           for (const prop in totalStats) {
             totalStats[prop] += dayStats[prop];
           }
@@ -821,7 +821,7 @@ let importIncidents = exports.importIncidents = (() => {
         _log2.default.error(err);
       }
     }
-    _log2.default.info(`Finished: total: ${totalStats.total}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`);
+    _log2.default.info(`Finished: scraped: ${totalStats.scraped}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`);
   });
 
   return function importIncidents() {
