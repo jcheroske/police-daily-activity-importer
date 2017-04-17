@@ -49,6 +49,7 @@ export async function importIncidents () {
       log.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`)
 
       const dayStats = {
+        total: 0,
         imported: 0,
         alreadyExists: 0,
         noLocation: 0
@@ -56,6 +57,7 @@ export async function importIncidents () {
 
       try {
         const scrapedIncidents = await getScraper().scrape(dateToImport)
+        dayStats.total = scrapedIncidents.length
         for (const scrapedIncident of scrapedIncidents) {
           if (await getDatabase().isIncidentUnsaved(scrapedIncident)) {
             const incidentWithLocation = await getMaps().addLocationInfoToIncident(scrapedIncident)
@@ -71,7 +73,7 @@ export async function importIncidents () {
         }
         await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
       } finally {
-        log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
+        log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: total: ${dayStats.total}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
         for (const prop in totalStats) {
           totalStats[prop] += dayStats[prop]
         }
@@ -84,5 +86,5 @@ export async function importIncidents () {
       log.error(err)
     }
   }
-  log.info(`Finished: imported: ${totalStats.imported}, skipped: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`)
+  log.info(`Finished: total: ${totalStats.total}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`)
 }

@@ -783,6 +783,7 @@ let importIncidents = exports.importIncidents = (() => {
         _log2.default.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`);
 
         const dayStats = {
+          total: 0,
           imported: 0,
           alreadyExists: 0,
           noLocation: 0
@@ -790,6 +791,7 @@ let importIncidents = exports.importIncidents = (() => {
 
         try {
           const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
+          dayStats.total = scrapedIncidents.length;
           for (const scrapedIncident of scrapedIncidents) {
             if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
               const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
@@ -805,7 +807,7 @@ let importIncidents = exports.importIncidents = (() => {
           }
           yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
         } finally {
-          _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: imported: ${dayStats.imported}, skipped: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
+          _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: total: ${dayStats.total}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
           for (const prop in totalStats) {
             totalStats[prop] += dayStats[prop];
           }
@@ -818,7 +820,7 @@ let importIncidents = exports.importIncidents = (() => {
         _log2.default.error(err);
       }
     }
-    _log2.default.info(`Finished: imported: ${totalStats.imported}, skipped: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`);
+    _log2.default.info(`Finished: total: ${totalStats.total}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`);
   });
 
   return function importIncidents() {
