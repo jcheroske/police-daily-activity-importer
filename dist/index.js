@@ -816,7 +816,7 @@ let importIncidents = exports.importIncidents = (() => {
       }
     } catch (err) {
       if (err instanceof _maps.QueryLimitExceeded) {
-        _log2.default.warn('Google geocode quota exhausted.');
+        _log2.default.warn('Google geocode quota exhausted. Exiting...');
       } else {
         _log2.default.error(err);
       }

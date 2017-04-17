@@ -82,7 +82,7 @@ export async function importIncidents () {
     }
   } catch (err) {
     if (err instanceof QueryLimitExceeded) {
-      log.warn('Google geocode quota exhausted.')
+      log.warn('Google geocode quota exhausted. Exiting...')
     } else {
       log.error(err)
     }
