@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,7 +84,7 @@ var _winston2 = _interopRequireDefault(_winston);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const consoleTransport = new _winston2.default.transports.Console({
-  level:  true ? 'info' : 'verbose',
+  level:  true ? 'info' : 'info',
   colorize: true,
   stderrLevels: ['error']
 });
@@ -104,10 +104,16 @@ module.exports = require("envalid");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("moment-timezone");
+module.exports = require("lodash");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("moment-timezone");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -197,8 +203,40 @@ let setConfigParam = (() => {
   };
 })();
 
+let logImport = (() => {
+  var _ref4 = _asyncToGenerator(function* ({ startDay, endDay, scraped, imported, alreadyExists, noLocation }) {
+    const result = yield client.mutate({
+      mutation: _graphqlTag2.default`
+      mutation {
+        createImportLog(
+          startDay: "${startDay}"
+          endDay: "${endDay}"
+          scraped: "${scraped}"
+          imported: "${imported}"
+          alreadyExists: "${alreadyExists}"
+          noLocation: "${noLocation}"
+        ) {
+          id
+        }
+      }
+    `
+    });
+
+    if (!result || !result.data || !result.data.createImportLog) {
+      _log2.default.error('Database: logImport(): malformed GraphQL result', result);
+      throw new Error('Database: logImport(): malformed GraphQL result');
+    }
+
+    return result.data.createImportLog;
+  });
+
+  return function logImport(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+})();
+
 let createIncident = (() => {
-  var _ref4 = _asyncToGenerator(function* (incident) {
+  var _ref5 = _asyncToGenerator(function* (incident) {
     _log2.default.debug('Creating new Incident', incident);
     const result = yield client.mutate({
       mutation: _graphqlTag2.default`
@@ -228,13 +266,13 @@ let createIncident = (() => {
     return result.data.createIncident;
   });
 
-  return function createIncident(_x4) {
-    return _ref4.apply(this, arguments);
+  return function createIncident(_x5) {
+    return _ref5.apply(this, arguments);
   };
 })();
 
 let isIncidentUnsaved = (() => {
-  var _ref5 = _asyncToGenerator(function* (incident) {
+  var _ref6 = _asyncToGenerator(function* (incident) {
     const result = yield client.query({
       fetchPolicy: 'network-only',
       query: _graphqlTag2.default`
@@ -256,13 +294,13 @@ let isIncidentUnsaved = (() => {
     return returnValue;
   });
 
-  return function isIncidentUnsaved(_x5) {
-    return _ref5.apply(this, arguments);
+  return function isIncidentUnsaved(_x6) {
+    return _ref6.apply(this, arguments);
   };
 })();
 
 let deleteAllIncidents = (() => {
-  var _ref6 = _asyncToGenerator(function* () {
+  var _ref7 = _asyncToGenerator(function* () {
     const allIncidentsResult = yield client.query({
       fetchPolicy: 'network-only',
       query: _graphqlTag2.default`
@@ -302,12 +340,12 @@ let deleteAllIncidents = (() => {
   });
 
   return function deleteAllIncidents() {
-    return _ref6.apply(this, arguments);
+    return _ref7.apply(this, arguments);
   };
 })();
 
 let init = exports.init = (() => {
-  var _ref7 = _asyncToGenerator(function* () {
+  var _ref8 = _asyncToGenerator(function* () {
     const env = _envalid2.default.cleanEnv(process.env, {
       GRAPHCOOL_AUTHENTICATION_TOKEN: (0, _envalid.str)({ desc: 'Graphcool Authentication Token' }),
       GRAPH_QL_ENDPOINT: (0, _envalid.str)({ desc: 'GraphQL endpoint URL' })
@@ -335,6 +373,7 @@ let init = exports.init = (() => {
     database = Object.freeze({
       getConfigParam,
       setConfigParam,
+      logImport,
       createIncident,
       isIncidentUnsaved,
       deleteAllIncidents
@@ -343,11 +382,11 @@ let init = exports.init = (() => {
   });
 
   return function init() {
-    return _ref7.apply(this, arguments);
+    return _ref8.apply(this, arguments);
   };
 })();
 
-var _apolloClient = __webpack_require__(9);
+var _apolloClient = __webpack_require__(10);
 
 var _apolloClient2 = _interopRequireDefault(_apolloClient);
 
@@ -355,11 +394,11 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
-var _graphqlTag = __webpack_require__(11);
+var _graphqlTag = __webpack_require__(12);
 
 var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
 
-__webpack_require__(12);
+__webpack_require__(13);
 
 var _log = __webpack_require__(0);
 
@@ -376,7 +415,7 @@ let database;
 exports.default = () => database;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -495,7 +534,7 @@ let init = exports.init = (() => {
   };
 })();
 
-var _maps = __webpack_require__(8);
+var _maps = __webpack_require__(9);
 
 var _maps2 = _interopRequireDefault(_maps);
 
@@ -503,7 +542,7 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
-var _es6Error = __webpack_require__(10);
+var _es6Error = __webpack_require__(11);
 
 var _es6Error2 = _interopRequireDefault(_es6Error);
 
@@ -529,7 +568,7 @@ let maps;
 exports.default = () => maps;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -653,9 +692,9 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
-var _lodash = __webpack_require__(13);
+var _lodash = __webpack_require__(2);
 
-var _momentTimezone = __webpack_require__(2);
+var _momentTimezone = __webpack_require__(3);
 
 var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
@@ -714,13 +753,13 @@ let scraper;
 exports.default = () => scraper;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -762,17 +801,22 @@ let deleteAllIncidents = exports.deleteAllIncidents = (() => {
 
 let importIncidents = exports.importIncidents = (() => {
   var _ref3 = _asyncToGenerator(function* () {
+    _log2.default.info('Police Daily Activity Importer run started...');
+    _log2.default.info('--------------------------------------------------------');
+    _log2.default.info('| Date       | Scraped | Imported | Duplicate | No Geo |');
+    _log2.default.info('--------------------------------------------------------');
+    yield init();
+
     const totalStats = {
+      startDay: undefined,
+      endDay: undefined,
       scraped: 0,
       imported: 0,
       alreadyExists: 0,
       noLocation: 0
     };
+
     try {
-      _log2.default.info('Police Daily Activity Importer starting...');
-
-      yield init();
-
       while (true) {
         const lastImportDateStr = yield (0, _database2.default)().getConfigParam('lastImportedDate');
         const dateToImport = _momentTimezone2.default.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days');
@@ -781,7 +825,10 @@ let importIncidents = exports.importIncidents = (() => {
           break;
         }
 
-        _log2.default.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`);
+        if (!totalStats.startDay) {
+          totalStats.startDay = dateToImport;
+        }
+        totalStats.endDay = dateToImport;
 
         const dayStats = {
           scraped: 0,
@@ -808,7 +855,7 @@ let importIncidents = exports.importIncidents = (() => {
           }
           yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
         } finally {
-          _log2.default.info(`Finished ${dateToImport.format(DATE_FORMAT)}: scraped: ${dayStats.scraped}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`);
+          _log2.default.info(`| ${(0, _lodash.padStart)(dateToImport.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(dayStats.scraped, 7)} | ${(0, _lodash.padStart)(dayStats.imported, 8)} | ${(0, _lodash.padStart)(dayStats.alreadyExists, 9)} | ${(0, _lodash.padStart)(dayStats.noLocation, 6)} |`);
           for (const prop in totalStats) {
             totalStats[prop] += dayStats[prop];
           }
@@ -820,8 +867,16 @@ let importIncidents = exports.importIncidents = (() => {
       } else {
         _log2.default.error(err);
       }
+    } finally {
+      _log2.default.info('--------------------------------------------------------');
+      _log2.default.info('Police Daily Activity Importer run finished...');
+      _log2.default.info('---------------------------------------------------------------------');
+      _log2.default.info('| Start Date | End Date   | Scraped | Imported | Duplicate | No Geo |');
+      _log2.default.info('---------------------------------------------------------------------');
+      _log2.default.info(`| ${(0, _lodash.padStart)(totalStats.startDay.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalStats.endDay.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalStats.scraped, 7)} | ${(0, _lodash.padStart)(totalStats.imported, 8)} | ${(0, _lodash.padStart)(totalStats.alreadyExists, 9)} | ${(0, _lodash.padStart)(totalStats.noLocation, 6)} |`);
+      _log2.default.info('---------------------------------------------------------------------');
+      yield (0, _database2.default)().logImport(totalStats);
     }
-    _log2.default.info(`Finished: scraped: ${totalStats.scraped}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`);
   });
 
   return function importIncidents() {
@@ -829,15 +884,17 @@ let importIncidents = exports.importIncidents = (() => {
   };
 })();
 
-var _bluebird = __webpack_require__(6);
+var _bluebird = __webpack_require__(7);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
-var _momentTimezone = __webpack_require__(2);
+var _lodash = __webpack_require__(2);
+
+var _momentTimezone = __webpack_require__(3);
 
 var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
-var _database = __webpack_require__(3);
+var _database = __webpack_require__(4);
 
 var _database2 = _interopRequireDefault(_database);
 
@@ -845,11 +902,11 @@ var _log = __webpack_require__(0);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _maps = __webpack_require__(4);
+var _maps = __webpack_require__(5);
 
 var _maps2 = _interopRequireDefault(_maps);
 
-var _scraper = __webpack_require__(5);
+var _scraper = __webpack_require__(6);
 
 var _scraper2 = _interopRequireDefault(_scraper);
 
@@ -863,40 +920,34 @@ Promise = _bluebird2.default;
 const DATE_FORMAT = 'MM/DD/YYYY';
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("@google/maps");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("apollo-client");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("es6-error");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("graphql-tag");
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("isomorphic-fetch");
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = require("lodash");
+module.exports = require("isomorphic-fetch");
 
 /***/ }),
 /* 14 */

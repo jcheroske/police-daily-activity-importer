@@ -67,6 +67,32 @@ async function setConfigParam (name, value) {
   return undefined
 }
 
+async function logImport ({startDay, endDay, scraped, imported, alreadyExists, noLocation}) {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation {
+        createImportLog(
+          startDay: "${startDay}"
+          endDay: "${endDay}"
+          scraped: "${scraped}"
+          imported: "${imported}"
+          alreadyExists: "${alreadyExists}"
+          noLocation: "${noLocation}"
+        ) {
+          id
+        }
+      }
+    `
+  })
+
+  if (!result || !result.data || !result.data.createImportLog) {
+    log.error('Database: logImport(): malformed GraphQL result', result)
+    throw new Error('Database: logImport(): malformed GraphQL result')
+  }
+
+  return result.data.createImportLog
+}
+
 async function createIncident (incident) {
   log.debug('Creating new Incident', incident)
   const result = await client.mutate({
@@ -188,6 +214,7 @@ export async function init () {
   database = Object.freeze({
     getConfigParam,
     setConfigParam,
+    logImport,
     createIncident,
     isIncidentUnsaved,
     deleteAllIncidents

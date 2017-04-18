@@ -1,5 +1,6 @@
 /* global Promise:true */
 import BluebirdPromise from 'bluebird'
+import {padStart} from 'lodash'
 import moment from 'moment-timezone'
 import getDatabase, {init as initDb} from './database'
 import log from './log'
@@ -28,17 +29,22 @@ export async function deleteAllIncidents () {
 }
 
 export async function importIncidents () {
+  log.info('Police Daily Activity Importer run started...')
+  log.info('--------------------------------------------------------')
+  log.info('| Date       | Scraped | Imported | Duplicate | No Geo |')
+  log.info('--------------------------------------------------------')
+  await init()
+
   const totalStats = {
+    startDay: undefined,
+    endDay: undefined,
     scraped: 0,
     imported: 0,
     alreadyExists: 0,
     noLocation: 0
   }
+
   try {
-    log.info('Police Daily Activity Importer starting...')
-
-    await init()
-
     while (true) {
       const lastImportDateStr = await getDatabase().getConfigParam('lastImportedDate')
       const dateToImport = moment.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days')
@@ -47,7 +53,10 @@ export async function importIncidents () {
         break
       }
 
-      log.info(`Beginning ${dateToImport.format(DATE_FORMAT)}`)
+      if (!totalStats.startDay) {
+        totalStats.startDay = dateToImport
+      }
+      totalStats.endDay = dateToImport
 
       const dayStats = {
         scraped: 0,
@@ -74,7 +83,7 @@ export async function importIncidents () {
         }
         await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
       } finally {
-        log.info(`Finished ${dateToImport.format(DATE_FORMAT)}: scraped: ${dayStats.scraped}, imported: ${dayStats.imported}, already exists: ${dayStats.alreadyExists}, no location: ${dayStats.noLocation}`)
+        log.info(`| ${padStart(dateToImport.format(DATE_FORMAT), 10)} | ${padStart(dayStats.scraped, 7)} | ${padStart(dayStats.imported, 8)} | ${padStart(dayStats.alreadyExists, 9)} | ${padStart(dayStats.noLocation, 6)} |`)
         for (const prop in totalStats) {
           totalStats[prop] += dayStats[prop]
         }
@@ -86,6 +95,14 @@ export async function importIncidents () {
     } else {
       log.error(err)
     }
+  } finally {
+    log.info('--------------------------------------------------------')
+    log.info('Police Daily Activity Importer run finished...')
+    log.info('---------------------------------------------------------------------')
+    log.info('| Start Date | End Date   | Scraped | Imported | Duplicate | No Geo |')
+    log.info('---------------------------------------------------------------------')
+    log.info(`| ${padStart(totalStats.startDay.format(DATE_FORMAT), 10)} | ${padStart(totalStats.endDay.format(DATE_FORMAT), 10)} | ${padStart(totalStats.scraped, 7)} | ${padStart(totalStats.imported, 8)} | ${padStart(totalStats.alreadyExists, 9)} | ${padStart(totalStats.noLocation, 6)} |`)
+    log.info('---------------------------------------------------------------------')
+    await getDatabase().logImport(totalStats)
   }
-  log.info(`Finished: scraped: ${totalStats.scraped}, imported: ${totalStats.imported}, already exists: ${totalStats.alreadyExists}, no location: ${totalStats.noLocation}`)
 }
