@@ -77,21 +77,49 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _envalid = __webpack_require__(1);
+
+var _envalid2 = _interopRequireDefault(_envalid);
+
 var _winston = __webpack_require__(15);
 
 var _winston2 = _interopRequireDefault(_winston);
 
+var _winstonPapertrail = __webpack_require__(16);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const LOG_LEVELS = ['debug', 'verbose', 'info', 'warn', 'error'];
+
+const env = _envalid2.default.cleanEnv(process.env, {
+  PAPERTRAIL_LOG_LEVEL: (0, _envalid.str)({ desc: `Papertrail log level (${LOG_LEVELS})`, choices: LOG_LEVELS, devDefault: 'debug' }),
+  PAPERTRAIL_HOST: (0, _envalid.str)({ desc: 'Papertrail hostname' }),
+  PAPERTRAIL_PORT: (0, _envalid.num)({ desc: 'Papertrail port number' }),
+  PAPERTRAIL_CLIENT_NAME: (0, _envalid.str)({ desc: 'Papertrail client name' }),
+
+  CONSOLE_LOG_LEVEL: (0, _envalid.str)({ desc: `Console log level (${LOG_LEVELS})`, choices: LOG_LEVELS, devDefault: 'debug' })
+});
+
 const consoleTransport = new _winston2.default.transports.Console({
-  level:  true ? 'info' : 'info',
+  level: env.CONSOLE_LOG_LEVEL,
   colorize: true,
   stderrLevels: ['error']
 });
 
+const papertrailTransport = new _winstonPapertrail.Papertrail({
+  level: env.PAPERTRAIL_LOG_LEVEL,
+  host: env.PAPERTRAIL_HOST,
+  port: env.PAPERTRAIL_PORT,
+  hostname: env.PAPERTRAIL_CLIENT_NAME,
+  colorize: true,
+  logFormat(level, message) {
+    return '[' + level + '] ' + message;
+  }
+});
+
 exports.default = new _winston2.default.Logger({
   levels: { error: 0, warn: 1, info: 2, verbose: 3, debug: 4 },
-  transports: [consoleTransport]
+  transports: [papertrailTransport, consoleTransport]
 });
 
 /***/ }),
@@ -208,13 +236,13 @@ let logImport = (() => {
     const result = yield client.mutate({
       mutation: _graphqlTag2.default`
       mutation {
-        createImportLog(
-          startDay: "${startDay}"
-          endDay: "${endDay}"
-          scraped: "${scraped}"
-          imported: "${imported}"
-          alreadyExists: "${alreadyExists}"
-          noLocation: "${noLocation}"
+        createImporterLog(
+          startDay: "${startDay.toISOString()}"
+          endDay: "${endDay.toISOString()}"
+          scraped: ${scraped}
+          imported: ${imported}
+          alreadyExists: ${alreadyExists}
+          noLocation: ${noLocation}
         ) {
           id
         }
@@ -222,12 +250,12 @@ let logImport = (() => {
     `
     });
 
-    if (!result || !result.data || !result.data.createImportLog) {
+    if (!result || !result.data || !result.data.createImporterLog) {
       _log2.default.error('Database: logImport(): malformed GraphQL result', result);
       throw new Error('Database: logImport(): malformed GraphQL result');
     }
 
-    return result.data.createImportLog;
+    return result.data.createImporterLog;
   });
 
   return function logImport(_x4) {
@@ -702,7 +730,7 @@ var _requestXRay = __webpack_require__(14);
 
 var _requestXRay2 = _interopRequireDefault(_requestXRay);
 
-var _xRay = __webpack_require__(16);
+var _xRay = __webpack_require__(17);
 
 var _xRay2 = _interopRequireDefault(_xRay);
 
@@ -825,7 +853,7 @@ let importIncidents = exports.importIncidents = (() => {
           break;
         }
 
-        if (!totalStats.startDay) {
+        if (typeof totalStats.startDay === 'undefined') {
           totalStats.startDay = dateToImport;
         }
         totalStats.endDay = dateToImport;
@@ -856,7 +884,7 @@ let importIncidents = exports.importIncidents = (() => {
           yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
         } finally {
           _log2.default.info(`| ${(0, _lodash.padStart)(dateToImport.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(dayStats.scraped, 7)} | ${(0, _lodash.padStart)(dayStats.imported, 8)} | ${(0, _lodash.padStart)(dayStats.alreadyExists, 9)} | ${(0, _lodash.padStart)(dayStats.noLocation, 6)} |`);
-          for (const prop in totalStats) {
+          for (const prop in dayStats) {
             totalStats[prop] += dayStats[prop];
           }
         }
@@ -963,6 +991,12 @@ module.exports = require("winston");
 
 /***/ }),
 /* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("winston-papertrail");
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("x-ray");

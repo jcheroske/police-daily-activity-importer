@@ -53,7 +53,7 @@ export async function importIncidents () {
         break
       }
 
-      if (!totalStats.startDay) {
+      if (typeof totalStats.startDay === 'undefined') {
         totalStats.startDay = dateToImport
       }
       totalStats.endDay = dateToImport
@@ -84,7 +84,7 @@ export async function importIncidents () {
         await getDatabase().setConfigParam('lastImportedDate', dateToImport.toISOString())
       } finally {
         log.info(`| ${padStart(dateToImport.format(DATE_FORMAT), 10)} | ${padStart(dayStats.scraped, 7)} | ${padStart(dayStats.imported, 8)} | ${padStart(dayStats.alreadyExists, 9)} | ${padStart(dayStats.noLocation, 6)} |`)
-        for (const prop in totalStats) {
+        for (const prop in dayStats) {
           totalStats[prop] += dayStats[prop]
         }
       }

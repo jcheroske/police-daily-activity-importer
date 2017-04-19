@@ -71,13 +71,13 @@ async function logImport ({startDay, endDay, scraped, imported, alreadyExists, n
   const result = await client.mutate({
     mutation: gql`
       mutation {
-        createImportLog(
-          startDay: "${startDay}"
-          endDay: "${endDay}"
-          scraped: "${scraped}"
-          imported: "${imported}"
-          alreadyExists: "${alreadyExists}"
-          noLocation: "${noLocation}"
+        createImporterLog(
+          startDay: "${startDay.toISOString()}"
+          endDay: "${endDay.toISOString()}"
+          scraped: ${scraped}
+          imported: ${imported}
+          alreadyExists: ${alreadyExists}
+          noLocation: ${noLocation}
         ) {
           id
         }
@@ -85,12 +85,12 @@ async function logImport ({startDay, endDay, scraped, imported, alreadyExists, n
     `
   })
 
-  if (!result || !result.data || !result.data.createImportLog) {
+  if (!result || !result.data || !result.data.createImporterLog) {
     log.error('Database: logImport(): malformed GraphQL result', result)
     throw new Error('Database: logImport(): malformed GraphQL result')
   }
 
-  return result.data.createImportLog
+  return result.data.createImporterLog
 }
 
 async function createIncident (incident) {
