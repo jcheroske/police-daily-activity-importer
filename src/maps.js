@@ -11,7 +11,7 @@ export class QueryLimitExceeded extends ExtendableError {
 
 let googleGeocode
 
-async function addLocationInfoToIncident (incident) {
+async function geocodeIncident (incident) {
   const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ')
   log.debug(`Maps: about to geocode ${rawAddress}`)
 
@@ -66,7 +66,7 @@ async function addLocationInfoToIncident (incident) {
     return undefined
   }
 
-  const streetAddress = streetAddressRegExResult[0].trim()
+  const prettyStreetAddress = streetAddressRegExResult[0].trim()
 
   const zipCodeRegExResult = formattedAddress.match(/\d{5}/)
   if (!zipCodeRegExResult || !zipCodeRegExResult[0]) {
@@ -78,11 +78,10 @@ async function addLocationInfoToIncident (incident) {
 
   const {lat, lng} = geometry.location
 
-  log.debug('Maps: geocode successful', streetAddress, zipCode, lat, lng)
+  log.debug('Maps: geocode successful', prettyStreetAddress, zipCode, lat, lng)
 
   return {
-    ...incident,
-    streetAddress,
+    prettyStreetAddress,
     zipCode,
     lat,
     lng
@@ -104,7 +103,7 @@ export async function init () {
 
   googleGeocode = Promise.promisify(::client.geocode)
 
-  maps = Object.freeze({addLocationInfoToIncident})
+  maps = Object.freeze({geocodeIncident})
   log.verbose('Maps: initialized')
 }
 

@@ -1,5 +1,3 @@
 #!/usr/bin/env node
 
-const importIncidents = require('../dist/index.js').importIncidents
-
-importIncidents()
+require('../dist/index.js').importIncidents()

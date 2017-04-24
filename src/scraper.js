@@ -52,6 +52,10 @@ async function scrape (date) {
   }
 
   const {incidents} = result
+  incidents.forEach(i => {
+    i.city = 'Bellingham'
+    i.state = 'WA'
+  })
   log.verbose(`Scraper: ${incidents.length} incidents scraped`)
   log.debug('Scraped incidents', incidents)
   return incidents

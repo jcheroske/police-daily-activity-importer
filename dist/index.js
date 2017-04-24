@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,11 +81,11 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
-var _winston = __webpack_require__(15);
+var _winston = __webpack_require__(17);
 
 var _winston2 = _interopRequireDefault(_winston);
 
-var _winstonPapertrail = __webpack_require__(16);
+var _winstonPapertrail = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -142,6 +142,12 @@ module.exports = require("moment-timezone");
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql-tag");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -152,228 +158,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.init = undefined;
 
-let getConfigId = (() => {
-  var _ref = _asyncToGenerator(function* () {
-    const result = yield client.query({
-      fetchPolicy: 'network-only',
-      query: _graphqlTag2.default`
-      query {
-        allConfigs {
-          id
-        }  
-      }
-    `
-    });
-
-    if (!result || !result.data || !result.data.allConfigs || !result.data.allConfigs[0] || !result.data.allConfigs[0].id) {
-      _log2.default.error('Database: getConfigId(): malformed GraphQL result', result);
-      throw new Error('Database: getConfigId(): malformed GraphQL result');
-    }
-    configId = result.data.allConfigs[0].id;
-  });
-
-  return function getConfigId() {
-    return _ref.apply(this, arguments);
-  };
-})();
-
-let getConfigParam = (() => {
-  var _ref2 = _asyncToGenerator(function* (name) {
-    const result = yield client.query({
-      fetchPolicy: 'network-only',
-      query: _graphqlTag2.default`
-      query {
-        Config(id: "${configId}") {
-          ${name}
-        }  
-      }
-    `
-    });
-
-    if (!result || !result.data || !result.data.Config || !result.data.Config[name]) {
-      _log2.default.error('Database: getConfigParam(): malformed GraphQL result', name, result);
-      throw new Error('Database: getConfigParam(): malformed GraphQL result');
-    }
-
-    return result.data.Config[name];
-  });
-
-  return function getConfigParam(_x) {
-    return _ref2.apply(this, arguments);
-  };
-})();
-
-let setConfigParam = (() => {
-  var _ref3 = _asyncToGenerator(function* (name, value) {
-    const result = yield client.mutate({
-      mutation: _graphqlTag2.default`
-      mutation {
-        updateConfig (
-          id: "${configId}",
-          ${name}: "${value}"
-        ) {
-          id
-        }
-      }
-    `
-    });
-
-    if (!result || !result.data || !result.data.updateConfig) {
-      _log2.default.error('Database: setConfigParam(): malformed GraphQL result', name, value, result);
-      throw new Error('Database: setConfigParam(): malformed GraphQL result');
-    }
-
-    return undefined;
-  });
-
-  return function setConfigParam(_x2, _x3) {
-    return _ref3.apply(this, arguments);
-  };
-})();
-
-let logImport = (() => {
-  var _ref4 = _asyncToGenerator(function* ({ startDay, endDay, scraped, imported, alreadyExists, noLocation }) {
-    const result = yield client.mutate({
-      mutation: _graphqlTag2.default`
-      mutation {
-        createImporterLog(
-          startDay: "${startDay.toISOString()}"
-          endDay: "${endDay.toISOString()}"
-          scraped: ${scraped}
-          imported: ${imported}
-          alreadyExists: ${alreadyExists}
-          noLocation: ${noLocation}
-        ) {
-          id
-        }
-      }
-    `
-    });
-
-    if (!result || !result.data || !result.data.createImporterLog) {
-      _log2.default.error('Database: logImport(): malformed GraphQL result', result);
-      throw new Error('Database: logImport(): malformed GraphQL result');
-    }
-
-    return result.data.createImporterLog;
-  });
-
-  return function logImport(_x4) {
-    return _ref4.apply(this, arguments);
-  };
-})();
-
-let createIncident = (() => {
-  var _ref5 = _asyncToGenerator(function* (incident) {
-    _log2.default.debug('Creating new Incident', incident);
-    const result = yield client.mutate({
-      mutation: _graphqlTag2.default`
-      mutation {
-        createIncident(
-          caseNumber: "${incident.caseNumber}"
-          description: "${incident.description}"
-          offense: "${incident.offense}"
-          reportedAt: "${incident.reportedAt}"
-          streetAddress: "${incident.streetAddress}"
-          zipCode: "${incident.zipCode}"
-          lat: ${incident.lat}
-          lng: ${incident.lng}
-        ) {
-          id
-        }
-      }
-    `
-    });
-
-    if (!result || !result.data || !result.data.createIncident) {
-      _log2.default.error('Database: createIncident(): malformed GraphQL result', incident, result);
-      throw new Error('Database: createIncident(): malformed GraphQL result');
-    }
-
-    _log2.default.debug('Database: created new incident', incident.caseNumber);
-    return result.data.createIncident;
-  });
-
-  return function createIncident(_x5) {
-    return _ref5.apply(this, arguments);
-  };
-})();
-
-let isIncidentUnsaved = (() => {
-  var _ref6 = _asyncToGenerator(function* (incident) {
-    const result = yield client.query({
-      fetchPolicy: 'network-only',
-      query: _graphqlTag2.default`
-      query {
-        Incident(caseNumber: "${incident.caseNumber}") {
-          id
-        }  
-      }
-    `
-    });
-
-    if (!result || !result.data) {
-      _log2.default.error('Database: isIncidentUnsaved(): malformed GraphQL result', incident, result);
-      throw new Error('Database: isIncidentUnsaved(): malformed GraphQL result');
-    }
-
-    const returnValue = result.data.Incident == null;
-    _log2.default.debug(`Database: case number ${incident.caseNumber} ${returnValue ? 'does not exist' : 'already exists'} in the database`);
-    return returnValue;
-  });
-
-  return function isIncidentUnsaved(_x6) {
-    return _ref6.apply(this, arguments);
-  };
-})();
-
-let deleteAllIncidents = (() => {
-  var _ref7 = _asyncToGenerator(function* () {
-    const allIncidentsResult = yield client.query({
-      fetchPolicy: 'network-only',
-      query: _graphqlTag2.default`
-      query {
-        allIncidents {
-          id
-        }
-      }
-    `
-    });
-
-    if (!allIncidentsResult || !allIncidentsResult.data || !allIncidentsResult.data.allIncidents) {
-      _log2.default.error('Database: deleteAllIncidents(): malformed GraphQL result', allIncidentsResult);
-      throw new Error('Database: deleteAllIncidents(): malformed GraphQL result');
-    }
-
-    for (const incident of allIncidentsResult.data.allIncidents) {
-      const deleteIncidentResult = yield client.mutate({
-        mutation: _graphqlTag2.default`
-        mutation {
-          deleteIncident(
-            id: "${incident.id}"
-          ) {
-            id
-          }
-        }
-      `
-      });
-
-      if (!deleteIncidentResult || !deleteIncidentResult.data || !deleteIncidentResult.data.deleteIncident) {
-        _log2.default.error('Database: deleteAllIncidents(): malformed GraphQL result', deleteIncidentResult);
-        throw new Error('Database: deleteAllIncidents(): malformed GraphQL result');
-      }
-
-      _log2.default.debug(`Database: incident ${incident.id} deleted`);
-    }
-  });
-
-  return function deleteAllIncidents() {
-    return _ref7.apply(this, arguments);
-  };
-})();
-
 let init = exports.init = (() => {
-  var _ref8 = _asyncToGenerator(function* () {
+  var _ref = _asyncToGenerator(function* () {
     const env = _envalid2.default.cleanEnv(process.env, {
       GRAPHCOOL_AUTHENTICATION_TOKEN: (0, _envalid.str)({ desc: 'Graphcool Authentication Token' }),
       GRAPH_QL_ENDPOINT: (0, _envalid.str)({ desc: 'GraphQL endpoint URL' })
@@ -394,27 +180,22 @@ let init = exports.init = (() => {
       }
     }]);
 
-    client = new _apolloClient2.default({ networkInterface });
-
-    yield getConfigId();
+    const client = new _apolloClient2.default({ networkInterface });
 
     database = Object.freeze({
-      getConfigParam,
-      setConfigParam,
-      logImport,
-      createIncident,
-      isIncidentUnsaved,
-      deleteAllIncidents
+      config: yield (0, _config2.default)(client),
+      incident: yield (0, _incident2.default)(client)
     });
+
     _log2.default.verbose('Database: initialized');
   });
 
   return function init() {
-    return _ref8.apply(this, arguments);
+    return _ref.apply(this, arguments);
   };
 })();
 
-var _apolloClient = __webpack_require__(10);
+var _apolloClient = __webpack_require__(14);
 
 var _apolloClient2 = _interopRequireDefault(_apolloClient);
 
@@ -422,28 +203,28 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
-var _graphqlTag = __webpack_require__(12);
-
-var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
-
-__webpack_require__(13);
-
 var _log = __webpack_require__(0);
 
 var _log2 = _interopRequireDefault(_log);
 
+var _config = __webpack_require__(11);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _incident = __webpack_require__(12);
+
+var _incident2 = _interopRequireDefault(_incident);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-let client, configId;
 
 let database;
 
 exports.default = () => database;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -454,9 +235,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.init = exports.QueryLimitExceeded = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-let addLocationInfoToIncident = (() => {
+let geocodeIncident = (() => {
   var _ref = _asyncToGenerator(function* (incident) {
     const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ');
     _log2.default.debug(`Maps: about to geocode ${rawAddress}`);
@@ -512,7 +291,7 @@ let addLocationInfoToIncident = (() => {
       return undefined;
     }
 
-    const streetAddress = streetAddressRegExResult[0].trim();
+    const prettyStreetAddress = streetAddressRegExResult[0].trim();
 
     const zipCodeRegExResult = formattedAddress.match(/\d{5}/);
     if (!zipCodeRegExResult || !zipCodeRegExResult[0]) {
@@ -524,17 +303,17 @@ let addLocationInfoToIncident = (() => {
 
     const { lat, lng } = geometry.location;
 
-    _log2.default.debug('Maps: geocode successful', streetAddress, zipCode, lat, lng);
+    _log2.default.debug('Maps: geocode successful', prettyStreetAddress, zipCode, lat, lng);
 
-    return _extends({}, incident, {
-      streetAddress,
+    return {
+      prettyStreetAddress,
       zipCode,
       lat,
       lng
-    });
+    };
   });
 
-  return function addLocationInfoToIncident(_x) {
+  return function geocodeIncident(_x) {
     return _ref.apply(this, arguments);
   };
 })();
@@ -553,7 +332,7 @@ let init = exports.init = (() => {
 
     googleGeocode = Promise.promisify(client.geocode.bind(client));
 
-    maps = Object.freeze({ addLocationInfoToIncident });
+    maps = Object.freeze({ geocodeIncident });
     _log2.default.verbose('Maps: initialized');
   });
 
@@ -562,7 +341,7 @@ let init = exports.init = (() => {
   };
 })();
 
-var _maps = __webpack_require__(9);
+var _maps = __webpack_require__(13);
 
 var _maps2 = _interopRequireDefault(_maps);
 
@@ -570,7 +349,7 @@ var _envalid = __webpack_require__(1);
 
 var _envalid2 = _interopRequireDefault(_envalid);
 
-var _es6Error = __webpack_require__(11);
+var _es6Error = __webpack_require__(15);
 
 var _es6Error2 = _interopRequireDefault(_es6Error);
 
@@ -596,7 +375,7 @@ let maps;
 exports.default = () => maps;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -655,6 +434,10 @@ let scrape = (() => {
     }
 
     const { incidents } = result;
+    incidents.forEach(function (i) {
+      i.city = 'Bellingham';
+      i.state = 'WA';
+    });
     _log2.default.verbose(`Scraper: ${incidents.length} incidents scraped`);
     _log2.default.debug('Scraped incidents', incidents);
     return incidents;
@@ -726,11 +509,11 @@ var _momentTimezone = __webpack_require__(3);
 
 var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
-var _requestXRay = __webpack_require__(14);
+var _requestXRay = __webpack_require__(16);
 
 var _requestXRay2 = _interopRequireDefault(_requestXRay);
 
-var _xRay = __webpack_require__(17);
+var _xRay = __webpack_require__(19);
 
 var _xRay2 = _interopRequireDefault(_xRay);
 
@@ -781,13 +564,19 @@ let scraper;
 exports.default = () => scraper;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-fetch");
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -796,22 +585,12 @@ module.exports = require("bluebird");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.importIncidents = exports.deleteAllIncidents = undefined;
+exports.geocodeIncidents = exports.importIncidents = exports.deleteAllIncidents = undefined;
 
-let init = (() => {
-  var _ref = _asyncToGenerator(function* () {
-    yield (0, _database.init)();
-    yield (0, _scraper.init)();
-    yield (0, _maps.init)();
-  });
-
-  return function init() {
-    return _ref.apply(this, arguments);
-  };
-})();
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 let deleteAllIncidents = exports.deleteAllIncidents = (() => {
-  var _ref2 = _asyncToGenerator(function* () {
+  var _ref = _asyncToGenerator(function* () {
     try {
       _log2.default.info('Deleting all incidents from database');
       yield init();
@@ -823,30 +602,30 @@ let deleteAllIncidents = exports.deleteAllIncidents = (() => {
   });
 
   return function deleteAllIncidents() {
-    return _ref2.apply(this, arguments);
+    return _ref.apply(this, arguments);
   };
 })();
 
 let importIncidents = exports.importIncidents = (() => {
-  var _ref3 = _asyncToGenerator(function* () {
-    _log2.default.info('Police Daily Activity Importer run started...');
-    _log2.default.info('--------------------------------------------------------');
-    _log2.default.info('| Date       | Scraped | Imported | Duplicate | No Geo |');
-    _log2.default.info('--------------------------------------------------------');
-    yield init();
+  var _ref2 = _asyncToGenerator(function* () {
+    yield (0, _database.init)();
+    yield (0, _scraper.init)();
+    _log2.default.info('Police Daily Activity Incident Importer run started...');
+    _log2.default.info('-----------------------------------------------');
+    _log2.default.info('| Date       | Scraped | Imported | Duplicate |');
+    _log2.default.info('-----------------------------------------------');
 
     const totalStats = {
       startDay: undefined,
       endDay: undefined,
       scraped: 0,
       imported: 0,
-      alreadyExists: 0,
-      noLocation: 0
+      alreadyExists: 0
     };
 
     try {
       while (true) {
-        const lastImportDateStr = yield (0, _database2.default)().getConfigParam('lastImportedDate');
+        const lastImportDateStr = yield (0, _database2.default)().config.getParam('lastImportedDate');
         const dateToImport = _momentTimezone2.default.tz(lastImportDateStr, 'America/Los_Angeles').add(1, 'days');
 
         if (!dateToImport.isBefore((0, _momentTimezone2.default)(), 'date')) {
@@ -861,60 +640,126 @@ let importIncidents = exports.importIncidents = (() => {
         const dayStats = {
           scraped: 0,
           imported: 0,
-          alreadyExists: 0,
-          noLocation: 0
+          alreadyExists: 0
         };
 
         try {
           const scrapedIncidents = yield (0, _scraper2.default)().scrape(dateToImport);
           dayStats.scraped = scrapedIncidents.length;
           for (const scrapedIncident of scrapedIncidents) {
-            if (yield (0, _database2.default)().isIncidentUnsaved(scrapedIncident)) {
-              const incidentWithLocation = yield (0, _maps2.default)().addLocationInfoToIncident(scrapedIncident);
-              if (incidentWithLocation !== undefined) {
-                yield (0, _database2.default)().createIncident(incidentWithLocation);
-                dayStats.imported++;
-              } else {
-                dayStats.noLocation++;
-              }
+            const existingIncident = yield (0, _database2.default)().incident.findByCaseNumber(scrapedIncident.caseNumber);
+            if (existingIncident == null) {
+              yield (0, _database2.default)().incident.create(scrapedIncident);
+              dayStats.imported++;
             } else {
               dayStats.alreadyExists++;
             }
           }
-          yield (0, _database2.default)().setConfigParam('lastImportedDate', dateToImport.toISOString());
+          yield (0, _database2.default)().config.setParam('lastImportedDate', dateToImport.toISOString());
         } finally {
-          _log2.default.info(`| ${(0, _lodash.padStart)(dateToImport.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(dayStats.scraped, 7)} | ${(0, _lodash.padStart)(dayStats.imported, 8)} | ${(0, _lodash.padStart)(dayStats.alreadyExists, 9)} | ${(0, _lodash.padStart)(dayStats.noLocation, 6)} |`);
+          _log2.default.info(`| ${(0, _lodash.padStart)(dateToImport.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(dayStats.scraped, 7)} | ${(0, _lodash.padStart)(dayStats.imported, 8)} | ${(0, _lodash.padStart)(dayStats.alreadyExists, 9)} |`);
           for (const prop in dayStats) {
             totalStats[prop] += dayStats[prop];
           }
         }
       }
     } catch (err) {
-      if (err instanceof _maps.QueryLimitExceeded) {
-        _log2.default.warn('Google geocode quota exhausted. Exiting...');
-      } else {
-        _log2.default.error(err);
-      }
+      _log2.default.error(err);
     } finally {
-      _log2.default.info('--------------------------------------------------------');
-      _log2.default.info('Police Daily Activity Importer run finished...');
-      _log2.default.info('---------------------------------------------------------------------');
-      _log2.default.info('| Start Date | End Date   | Scraped | Imported | Duplicate | No Geo |');
-      _log2.default.info('---------------------------------------------------------------------');
-      _log2.default.info(`| ${(0, _lodash.padStart)(totalStats.startDay.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalStats.endDay.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalStats.scraped, 7)} | ${(0, _lodash.padStart)(totalStats.imported, 8)} | ${(0, _lodash.padStart)(totalStats.alreadyExists, 9)} | ${(0, _lodash.padStart)(totalStats.noLocation, 6)} |`);
-      _log2.default.info('---------------------------------------------------------------------');
-      yield (0, _database2.default)().logImport(totalStats);
+      _log2.default.info('-----------------------------------------------');
+      _log2.default.info('Police Daily Activity Incident Importer run finished...');
+      _log2.default.info('------------------------------------------------------------');
+      _log2.default.info('| Start Date | End Date   | Scraped | Imported | Duplicate |');
+      _log2.default.info('------------------------------------------------------------');
+      _log2.default.info(`| ${(0, _lodash.padStart)(totalStats.startDay.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalStats.endDay.format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalStats.scraped, 7)} | ${(0, _lodash.padStart)(totalStats.imported, 8)} | ${(0, _lodash.padStart)(totalStats.alreadyExists, 9)} |`);
+      _log2.default.info('------------------------------------------------------------');
+      process.exit(0);
     }
   });
 
   return function importIncidents() {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+let geocodeIncidents = exports.geocodeIncidents = (() => {
+  var _ref3 = _asyncToGenerator(function* () {
+    yield (0, _database.init)();
+    yield (0, _maps.init)();
+    _log2.default.info('Police Daily Activity Incident Geocoder run started...');
+    _log2.default.info('-------------------------------------');
+    _log2.default.info('| Date       | Geocoded | No Location');
+    _log2.default.info('-------------------------------------');
+
+    const dayMap = new Map();
+    try {
+      const incidents = yield (0, _database2.default)().incident.findUngeocoded();
+      let prevReportedAt;
+      for (const incident of incidents) {
+        let currDayStats = dayMap.get(incident.reportedAt);
+        if (currDayStats == null) {
+          currDayStats = {
+            geocoded: 0,
+            noLocation: 0
+          };
+          dayMap.set(incident.reportedAt, currDayStats);
+
+          if (prevReportedAt != null) {
+            const prevDayStats = dayMap.get(prevReportedAt);
+            _log2.default.info(`| ${(0, _lodash.padStart)((0, _momentTimezone2.default)(prevReportedAt).format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(prevDayStats.geocoded, 8)} | ${(0, _lodash.padStart)(prevDayStats.noLocation, 11)} |`);
+          }
+          prevReportedAt = incident.reportedAt;
+        }
+
+        const geocodeData = yield (0, _maps2.default)().geocodeIncident(incident);
+        if (geocodeData != null) {
+          currDayStats.geocoded++;
+          yield (0, _database2.default)().incident.update(_extends({}, incident, geocodeData));
+        } else {
+          currDayStats.noLocation++;
+        }
+      }
+    } catch (err) {
+      if (err instanceof _maps.QueryLimitExceeded) {
+        _log2.default.warn('Google Maps geocode quota exhausted');
+      } else {
+        _log2.default.error(err);
+      }
+    } finally {
+      _log2.default.info('-------------------------------------');
+      _log2.default.info('Police Daily Activity Incident Geocoder run finished...');
+      _log2.default.info('----------------------------------------------------');
+      _log2.default.info('| Start Date | End Date   | Geocoded | No Location |');
+      _log2.default.info('----------------------------------------------------');
+
+      let startDay;
+      let endDay;
+      let totalGeocoded = 0;
+      let totalNoLocation = 0;
+      dayMap.forEach(function (value, key) {
+        if (startDay == null) {
+          startDay = key;
+        }
+        endDay = key;
+        totalGeocoded += value.geocoded;
+        totalNoLocation += value.noLocation;
+      });
+      _log2.default.info(`| ${(0, _lodash.padStart)((0, _momentTimezone2.default)(startDay).format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)((0, _momentTimezone2.default)(endDay).format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalGeocoded, 8)} | ${(0, _lodash.padStart)(totalNoLocation, 11)} |`);
+      _log2.default.info('----------------------------------------------------');
+      process.exit(0);
+    }
+  });
+
+  return function geocodeIncidents() {
     return _ref3.apply(this, arguments);
   };
 })();
 
-var _bluebird = __webpack_require__(7);
+var _bluebird = __webpack_require__(8);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
+
+__webpack_require__(9);
 
 var _lodash = __webpack_require__(2);
 
@@ -922,7 +767,7 @@ var _momentTimezone = __webpack_require__(3);
 
 var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
-var _database = __webpack_require__(4);
+var _database = __webpack_require__(5);
 
 var _database2 = _interopRequireDefault(_database);
 
@@ -930,11 +775,11 @@ var _log = __webpack_require__(0);
 
 var _log2 = _interopRequireDefault(_log);
 
-var _maps = __webpack_require__(5);
+var _maps = __webpack_require__(6);
 
 var _maps2 = _interopRequireDefault(_maps);
 
-var _scraper = __webpack_require__(6);
+var _scraper = __webpack_require__(7);
 
 var _scraper2 = _interopRequireDefault(_scraper);
 
@@ -948,55 +793,354 @@ Promise = _bluebird2.default;
 const DATE_FORMAT = 'MM/DD/YYYY';
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("@google/maps");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-client");
-
-/***/ }),
 /* 11 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("es6-error");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _graphqlTag = __webpack_require__(4);
+
+var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
+
+var _log = __webpack_require__(0);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+const fetchPolicy = 'network-only';
+
+const getParamQuery = _graphqlTag2.default`
+  query GetConfigParam($id: ID!) {
+    Config(id: $id) {
+      lastImportedDate
+    }
+  }
+`;
+
+const setParamMutation = _graphqlTag2.default`
+  mutation SetConfigParam(
+    $id: ID!,
+    $lastImportedDate: DateTime
+  ) {
+    updateConfig(
+      id: $id
+      lastImportedDate: $lastImportedDate
+    ) {
+      id
+    }
+  }
+`;
+
+exports.default = (() => {
+  var _ref = _asyncToGenerator(function* (client) {
+    const configId = (yield client.query({
+      fetchPolicy: 'network-only',
+      query: _graphqlTag2.default`
+      query GetConfigId {
+        allConfigs {
+          id
+        }
+      }
+    `
+    })).data.allConfigs[0].id;
+
+    return {
+      getParam(name) {
+        return _asyncToGenerator(function* () {
+          const result = yield client.query({
+            fetchPolicy,
+            query: getParamQuery,
+            variables: { id: configId }
+          });
+
+          if (!result || !result.data || !result.data.Config || !result.data.Config[name]) {
+            _log2.default.error('Database: config.getParam(): malformed GraphQL result', name, result);
+            throw new Error('Database: config.getParam(): malformed GraphQL result');
+          }
+
+          return result.data.Config[name];
+        })();
+      },
+
+      setParam(name, value) {
+        return _asyncToGenerator(function* () {
+          const result = yield client.mutate({
+            fetchPolicy,
+            mutation: setParamMutation,
+            variables: {
+              id: configId,
+              [name]: value
+            }
+          });
+
+          if (!result || !result.data || !result.data.updateConfig) {
+            _log2.default.error('Database: config.setParam(): malformed GraphQL result', name, value, result);
+            throw new Error('Database: config.setParam(): malformed GraphQL result');
+          }
+        })();
+      }
+    };
+  });
+
+  function init(_x) {
+    return _ref.apply(this, arguments);
+  }
+
+  return init;
+})();
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("graphql-tag");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _graphqlTag = __webpack_require__(4);
+
+var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
+
+var _lodash = __webpack_require__(2);
+
+var _log = __webpack_require__(0);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+const fetchPolicy = 'network-only';
+
+const findByCaseNumberQuery = _graphqlTag2.default`
+  query FindIncidentByCaseNumber($caseNumber: String!) {
+    Incident(caseNumber: $caseNumber) {
+      id
+    }
+  }
+`;
+
+const findUngeocodedQuery = _graphqlTag2.default`
+  query FindUngeocoded (
+    $nullFloat: Float = null
+    $nullString: String = null
+  ) {
+    allIncidents(
+      filter: {
+        OR: [
+          { lat: $nullFloat },
+          { lng: $nullFloat },
+          { prettyStreetAddress: $nullString },
+          { zipCode: $nullString }
+        ]
+      },
+      orderBy: reportedAt_ASC
+    ) {
+      id,
+      streetAddress,
+      city,
+      reportedAt,
+      state
+    }
+  }
+`;
+
+// const findUngeocoded = gql`
+//   query FindUngeocoded ($after: String) {
+//     allIncidents(
+//       filter: {
+//         OR: [
+//           { lat: null },
+//           { lng: null },
+//           { prettyStreetAddress: null },
+//           { zipCode: null }
+//         ]
+//       },
+//       orderBy: reportedAt_ASC,
+//       after: $after
+//     ) {
+//       id,
+//       streetAddress,
+//       city,
+//       state
+//     }
+//   }
+// `
+
+const createMutation = _graphqlTag2.default`
+  mutation CreateIncident(
+    $caseNumber: String!
+    $description: String
+    $offense: String!
+    $reportedAt: DateTime!
+    $streetAddress: String!
+    $city: String!
+    $state: String!
+  ) {
+    createIncident(
+      caseNumber: $caseNumber
+      description: $description
+      offense: $offense
+      reportedAt: $reportedAt
+      streetAddress: $streetAddress
+      city: $city
+      state: $state
+    ) {
+      id
+    }
+  }
+`;
+
+const updateMutation = _graphqlTag2.default`
+  mutation UpdateIncident(
+    $id: ID!
+    $lat: Float!
+    $lng: Float!
+    $prettyStreetAddress: String!
+    $zipCode: String!
+  ) {
+    updateIncident(
+      id: $id
+      lat: $lat
+      lng: $lng
+      prettyStreetAddress: $prettyStreetAddress
+      zipCode: $zipCode
+    ) {
+      id
+    }
+  }
+`;
+
+exports.default = (() => {
+  var _ref = _asyncToGenerator(function* (client) {
+    return {
+      findByCaseNumber(caseNumber) {
+        return _asyncToGenerator(function* () {
+          const result = yield client.query({
+            fetchPolicy,
+            query: findByCaseNumberQuery,
+            variables: { caseNumber }
+          });
+
+          const dbInstance = (0, _lodash.get)(result, 'data.Incident');
+          _log2.default.debug(`Incident.findByCaseNumber()`, caseNumber, dbInstance);
+          return dbInstance;
+        })();
+      },
+
+      findUngeocoded() {
+        return _asyncToGenerator(function* () {
+          const result = yield client.query({
+            fetchPolicy,
+            query: findUngeocodedQuery
+          });
+
+          const incidents = (0, _lodash.get)(result, 'data.allIncidents');
+          if (incidents == null) {
+            _log2.default.error('Database: instance.findUngeocoded(): malformed GraphQL result', result);
+            throw new Error('Database: instance.findUngeocoded(): malformed GraphQL result');
+          } else {
+            _log2.default.debug(`Incident.findUngeocoded()`, incidents);
+          }
+          return incidents;
+        })();
+      },
+
+      create(incident) {
+        return _asyncToGenerator(function* () {
+          const result = yield client.mutate({
+            mutation: createMutation,
+            variables: incident
+          });
+
+          const dbInstance = (0, _lodash.get)(result, 'data.createIncident');
+          if (dbInstance == null) {
+            _log2.default.error('Database: instance.create(): malformed GraphQL result', result);
+            throw new Error('Database: instance.create(): malformed GraphQL result');
+          } else {
+            _log2.default.debug(`Incident.create()`, incident, dbInstance);
+          }
+          return dbInstance;
+        })();
+      },
+
+      update(incident) {
+        return _asyncToGenerator(function* () {
+          const result = yield client.mutate({
+            mutation: updateMutation,
+            variables: incident
+          });
+
+          const dbInstance = (0, _lodash.get)(result, 'data.updateIncident');
+          if (dbInstance == null) {
+            _log2.default.error('Database: instance.update(): malformed GraphQL result', result);
+            throw new Error('Database: instance.update(): malformed GraphQL result');
+          } else {
+            _log2.default.debug(`Incident.update()`, incident, dbInstance);
+          }
+          return dbInstance;
+        })();
+      }
+    };
+  });
+
+  function init(_x) {
+    return _ref.apply(this, arguments);
+  }
+
+  return init;
+})();
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = require("isomorphic-fetch");
+module.exports = require("@google/maps");
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("request-x-ray");
+module.exports = require("apollo-client");
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("winston");
+module.exports = require("es6-error");
 
 /***/ }),
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = require("winston-papertrail");
+module.exports = require("request-x-ray");
 
 /***/ }),
 /* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("winston");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("winston-papertrail");
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("x-ray");

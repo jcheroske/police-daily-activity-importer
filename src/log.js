@@ -26,7 +26,7 @@ const papertrailTransport = new Papertrail({
   hostname: env.PAPERTRAIL_CLIENT_NAME,
   colorize: true,
   logFormat (level, message) {
-    return '[' + level + '] ' + message;
+    return '[' + level + '] ' + message
   }
 })
 
