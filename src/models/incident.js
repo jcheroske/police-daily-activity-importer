@@ -14,17 +14,11 @@ const findByCaseNumberQuery = gql`
 
 const findUngeocodedQuery = gql`
   query FindUngeocoded (
-    $nullFloat: Float = null
-    $nullString: String = null
+    $nullBoolean: Boolean = null
   ) {
     allIncidents(
       filter: {
-        OR: [
-          { lat: $nullFloat },
-          { lng: $nullFloat },
-          { prettyStreetAddress: $nullString },
-          { zipCode: $nullString }
-        ]
+        geocodeFailed: $nullBoolean
       },
       orderBy: reportedAt_ASC
     ) {
@@ -36,28 +30,6 @@ const findUngeocodedQuery = gql`
     }
   }
 `
-
-// const findUngeocoded = gql`
-//   query FindUngeocoded ($after: String) {
-//     allIncidents(
-//       filter: {
-//         OR: [
-//           { lat: null },
-//           { lng: null },
-//           { prettyStreetAddress: null },
-//           { zipCode: null }
-//         ]
-//       },
-//       orderBy: reportedAt_ASC,
-//       after: $after
-//     ) {
-//       id,
-//       streetAddress,
-//       city,
-//       state
-//     }
-//   }
-// `
 
 const createMutation = gql`
   mutation CreateIncident(
@@ -83,15 +55,17 @@ const createMutation = gql`
   }
 `
 
-const updateMutation = gql`
-  mutation UpdateIncident(
+const saveGeocodeDataMutation = gql`
+  mutation SaveGeocodeData(
+    $geocodeFailed: Boolean!
     $id: ID!
-    $lat: Float!
-    $lng: Float!
-    $prettyStreetAddress: String!
-    $zipCode: String!
+    $lat: Float
+    $lng: Float
+    $prettyStreetAddress: String
+    $zipCode: String
   ) {
     updateIncident(
+      geocodeFailed: $geocodeFailed
       id: $id
       lat: $lat
       lng: $lng
@@ -149,9 +123,9 @@ export default async function init (client) {
       return dbInstance
     },
 
-    async update (incident) {
+    async saveGeocodedData (incident) {
       const result = await client.mutate({
-        mutation: updateMutation,
+        mutation: saveGeocodeDataMutation,
         variables: incident
       })
 

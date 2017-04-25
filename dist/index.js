@@ -237,7 +237,7 @@ exports.init = exports.QueryLimitExceeded = undefined;
 
 let geocodeIncident = (() => {
   var _ref = _asyncToGenerator(function* (incident) {
-    const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ');
+    const rawAddress = [incident.streetAddress.replace('BLK', '').replace(/\s+/g, ' '), 'Bellingham', 'WA'].join(', ');
     _log2.default.debug(`Maps: about to geocode ${rawAddress}`);
 
     let response;
@@ -251,9 +251,13 @@ let geocodeIncident = (() => {
       throw err;
     }
 
+    const failedReturnValue = {
+      geocodeFailed: true
+    };
+
     if (!response || !response.json) {
       _log2.default.warn('Maps: empty response or json payload', response);
-      return undefined;
+      return failedReturnValue;
     }
 
     const { status, results } = response.json;
@@ -265,30 +269,30 @@ let geocodeIncident = (() => {
 
     if (status !== 'OK') {
       _log2.default.warn('Maps: Non-OK status received', rawAddress, status);
-      return undefined;
+      return failedReturnValue;
     }
 
     if (!results || !results[0]) {
       _log2.default.warn('Maps: missing results payload', rawAddress, results);
-      return undefined;
+      return failedReturnValue;
     }
 
     const { formatted_address: formattedAddress, geometry } = results[0];
 
     if (!formattedAddress) {
       _log2.default.warn('Maps: missing formatted address', rawAddress, results[0]);
-      return undefined;
+      return failedReturnValue;
     }
 
     if (!geometry || !geometry.location || !geometry.location.lat || !geometry.location.lng) {
       _log2.default.warn('Maps: missing or incomplete geometry object', rawAddress, results[0]);
-      return undefined;
+      return failedReturnValue;
     }
 
     const streetAddressRegExResult = formattedAddress.split(',');
     if (!streetAddressRegExResult || !streetAddressRegExResult[0]) {
       _log2.default.warn('Maps: street address extraction failed', formattedAddress);
-      return undefined;
+      return failedReturnValue;
     }
 
     const prettyStreetAddress = streetAddressRegExResult[0].trim();
@@ -296,7 +300,7 @@ let geocodeIncident = (() => {
     const zipCodeRegExResult = formattedAddress.match(/\d{5}/);
     if (!zipCodeRegExResult || !zipCodeRegExResult[0]) {
       _log2.default.warn('Maps: zip code extraction failed', formattedAddress);
-      return undefined;
+      return failedReturnValue;
     }
 
     const zipCode = zipCodeRegExResult[0];
@@ -306,6 +310,7 @@ let geocodeIncident = (() => {
     _log2.default.debug('Maps: geocode successful', prettyStreetAddress, zipCode, lat, lng);
 
     return {
+      geocodeFailed: false,
       prettyStreetAddress,
       zipCode,
       lat,
@@ -401,7 +406,6 @@ let scrape = (() => {
     const xRay = (0, _xRay2.default)({
       filters: {
         parseDate,
-        parseAddress,
         parseDescription,
         trim
       }
@@ -411,7 +415,7 @@ let scrape = (() => {
     const selector = {
       incidents: xRay('td.info', [{
         reportedAt: `b:nth-of-type(1) | parseDate:${date.toISOString()}`,
-        streetAddress: 'b:nth-of-type(2) | parseAddress | trim',
+        streetAddress: 'b:nth-of-type(2) | trim',
         offense: 'b:nth-of-type(3) | trim',
         caseNumber: 'b:nth-of-type(4) | trim',
         description: '@html | parseDescription | trim'
@@ -547,8 +551,6 @@ const parseDate = (value, defaultDate) => {
   return _momentTimezone2.default.tz(value, 'MMM DD YYYY hh:mmA', 'America/Los_Angeles').toISOString();
 };
 
-const parseAddress = value => value.replace('BLK', '').replace(/\s+/g, ' ');
-
 const parseDescription = value => {
   if (!value) return undefined;
 
@@ -585,29 +587,12 @@ module.exports = require("isomorphic-fetch");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.geocodeIncidents = exports.importIncidents = exports.deleteAllIncidents = undefined;
+exports.geocodeIncidents = exports.importIncidents = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-let deleteAllIncidents = exports.deleteAllIncidents = (() => {
-  var _ref = _asyncToGenerator(function* () {
-    try {
-      _log2.default.info('Deleting all incidents from database');
-      yield init();
-      yield (0, _database2.default)().deleteAllIncidents();
-      yield (0, _database2.default)().setConfigParam('lastImportedDate', _momentTimezone2.default.tz('12/31/1998', 'MM/DD/YYYY', 'America/Los_Angeles').toISOString());
-    } catch (err) {
-      _log2.default.error(err);
-    }
-  });
-
-  return function deleteAllIncidents() {
-    return _ref.apply(this, arguments);
-  };
-})();
-
 let importIncidents = exports.importIncidents = (() => {
-  var _ref2 = _asyncToGenerator(function* () {
+  var _ref = _asyncToGenerator(function* () {
     yield (0, _database.init)();
     yield (0, _scraper.init)();
     _log2.default.info('Police Daily Activity Incident Importer run started...');
@@ -678,46 +663,30 @@ let importIncidents = exports.importIncidents = (() => {
   });
 
   return function importIncidents() {
-    return _ref2.apply(this, arguments);
+    return _ref.apply(this, arguments);
   };
 })();
 
 let geocodeIncidents = exports.geocodeIncidents = (() => {
-  var _ref3 = _asyncToGenerator(function* () {
+  var _ref2 = _asyncToGenerator(function* () {
     yield (0, _database.init)();
     yield (0, _maps.init)();
-    _log2.default.info('Police Daily Activity Incident Geocoder run started...');
-    _log2.default.info('-------------------------------------');
-    _log2.default.info('| Date       | Geocoded | No Location');
-    _log2.default.info('-------------------------------------');
+    printGeocodeDayHeader();
 
-    const dayMap = new Map();
     try {
       const incidents = yield (0, _database2.default)().incident.findUngeocoded();
-      let prevReportedAt;
-      for (const incident of incidents) {
-        let currDayStats = dayMap.get(incident.reportedAt);
-        if (currDayStats == null) {
-          currDayStats = {
-            geocoded: 0,
-            noLocation: 0
-          };
-          dayMap.set(incident.reportedAt, currDayStats);
 
-          if (prevReportedAt != null) {
-            const prevDayStats = dayMap.get(prevReportedAt);
-            _log2.default.info(`| ${(0, _lodash.padStart)((0, _momentTimezone2.default)(prevReportedAt).format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(prevDayStats.geocoded, 8)} | ${(0, _lodash.padStart)(prevDayStats.noLocation, 11)} |`);
-          }
-          prevReportedAt = incident.reportedAt;
+      let prevReportedDay;
+      for (const incident of incidents) {
+        const currReportedDay = isoDateTimeToIsoDay(incident.reportedAt);
+        if (currReportedDay !== prevReportedDay) {
+          printGeocodeDayStats(prevReportedDay);
+          prevReportedDay = currReportedDay;
         }
 
         const geocodeData = yield (0, _maps2.default)().geocodeIncident(incident);
-        if (geocodeData != null) {
-          currDayStats.geocoded++;
-          yield (0, _database2.default)().incident.update(_extends({}, incident, geocodeData));
-        } else {
-          currDayStats.noLocation++;
-        }
+        geocodeData.geocodeFailed ? incrementNoLocationCount(currReportedDay) : incrementGeocodedCount(currReportedDay);
+        yield (0, _database2.default)().incident.saveGeocodedData(_extends({}, incident, geocodeData));
       }
     } catch (err) {
       if (err instanceof _maps.QueryLimitExceeded) {
@@ -726,32 +695,14 @@ let geocodeIncidents = exports.geocodeIncidents = (() => {
         _log2.default.error(err);
       }
     } finally {
-      _log2.default.info('-------------------------------------');
-      _log2.default.info('Police Daily Activity Incident Geocoder run finished...');
-      _log2.default.info('----------------------------------------------------');
-      _log2.default.info('| Start Date | End Date   | Geocoded | No Location |');
-      _log2.default.info('----------------------------------------------------');
-
-      let startDay;
-      let endDay;
-      let totalGeocoded = 0;
-      let totalNoLocation = 0;
-      dayMap.forEach(function (value, key) {
-        if (startDay == null) {
-          startDay = key;
-        }
-        endDay = key;
-        totalGeocoded += value.geocoded;
-        totalNoLocation += value.noLocation;
-      });
-      _log2.default.info(`| ${(0, _lodash.padStart)((0, _momentTimezone2.default)(startDay).format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)((0, _momentTimezone2.default)(endDay).format(DATE_FORMAT), 10)} | ${(0, _lodash.padStart)(totalGeocoded, 8)} | ${(0, _lodash.padStart)(totalNoLocation, 11)} |`);
-      _log2.default.info('----------------------------------------------------');
+      printGeocodeTotalHeader();
+      printGeocodeTotals();
       process.exit(0);
     }
   });
 
   return function geocodeIncidents() {
-    return _ref3.apply(this, arguments);
+    return _ref2.apply(this, arguments);
   };
 })();
 
@@ -791,6 +742,72 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 Promise = _bluebird2.default;
 
 const DATE_FORMAT = 'MM/DD/YYYY';
+
+function printGeocodeDayHeader() {
+  _log2.default.info('---------------------------------------');
+  _log2.default.info('| Date       | Geocoded | No Location |');
+  _log2.default.info('---------------------------------------');
+}
+
+const geocodeDayStats = new Map();
+
+function incrementGeocodedCount(isoDay) {
+  getStatsForDay(isoDay).geocoded++;
+}
+
+function incrementNoLocationCount(isoDay) {
+  getStatsForDay(isoDay).noLocation++;
+}
+
+function getStatsForDay(isoDay) {
+  let dayStats = geocodeDayStats.get(isoDay);
+  if (dayStats == null) {
+    dayStats = {
+      geocoded: 0,
+      noLocation: 0
+    };
+    geocodeDayStats.set(isoDay, dayStats);
+  }
+  return dayStats;
+}
+
+function printGeocodeDayStats(isoDay) {
+  if (isoDay != null) {
+    const dayStats = geocodeDayStats.get(isoDay);
+    _log2.default.info(`| ${(0, _lodash.padStart)(formatIsoDay(isoDay), 10)} | ${(0, _lodash.padStart)(dayStats.geocoded, 8)} | ${(0, _lodash.padStart)(dayStats.noLocation, 11)} |`);
+  }
+}
+
+function isoDateTimeToIsoDay(isoDateTime) {
+  return (0, _momentTimezone2.default)(isoDateTime).startOf('day').toISOString();
+}
+
+function formatIsoDay(isoDay) {
+  return (0, _momentTimezone2.default)(isoDay).format(DATE_FORMAT);
+}
+
+function printGeocodeTotalHeader() {
+  _log2.default.info('----------------------------------------------------');
+  _log2.default.info('| Start Date | End Date   | Geocoded | No Location |');
+  _log2.default.info('----------------------------------------------------');
+}
+
+function printGeocodeTotals() {
+  let startDay;
+  let endDay;
+  let totalGeocoded = 0;
+  let totalNoLocation = 0;
+  geocodeDayStats.forEach((dayStats, day) => {
+    if (startDay == null) {
+      startDay = day;
+    }
+    endDay = day;
+    totalGeocoded += dayStats.geocoded;
+    totalNoLocation += dayStats.noLocation;
+  });
+  _log2.default.info(`| ${(0, _lodash.padStart)(formatIsoDay(startDay), 10)} | ${(0, _lodash.padStart)(formatIsoDay(endDay), 10)} | ${(0, _lodash.padStart)(totalGeocoded, 8)} | ${(0, _lodash.padStart)(totalNoLocation, 11)} |`);
+  _log2.default.info('----------------------------------------------------');
+}
 
 /***/ }),
 /* 11 */
@@ -934,17 +951,11 @@ const findByCaseNumberQuery = _graphqlTag2.default`
 
 const findUngeocodedQuery = _graphqlTag2.default`
   query FindUngeocoded (
-    $nullFloat: Float = null
-    $nullString: String = null
+    $nullBoolean: Boolean = null
   ) {
     allIncidents(
       filter: {
-        OR: [
-          { lat: $nullFloat },
-          { lng: $nullFloat },
-          { prettyStreetAddress: $nullString },
-          { zipCode: $nullString }
-        ]
+        geocodeFailed: $nullBoolean
       },
       orderBy: reportedAt_ASC
     ) {
@@ -956,28 +967,6 @@ const findUngeocodedQuery = _graphqlTag2.default`
     }
   }
 `;
-
-// const findUngeocoded = gql`
-//   query FindUngeocoded ($after: String) {
-//     allIncidents(
-//       filter: {
-//         OR: [
-//           { lat: null },
-//           { lng: null },
-//           { prettyStreetAddress: null },
-//           { zipCode: null }
-//         ]
-//       },
-//       orderBy: reportedAt_ASC,
-//       after: $after
-//     ) {
-//       id,
-//       streetAddress,
-//       city,
-//       state
-//     }
-//   }
-// `
 
 const createMutation = _graphqlTag2.default`
   mutation CreateIncident(
@@ -1003,15 +992,17 @@ const createMutation = _graphqlTag2.default`
   }
 `;
 
-const updateMutation = _graphqlTag2.default`
-  mutation UpdateIncident(
+const saveGeocodeDataMutation = _graphqlTag2.default`
+  mutation SaveGeocodeData(
+    $geocodeFailed: Boolean!
     $id: ID!
-    $lat: Float!
-    $lng: Float!
-    $prettyStreetAddress: String!
-    $zipCode: String!
+    $lat: Float
+    $lng: Float
+    $prettyStreetAddress: String
+    $zipCode: String
   ) {
     updateIncident(
+      geocodeFailed: $geocodeFailed
       id: $id
       lat: $lat
       lng: $lng
@@ -1076,10 +1067,10 @@ exports.default = (() => {
         })();
       },
 
-      update(incident) {
+      saveGeocodedData(incident) {
         return _asyncToGenerator(function* () {
           const result = yield client.mutate({
-            mutation: updateMutation,
+            mutation: saveGeocodeDataMutation,
             variables: incident
           });
 

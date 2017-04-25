@@ -12,7 +12,11 @@ export class QueryLimitExceeded extends ExtendableError {
 let googleGeocode
 
 async function geocodeIncident (incident) {
-  const rawAddress = [incident.streetAddress, 'Bellingham', 'WA'].join(', ')
+  const rawAddress = [
+    incident.streetAddress.replace('BLK', '').replace(/\s+/g, ' '),
+    'Bellingham',
+    'WA'
+  ].join(', ')
   log.debug(`Maps: about to geocode ${rawAddress}`)
 
   let response
@@ -26,9 +30,13 @@ async function geocodeIncident (incident) {
     throw err
   }
 
+  const failedReturnValue = {
+    geocodeFailed: true
+  }
+
   if (!response || !response.json) {
     log.warn('Maps: empty response or json payload', response)
-    return undefined
+    return failedReturnValue
   }
 
   const {status, results} = response.json
@@ -40,30 +48,30 @@ async function geocodeIncident (incident) {
 
   if (status !== 'OK') {
     log.warn('Maps: Non-OK status received', rawAddress, status)
-    return undefined
+    return failedReturnValue
   }
 
   if (!results || !results[0]) {
     log.warn('Maps: missing results payload', rawAddress, results)
-    return undefined
+    return failedReturnValue
   }
 
   const {formatted_address: formattedAddress, geometry} = results[0]
 
   if (!formattedAddress) {
     log.warn('Maps: missing formatted address', rawAddress, results[0])
-    return undefined
+    return failedReturnValue
   }
 
   if (!geometry || !geometry.location || !geometry.location.lat || !geometry.location.lng) {
     log.warn('Maps: missing or incomplete geometry object', rawAddress, results[0])
-    return undefined
+    return failedReturnValue
   }
 
   const streetAddressRegExResult = formattedAddress.split(',')
   if (!streetAddressRegExResult || !streetAddressRegExResult[0]) {
     log.warn('Maps: street address extraction failed', formattedAddress)
-    return undefined
+    return failedReturnValue
   }
 
   const prettyStreetAddress = streetAddressRegExResult[0].trim()
@@ -71,7 +79,7 @@ async function geocodeIncident (incident) {
   const zipCodeRegExResult = formattedAddress.match(/\d{5}/)
   if (!zipCodeRegExResult || !zipCodeRegExResult[0]) {
     log.warn('Maps: zip code extraction failed', formattedAddress)
-    return undefined
+    return failedReturnValue
   }
 
   const zipCode = zipCodeRegExResult[0]
@@ -81,6 +89,7 @@ async function geocodeIncident (incident) {
   log.debug('Maps: geocode successful', prettyStreetAddress, zipCode, lat, lng)
 
   return {
+    geocodeFailed: false,
     prettyStreetAddress,
     zipCode,
     lat,

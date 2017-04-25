@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5002b79e-6d82-4111-9af8-92e1e2ec2d5d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/geocodeIncidents" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/graphql.config.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/models/config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/models/incident.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/deleteAllIncidents" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/importIncidents" afterPath="$PROJECT_DIR$/bin/importIncidents" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.js" afterPath="$PROJECT_DIR$/dist/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.js.map" afterPath="$PROJECT_DIR$/dist/index.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database.js" afterPath="$PROJECT_DIR$/src/database.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/log.js" afterPath="$PROJECT_DIR$/src/log.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/maps.js" afterPath="$PROJECT_DIR$/src/maps.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/incident.js" afterPath="$PROJECT_DIR$/src/models/incident.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scraper.js" afterPath="$PROJECT_DIR$/src/scraper.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -39,7 +29,7 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
+            <state relative-caret-position="-90">
               <caret line="29" column="45" lean-forward="false" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
               <folding />
             </state>
@@ -49,8 +39,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="159" column="97" lean-forward="false" selection-start-line="159" selection-start-column="97" selection-end-line="159" selection-end-column="97" />
+            <state relative-caret-position="359">
+              <caret line="108" column="44" lean-forward="true" selection-start-line="108" selection-start-column="44" selection-end-line="108" selection-end-column="44" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#26#64#0" expanded="true" />
@@ -62,19 +52,173 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10605">
-              <caret line="707" column="30" lean-forward="false" selection-start-line="707" selection-start-column="30" selection-end-line="707" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="importIncidents" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/importIncidents">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="174">
+              <caret line="657" column="72" lean-forward="false" selection-start-line="657" selection-start-column="72" selection-end-line="657" selection-end-column="72" />
+              <folding>
+                <marker date="1493158171000" expanded="true" signature="2625:34654" ph="[...]" />
+                <marker date="1493158171000" expanded="true" signature="11805:17270" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="12195:13803" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="12245:13722" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="12490:12580" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="12507:12574" ph="{&quot;parseDate&quot;: parseDate...}" />
+                <marker date="1493158171000" expanded="true" signature="12659:12982" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="12694:12975" ph="[...]" />
+                <marker date="1493158171000" expanded="true" signature="12695:12974" ph="{&quot;reportedAt&quot;: `b:nth-of-type(1) | parseDate:${date.toISOString()}`...}" />
+                <marker date="1493158171000" expanded="true" signature="13009:13140" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13067:13132" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13153:13252" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13292:13431" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13502:13560" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13755:13800" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13844:14880" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13891:14785" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="13962:14166" ph="{&quot;__VIEWSTATE&quot;: 'input[name=&quot;__VIEWSTATE&quot;]@value'...}" />
+                <marker date="1493158171000" expanded="true" signature="14217:14356" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="14283:14348" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="14369:14474" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="14541:14690" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="14831:14877" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="14919:15353" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="14966:15275" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="15024:15115" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="15198:15218" ph="{&quot;scrape&quot;: scrape...}" />
+                <marker date="1493158171000" expanded="true" signature="15304:15350" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="16526:16766" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="16537:16763" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="16811:16953" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="16990:17175" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="17263:17268" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17273:17280" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17281:17286" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17314:17363" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="17356:17361" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17366:17373" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17374:17379" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17407:17464" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="17457:17462" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17467:17475" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17476:17481" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="17530:26014" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="17594:17611" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="17993:21307" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="18039:21219" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="18437:18556" ph="{&quot;startDay&quot;: undefined...}" />
+                <marker date="1493158171000" expanded="true" signature="18567:20272" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="18588:20266" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="18886:18914" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="18972:19029" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="19098:19181" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="19196:19886" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="19398:19769" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="19566:19696" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="19702:19757" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="19895:20258" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="20187:20248" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="20285:20324" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="20333:21215" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="21259:21304" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="21370:22616" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="21417:22526" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="21519:22225" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="21672:22219" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="21797:21902" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="22238:22422" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="22291:22367" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="22373:22416" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="22431:22522" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="22567:22613" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="23794:23819" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="23921:24119" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24197:24237" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24281:24323" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24357:24561" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24429:24540" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24446:24492" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24601:24865" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24625:24863" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="24909:24994" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="25026:25097" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="25134:25371" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="25403:26005" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="25532:25695" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="25560:25589" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="26007:26012" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="26017:26025" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="26026:26031" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="26080:28933" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="26144:26161" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="27332:28920" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="27384:28833" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="27427:27588" ph="{&quot;fetchPolicy&quot;: 'network-only'...}" />
+                <marker date="1493158171000" expanded="true" signature="27626:28828" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="27649:28219" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="27697:28207" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="27743:27855" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+                <marker date="1493158171000" expanded="true" signature="27950:28153" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="28250:28822" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="28298:28810" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="28345:28518" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+                <marker date="1493158171000" expanded="true" signature="28435:28506" ph="{&quot;id&quot;: configId...}" />
+                <marker date="1493158171000" expanded="true" signature="28590:28800" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="28857:28902" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="28926:28931" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="28936:28944" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="28945:28950" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="28999:33963" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="29063:29080" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31317:33950" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31369:33863" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31382:33858" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31419:31843" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31467:31831" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31513:31631" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+                <marker date="1493158171000" expanded="true" signature="31869:32507" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31917:32495" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="31963:32040" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+                <marker date="1493158171000" expanded="true" signature="32152:32365" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="32371:32457" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="32533:33170" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="32581:33158" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="32628:32711" ph="{&quot;mutation&quot;: createMutation...}" />
+                <marker date="1493158171000" expanded="true" signature="32827:33024" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33030:33119" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33206:33852" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33254:33840" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33301:33393" ph="{&quot;mutation&quot;: saveGeocodeDataMutation...}" />
+                <marker date="1493158171000" expanded="true" signature="33509:33706" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33712:33801" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33887:33932" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="33956:33961" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="33966:33974" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="33975:33980" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34008:34061" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34054:34059" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34064:34072" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34073:34078" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34106:34160" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34153:34158" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34163:34171" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34172:34177" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34205:34255" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34248:34253" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34258:34266" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34267:34272" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34300:34354" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34347:34352" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34357:34365" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34366:34371" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34399:34447" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34440:34445" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34450:34458" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34459:34464" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34492:34551" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34544:34549" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34554:34562" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34563:34568" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34596:34642" ph="{...}" />
+                <marker date="1493158171000" expanded="true" signature="34635:34640" ph="/*...*/" />
+                <marker date="1493158171000" expanded="true" signature="34644:34652" ph="/*...*/" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,8 +226,8 @@
       <file leaf-file-name="maps.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/maps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1185">
-              <caret line="82" column="10" lean-forward="false" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
+            <state relative-caret-position="195">
+              <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -144,135 +288,98 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="incident.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="incident.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/incident.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+            <state relative-caret-position="135">
+              <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
-                <marker date="1493061457000" expanded="true" signature="156:269" ph="query...{&#10;    Incident(caseNumber: $caseNumber) {&#10;      id&#10;    }&#10;  }" />
-                <marker date="1493061457000" expanded="true" signature="162:186" ph="FindIncidentByCaseNumber...FindIncidentByCaseNumber" />
-                <marker date="1493061457000" expanded="true" signature="186:208" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="200:206" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="209:269" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="215:223" ph="Incident...Incident" />
-                <marker date="1493061457000" expanded="true" signature="215:265" ph="Incident...{&#10;      id&#10;    }" />
-                <marker date="1493061457000" expanded="true" signature="223:248" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="224:234" ph="caseNumber...caseNumber" />
-                <marker date="1493061457000" expanded="true" signature="249:265" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="257:259" ph="id...id" />
-                <marker date="1493061457000" expanded="true" signature="308:729" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
-                <marker date="1493061457000" expanded="true" signature="314:328" ph="FindUngeocoded...FindUngeocoded" />
-                <marker date="1493061457000" expanded="true" signature="329:394" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="347:352" ph="Float...Float" />
-                <marker date="1493061457000" expanded="true" signature="377:383" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="395:729" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="401:413" ph="allIncidents...allIncidents" />
-                <marker date="1493061457000" expanded="true" signature="401:725" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
-                <marker date="1493061457000" expanded="true" signature="413:644" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="421:427" ph="filter...filter" />
-                <marker date="1493061457000" expanded="true" signature="421:607" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
-                <marker date="1493061457000" expanded="true" signature="429:607" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="439:441" ph="OR...OR" />
-                <marker date="1493061457000" expanded="true" signature="439:599" ph="OR...[&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]" />
-                <marker date="1493061457000" expanded="true" signature="443:599" ph="[...]" />
-                <marker date="1493061457000" expanded="true" signature="455:474" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="457:460" ph="lat...lat" />
-                <marker date="1493061457000" expanded="true" signature="486:505" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="488:491" ph="lng...lng" />
-                <marker date="1493061457000" expanded="true" signature="517:553" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="519:538" ph="prettyStreetAddress...prettyStreetAddress" />
-                <marker date="1493061457000" expanded="true" signature="565:589" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="567:574" ph="zipCode...zipCode" />
-                <marker date="1493061457000" expanded="true" signature="615:622" ph="orderBy...orderBy" />
-                <marker date="1493061457000" expanded="true" signature="645:725" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="653:655" ph="id...id" />
-                <marker date="1493061457000" expanded="true" signature="663:676" ph="streetAddress...streetAddress" />
-                <marker date="1493061457000" expanded="true" signature="684:688" ph="city...city" />
-                <marker date="1493061457000" expanded="true" signature="696:706" ph="reportedAt...reportedAt" />
-                <marker date="1493061457000" expanded="true" signature="714:719" ph="state...state" />
-                <marker date="1493061457000" expanded="true" signature="769:1172" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
-                <marker date="1493061457000" expanded="true" signature="775:789" ph="FindUngeocoded...FindUngeocoded" />
-                <marker date="1493061457000" expanded="true" signature="790:806" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="799:805" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="807:1172" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="816:828" ph="allIncidents...allIncidents" />
-                <marker date="1493061457000" expanded="true" signature="816:1165" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
-                <marker date="1493061457000" expanded="true" signature="828:1087" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="839:845" ph="filter...filter" />
-                <marker date="1493061457000" expanded="true" signature="839:1020" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
-                <marker date="1493061457000" expanded="true" signature="847:1020" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="860:862" ph="OR...OR" />
-                <marker date="1493061457000" expanded="true" signature="860:1009" ph="OR...[&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]" />
-                <marker date="1493061457000" expanded="true" signature="864:1009" ph="[...]" />
-                <marker date="1493061457000" expanded="true" signature="879:892" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="881:884" ph="lat...lat" />
-                <marker date="1493061457000" expanded="true" signature="907:920" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="909:912" ph="lng...lng" />
-                <marker date="1493061457000" expanded="true" signature="935:964" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="937:956" ph="prettyStreetAddress...prettyStreetAddress" />
-                <marker date="1493061457000" expanded="true" signature="979:996" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="981:988" ph="zipCode...zipCode" />
-                <marker date="1493061457000" expanded="true" signature="1031:1038" ph="orderBy...orderBy" />
-                <marker date="1493061457000" expanded="true" signature="1065:1070" ph="after...after" />
-                <marker date="1493061457000" expanded="true" signature="1088:1165" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="1099:1101" ph="id...id" />
-                <marker date="1493061457000" expanded="true" signature="1112:1125" ph="streetAddress...streetAddress" />
-                <marker date="1493061457000" expanded="true" signature="1136:1140" ph="city...city" />
-                <marker date="1493061457000" expanded="true" signature="1151:1156" ph="state...state" />
-                <marker date="1493061457000" expanded="true" signature="1209:1642" ph="mutation...{&#10;    createIncident(&#10;      caseNumber: $caseNumber&#10;      description: $description&#10;      offense: $offense&#10;      reportedAt: $reportedAt&#10;      streetAddress: $streetAddress&#10;    ) {&#10;      id&#10;    }&#10;  }" />
-                <marker date="1493061457000" expanded="true" signature="1218:1232" ph="CreateIncident...CreateIncident" />
-                <marker date="1493061457000" expanded="true" signature="1232:1403" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="1251:1257" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1277:1283" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1298:1304" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1323:1331" ph="DateTime...DateTime" />
-                <marker date="1493061457000" expanded="true" signature="1353:1359" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1372:1378" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1392:1398" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1404:1642" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="1410:1424" ph="createIncident...createIncident" />
-                <marker date="1493061457000" expanded="true" signature="1410:1638" ph="createIncident...{&#10;      id&#10;    }" />
-                <marker date="1493061457000" expanded="true" signature="1424:1621" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="1432:1442" ph="caseNumber...caseNumber" />
-                <marker date="1493061457000" expanded="true" signature="1462:1473" ph="description...description" />
-                <marker date="1493061457000" expanded="true" signature="1494:1501" ph="offense...offense" />
-                <marker date="1493061457000" expanded="true" signature="1518:1528" ph="reportedAt...reportedAt" />
-                <marker date="1493061457000" expanded="true" signature="1548:1561" ph="streetAddress...streetAddress" />
-                <marker date="1493061457000" expanded="true" signature="1584:1588" ph="city...city" />
-                <marker date="1493061457000" expanded="true" signature="1602:1607" ph="state...state" />
-                <marker date="1493061457000" expanded="true" signature="1622:1638" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="1630:1632" ph="id...id" />
-                <marker date="1493061457000" expanded="true" signature="1676:1974" ph="mutation...{&#10;    updateIncident(&#10;      id: $id&#10;      lat: $lat&#10;      lng: $lng&#10;      prettyStreetAddress: $prettyStreetAddress&#10;      zipCode: $zipCode&#10;    )&#10;  }" />
-                <marker date="1493061457000" expanded="true" signature="1685:1699" ph="UpdateIncident...UpdateIncident" />
-                <marker date="1493061457000" expanded="true" signature="1699:1807" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="1710:1712" ph="ID...ID" />
-                <marker date="1493061457000" expanded="true" signature="1724:1729" ph="Float...Float" />
-                <marker date="1493061457000" expanded="true" signature="1741:1746" ph="Float...Float" />
-                <marker date="1493061457000" expanded="true" signature="1774:1780" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1796:1802" ph="String...String" />
-                <marker date="1493061457000" expanded="true" signature="1808:1974" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="1814:1828" ph="updateIncident...updateIncident" />
-                <marker date="1493061457000" expanded="true" signature="1814:1970" ph="updateIncident...{&#10;      &#10;    }" />
-                <marker date="1493061457000" expanded="true" signature="1828:1953" ph="(...)" />
-                <marker date="1493061457000" expanded="true" signature="1836:1838" ph="id...id" />
-                <marker date="1493061457000" expanded="true" signature="1850:1853" ph="lat...lat" />
-                <marker date="1493061457000" expanded="true" signature="1866:1869" ph="lng...lng" />
-                <marker date="1493061457000" expanded="true" signature="1882:1901" ph="prettyStreetAddress...prettyStreetAddress" />
-                <marker date="1493061457000" expanded="true" signature="1930:1937" ph="zipCode...zipCode" />
-                <marker date="1493061457000" expanded="true" signature="1954:1970" ph="{...}" />
-                <marker date="1493061457000" expanded="true" signature="1962:1964" ph="id...id" />
+                <marker date="1493093163000" expanded="true" signature="156:269" ph="query...{&#10;    Incident(caseNumber: $caseNumber) {&#10;      id&#10;    }&#10;  }" />
+                <marker date="1493093163000" expanded="true" signature="162:186" ph="FindIncidentByCaseNumber...FindIncidentByCaseNumber" />
+                <marker date="1493093163000" expanded="true" signature="186:208" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="200:206" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="209:269" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="215:223" ph="Incident...Incident" />
+                <marker date="1493093163000" expanded="true" signature="215:265" ph="Incident...{&#10;      id&#10;    }" />
+                <marker date="1493093163000" expanded="true" signature="223:248" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="224:234" ph="caseNumber...caseNumber" />
+                <marker date="1493093163000" expanded="true" signature="249:265" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="257:259" ph="id...id" />
+                <marker date="1493093163000" expanded="true" signature="308:569" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
+                <marker date="1493093163000" expanded="true" signature="314:328" ph="FindUngeocoded...FindUngeocoded" />
+                <marker date="1493093163000" expanded="true" signature="329:367" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="349:356" ph="Boolean...Boolean" />
+                <marker date="1493093163000" expanded="true" signature="368:569" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="374:386" ph="allIncidents...allIncidents" />
+                <marker date="1493093163000" expanded="true" signature="374:565" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
+                <marker date="1493093163000" expanded="true" signature="386:484" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="394:400" ph="filter...filter" />
+                <marker date="1493093163000" expanded="true" signature="394:447" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
+                <marker date="1493093163000" expanded="true" signature="402:447" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="412:425" ph="geocodeFailed...geocodeFailed" />
+                <marker date="1493093163000" expanded="true" signature="455:462" ph="orderBy...orderBy" />
+                <marker date="1493093163000" expanded="true" signature="485:565" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="493:495" ph="id...id" />
+                <marker date="1493093163000" expanded="true" signature="503:516" ph="streetAddress...streetAddress" />
+                <marker date="1493093163000" expanded="true" signature="524:528" ph="city...city" />
+                <marker date="1493093163000" expanded="true" signature="536:546" ph="reportedAt...reportedAt" />
+                <marker date="1493093163000" expanded="true" signature="554:559" ph="state...state" />
+                <marker date="1493093163000" expanded="true" signature="603:1036" ph="mutation...{&#10;    createIncident(&#10;      caseNumber: $caseNumber&#10;      description: $description&#10;      offense: $offense&#10;      reportedAt: $reportedAt&#10;      streetAddress: $streetAddress&#10;    ) {&#10;      id&#10;    }&#10;  }" />
+                <marker date="1493093163000" expanded="true" signature="612:626" ph="CreateIncident...CreateIncident" />
+                <marker date="1493093163000" expanded="true" signature="626:797" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="645:651" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="671:677" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="692:698" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="717:725" ph="DateTime...DateTime" />
+                <marker date="1493093163000" expanded="true" signature="747:753" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="766:772" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="786:792" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="798:1036" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="804:818" ph="createIncident...createIncident" />
+                <marker date="1493093163000" expanded="true" signature="804:1032" ph="createIncident...{&#10;      id&#10;    }" />
+                <marker date="1493093163000" expanded="true" signature="818:1015" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="826:836" ph="caseNumber...caseNumber" />
+                <marker date="1493093163000" expanded="true" signature="856:867" ph="description...description" />
+                <marker date="1493093163000" expanded="true" signature="888:895" ph="offense...offense" />
+                <marker date="1493093163000" expanded="true" signature="912:922" ph="reportedAt...reportedAt" />
+                <marker date="1493093163000" expanded="true" signature="942:955" ph="streetAddress...streetAddress" />
+                <marker date="1493093163000" expanded="true" signature="978:982" ph="city...city" />
+                <marker date="1493093163000" expanded="true" signature="996:1001" ph="state...state" />
+                <marker date="1493093163000" expanded="true" signature="1016:1032" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="1024:1026" ph="id...id" />
+                <marker date="1493093163000" expanded="true" signature="1079:1439" ph="mutation...{&#10;    updateIncident(&#10;      id: $id&#10;      lat: $lat&#10;      lng: $lng&#10;      prettyStreetAddress: $prettyStreetAddress&#10;      zipCode: $zipCode&#10;    )&#10;  }" />
+                <marker date="1493093163000" expanded="true" signature="1088:1103" ph="SaveGeocodeData...SaveGeocodeData" />
+                <marker date="1493093163000" expanded="true" signature="1089:1103" ph="UpdateIncident...UpdateIncident" />
+                <marker date="1493093163000" expanded="true" signature="1103:1236" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="1125:1132" ph="Boolean...Boolean" />
+                <marker date="1493093163000" expanded="true" signature="1143:1145" ph="ID...ID" />
+                <marker date="1493093163000" expanded="true" signature="1157:1162" ph="Float...Float" />
+                <marker date="1493093163000" expanded="true" signature="1173:1178" ph="Float...Float" />
+                <marker date="1493093163000" expanded="true" signature="1205:1211" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="1226:1232" ph="String...String" />
+                <marker date="1493093163000" expanded="true" signature="1237:1439" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="1243:1257" ph="updateIncident...updateIncident" />
+                <marker date="1493093163000" expanded="true" signature="1243:1435" ph="updateIncident...{&#10;      &#10;    }" />
+                <marker date="1493093163000" expanded="true" signature="1257:1418" ph="(...)" />
+                <marker date="1493093163000" expanded="true" signature="1265:1278" ph="geocodeFailed...geocodeFailed" />
+                <marker date="1493093163000" expanded="true" signature="1301:1303" ph="id...id" />
+                <marker date="1493093163000" expanded="true" signature="1315:1318" ph="lat...lat" />
+                <marker date="1493093163000" expanded="true" signature="1331:1334" ph="lng...lng" />
+                <marker date="1493093163000" expanded="true" signature="1347:1366" ph="prettyStreetAddress...prettyStreetAddress" />
+                <marker date="1493093163000" expanded="true" signature="1395:1402" ph="zipCode...zipCode" />
+                <marker date="1493093163000" expanded="true" signature="1419:1435" ph="{...}" />
+                <marker date="1493093163000" expanded="true" signature="1427:1429" ph="id...id" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scraper.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scraper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/scraper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="57" column="4" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+            <state relative-caret-position="159">
+              <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -284,7 +391,7 @@
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="23" lean-forward="false" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+              <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -307,7 +414,6 @@
       <find>DEFAULT</find>
       <find>stopped</find>
       <find>currentState</find>
-      <find>console</find>
       <find>getOnT</find>
       <find>getOnTimeout</find>
       <find>getDelay</find>
@@ -327,6 +433,7 @@
       <find>$input</find>
       <find>winston</find>
       <find>logImport</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
@@ -370,17 +477,17 @@
         <option value="$PROJECT_DIR$/src/log.js" />
         <option value="$PROJECT_DIR$/bin/scrapeIncidents" />
         <option value="$PROJECT_DIR$/src/graphql-crud.js" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/graphql.config.json" />
         <option value="$PROJECT_DIR$/src/models/importerLog.js" />
         <option value="$PROJECT_DIR$/src/database.js" />
         <option value="$PROJECT_DIR$/src/models/config.js" />
-        <option value="$PROJECT_DIR$/src/scraper.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/dist/index.js" />
-        <option value="$PROJECT_DIR$/src/maps.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/models/incident.js" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/src/maps.js" />
+        <option value="$PROJECT_DIR$/src/scraper.js" />
       </list>
     </option>
   </component>
@@ -615,12 +722,12 @@
       <workItem from="1491136488037" duration="1523000" />
       <workItem from="1491534340936" duration="124557000" />
       <workItem from="1492889021703" duration="18070000" />
-      <workItem from="1493060453101" duration="1181000" />
+      <workItem from="1493060453101" duration="11017000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195037000" />
+    <option name="totallyTimeSpent" value="204873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="975" extended-state="0" />
@@ -630,6 +737,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5117541" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="GraphQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.4954792" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.4978903" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -642,7 +750,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.4978903" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -739,118 +846,81 @@
           <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
-            <marker date="1493061457000" expanded="true" signature="156:269" ph="query...{&#10;    Incident(caseNumber: $caseNumber) {&#10;      id&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="162:186" ph="FindIncidentByCaseNumber...FindIncidentByCaseNumber" />
-            <marker date="1493061457000" expanded="true" signature="186:208" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="200:206" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="209:269" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="215:223" ph="Incident...Incident" />
-            <marker date="1493061457000" expanded="true" signature="215:265" ph="Incident...{&#10;      id&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="223:248" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="224:234" ph="caseNumber...caseNumber" />
-            <marker date="1493061457000" expanded="true" signature="249:265" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="257:259" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="308:729" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="314:328" ph="FindUngeocoded...FindUngeocoded" />
-            <marker date="1493061457000" expanded="true" signature="329:394" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="347:352" ph="Float...Float" />
-            <marker date="1493061457000" expanded="true" signature="377:383" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="395:729" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="401:413" ph="allIncidents...allIncidents" />
-            <marker date="1493061457000" expanded="true" signature="401:725" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="413:644" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="421:427" ph="filter...filter" />
-            <marker date="1493061457000" expanded="true" signature="421:607" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
-            <marker date="1493061457000" expanded="true" signature="429:607" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="439:441" ph="OR...OR" />
-            <marker date="1493061457000" expanded="true" signature="439:599" ph="OR...[&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]" />
-            <marker date="1493061457000" expanded="true" signature="443:599" ph="[...]" />
-            <marker date="1493061457000" expanded="true" signature="455:474" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="457:460" ph="lat...lat" />
-            <marker date="1493061457000" expanded="true" signature="486:505" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="488:491" ph="lng...lng" />
-            <marker date="1493061457000" expanded="true" signature="517:553" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="519:538" ph="prettyStreetAddress...prettyStreetAddress" />
-            <marker date="1493061457000" expanded="true" signature="565:589" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="567:574" ph="zipCode...zipCode" />
-            <marker date="1493061457000" expanded="true" signature="615:622" ph="orderBy...orderBy" />
-            <marker date="1493061457000" expanded="true" signature="645:725" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="653:655" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="663:676" ph="streetAddress...streetAddress" />
-            <marker date="1493061457000" expanded="true" signature="684:688" ph="city...city" />
-            <marker date="1493061457000" expanded="true" signature="696:706" ph="reportedAt...reportedAt" />
-            <marker date="1493061457000" expanded="true" signature="714:719" ph="state...state" />
-            <marker date="1493061457000" expanded="true" signature="769:1172" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="775:789" ph="FindUngeocoded...FindUngeocoded" />
-            <marker date="1493061457000" expanded="true" signature="790:806" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="799:805" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="807:1172" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="816:828" ph="allIncidents...allIncidents" />
-            <marker date="1493061457000" expanded="true" signature="816:1165" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="828:1087" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="839:845" ph="filter...filter" />
-            <marker date="1493061457000" expanded="true" signature="839:1020" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
-            <marker date="1493061457000" expanded="true" signature="847:1020" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="860:862" ph="OR...OR" />
-            <marker date="1493061457000" expanded="true" signature="860:1009" ph="OR...[&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]" />
-            <marker date="1493061457000" expanded="true" signature="864:1009" ph="[...]" />
-            <marker date="1493061457000" expanded="true" signature="879:892" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="881:884" ph="lat...lat" />
-            <marker date="1493061457000" expanded="true" signature="907:920" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="909:912" ph="lng...lng" />
-            <marker date="1493061457000" expanded="true" signature="935:964" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="937:956" ph="prettyStreetAddress...prettyStreetAddress" />
-            <marker date="1493061457000" expanded="true" signature="979:996" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="981:988" ph="zipCode...zipCode" />
-            <marker date="1493061457000" expanded="true" signature="1031:1038" ph="orderBy...orderBy" />
-            <marker date="1493061457000" expanded="true" signature="1065:1070" ph="after...after" />
-            <marker date="1493061457000" expanded="true" signature="1088:1165" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1099:1101" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="1112:1125" ph="streetAddress...streetAddress" />
-            <marker date="1493061457000" expanded="true" signature="1136:1140" ph="city...city" />
-            <marker date="1493061457000" expanded="true" signature="1151:1156" ph="state...state" />
-            <marker date="1493061457000" expanded="true" signature="1209:1642" ph="mutation...{&#10;    createIncident(&#10;      caseNumber: $caseNumber&#10;      description: $description&#10;      offense: $offense&#10;      reportedAt: $reportedAt&#10;      streetAddress: $streetAddress&#10;    ) {&#10;      id&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="1218:1232" ph="CreateIncident...CreateIncident" />
-            <marker date="1493061457000" expanded="true" signature="1232:1403" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1251:1257" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1277:1283" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1298:1304" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1323:1331" ph="DateTime...DateTime" />
-            <marker date="1493061457000" expanded="true" signature="1353:1359" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1372:1378" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1392:1398" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1404:1642" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1410:1424" ph="createIncident...createIncident" />
-            <marker date="1493061457000" expanded="true" signature="1410:1638" ph="createIncident...{&#10;      id&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="1424:1621" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1432:1442" ph="caseNumber...caseNumber" />
-            <marker date="1493061457000" expanded="true" signature="1462:1473" ph="description...description" />
-            <marker date="1493061457000" expanded="true" signature="1494:1501" ph="offense...offense" />
-            <marker date="1493061457000" expanded="true" signature="1518:1528" ph="reportedAt...reportedAt" />
-            <marker date="1493061457000" expanded="true" signature="1548:1561" ph="streetAddress...streetAddress" />
-            <marker date="1493061457000" expanded="true" signature="1584:1588" ph="city...city" />
-            <marker date="1493061457000" expanded="true" signature="1602:1607" ph="state...state" />
-            <marker date="1493061457000" expanded="true" signature="1622:1638" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1630:1632" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="1676:1974" ph="mutation...{&#10;    updateIncident(&#10;      id: $id&#10;      lat: $lat&#10;      lng: $lng&#10;      prettyStreetAddress: $prettyStreetAddress&#10;      zipCode: $zipCode&#10;    )&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="1685:1699" ph="UpdateIncident...UpdateIncident" />
-            <marker date="1493061457000" expanded="true" signature="1699:1807" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1710:1712" ph="ID...ID" />
-            <marker date="1493061457000" expanded="true" signature="1724:1729" ph="Float...Float" />
-            <marker date="1493061457000" expanded="true" signature="1741:1746" ph="Float...Float" />
-            <marker date="1493061457000" expanded="true" signature="1774:1780" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1796:1802" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1808:1974" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1814:1828" ph="updateIncident...updateIncident" />
-            <marker date="1493061457000" expanded="true" signature="1814:1970" ph="updateIncident...{&#10;      &#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="1828:1953" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1836:1838" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="1850:1853" ph="lat...lat" />
-            <marker date="1493061457000" expanded="true" signature="1866:1869" ph="lng...lng" />
-            <marker date="1493061457000" expanded="true" signature="1882:1901" ph="prettyStreetAddress...prettyStreetAddress" />
-            <marker date="1493061457000" expanded="true" signature="1930:1937" ph="zipCode...zipCode" />
-            <marker date="1493061457000" expanded="true" signature="1954:1970" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1962:1964" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="156:269" ph="query...{&#10;    Incident(caseNumber: $caseNumber) {&#10;      id&#10;    }&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="162:186" ph="FindIncidentByCaseNumber...FindIncidentByCaseNumber" />
+            <marker date="1493093163000" expanded="true" signature="186:208" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="200:206" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="209:269" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="215:223" ph="Incident...Incident" />
+            <marker date="1493093163000" expanded="true" signature="215:265" ph="Incident...{&#10;      id&#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="223:248" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="224:234" ph="caseNumber...caseNumber" />
+            <marker date="1493093163000" expanded="true" signature="249:265" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="257:259" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="308:569" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="314:328" ph="FindUngeocoded...FindUngeocoded" />
+            <marker date="1493093163000" expanded="true" signature="329:367" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="349:356" ph="Boolean...Boolean" />
+            <marker date="1493093163000" expanded="true" signature="368:569" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="374:386" ph="allIncidents...allIncidents" />
+            <marker date="1493093163000" expanded="true" signature="374:565" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="386:484" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="394:400" ph="filter...filter" />
+            <marker date="1493093163000" expanded="true" signature="394:447" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
+            <marker date="1493093163000" expanded="true" signature="402:447" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="412:425" ph="geocodeFailed...geocodeFailed" />
+            <marker date="1493093163000" expanded="true" signature="455:462" ph="orderBy...orderBy" />
+            <marker date="1493093163000" expanded="true" signature="485:565" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="493:495" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="503:516" ph="streetAddress...streetAddress" />
+            <marker date="1493093163000" expanded="true" signature="524:528" ph="city...city" />
+            <marker date="1493093163000" expanded="true" signature="536:546" ph="reportedAt...reportedAt" />
+            <marker date="1493093163000" expanded="true" signature="554:559" ph="state...state" />
+            <marker date="1493093163000" expanded="true" signature="603:1036" ph="mutation...{&#10;    createIncident(&#10;      caseNumber: $caseNumber&#10;      description: $description&#10;      offense: $offense&#10;      reportedAt: $reportedAt&#10;      streetAddress: $streetAddress&#10;    ) {&#10;      id&#10;    }&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="612:626" ph="CreateIncident...CreateIncident" />
+            <marker date="1493093163000" expanded="true" signature="626:797" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="645:651" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="671:677" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="692:698" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="717:725" ph="DateTime...DateTime" />
+            <marker date="1493093163000" expanded="true" signature="747:753" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="766:772" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="786:792" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="798:1036" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="804:818" ph="createIncident...createIncident" />
+            <marker date="1493093163000" expanded="true" signature="804:1032" ph="createIncident...{&#10;      id&#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="818:1015" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="826:836" ph="caseNumber...caseNumber" />
+            <marker date="1493093163000" expanded="true" signature="856:867" ph="description...description" />
+            <marker date="1493093163000" expanded="true" signature="888:895" ph="offense...offense" />
+            <marker date="1493093163000" expanded="true" signature="912:922" ph="reportedAt...reportedAt" />
+            <marker date="1493093163000" expanded="true" signature="942:955" ph="streetAddress...streetAddress" />
+            <marker date="1493093163000" expanded="true" signature="978:982" ph="city...city" />
+            <marker date="1493093163000" expanded="true" signature="996:1001" ph="state...state" />
+            <marker date="1493093163000" expanded="true" signature="1016:1032" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="1024:1026" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="1079:1439" ph="mutation...{&#10;    updateIncident(&#10;      id: $id&#10;      lat: $lat&#10;      lng: $lng&#10;      prettyStreetAddress: $prettyStreetAddress&#10;      zipCode: $zipCode&#10;    )&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="1088:1103" ph="SaveGeocodeData...SaveGeocodeData" />
+            <marker date="1493093163000" expanded="true" signature="1089:1103" ph="UpdateIncident...UpdateIncident" />
+            <marker date="1493093163000" expanded="true" signature="1103:1236" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="1125:1132" ph="Boolean...Boolean" />
+            <marker date="1493093163000" expanded="true" signature="1143:1145" ph="ID...ID" />
+            <marker date="1493093163000" expanded="true" signature="1157:1162" ph="Float...Float" />
+            <marker date="1493093163000" expanded="true" signature="1173:1178" ph="Float...Float" />
+            <marker date="1493093163000" expanded="true" signature="1205:1211" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="1226:1232" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="1237:1439" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="1243:1257" ph="updateIncident...updateIncident" />
+            <marker date="1493093163000" expanded="true" signature="1243:1435" ph="updateIncident...{&#10;      &#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="1257:1418" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="1265:1278" ph="geocodeFailed...geocodeFailed" />
+            <marker date="1493093163000" expanded="true" signature="1301:1303" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="1315:1318" ph="lat...lat" />
+            <marker date="1493093163000" expanded="true" signature="1331:1334" ph="lng...lng" />
+            <marker date="1493093163000" expanded="true" signature="1347:1366" ph="prettyStreetAddress...prettyStreetAddress" />
+            <marker date="1493093163000" expanded="true" signature="1395:1402" ph="zipCode...zipCode" />
+            <marker date="1493093163000" expanded="true" signature="1419:1435" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="1427:1429" ph="id...id" />
           </folding>
         </state>
       </provider>
@@ -1010,48 +1080,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/importerLog.js" />
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="45" lean-forward="false" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="159" column="97" lean-forward="false" selection-start-line="159" selection-start-column="97" selection-end-line="159" selection-end-column="97" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#26#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10605">
-          <caret line="707" column="30" lean-forward="false" selection-start-line="707" selection-start-column="30" selection-end-line="707" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/importIncidents">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/maps.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="82" column="10" lean-forward="false" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1104,12 +1137,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scraper.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="57" column="4" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+        <state relative-caret-position="-90">
+          <caret line="29" column="45" lean-forward="false" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/incident.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
+            <marker date="1493093163000" expanded="true" signature="156:269" ph="query...{&#10;    Incident(caseNumber: $caseNumber) {&#10;      id&#10;    }&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="162:186" ph="FindIncidentByCaseNumber...FindIncidentByCaseNumber" />
+            <marker date="1493093163000" expanded="true" signature="186:208" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="200:206" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="209:269" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="215:223" ph="Incident...Incident" />
+            <marker date="1493093163000" expanded="true" signature="215:265" ph="Incident...{&#10;      id&#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="223:248" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="224:234" ph="caseNumber...caseNumber" />
+            <marker date="1493093163000" expanded="true" signature="249:265" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="257:259" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="308:569" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="314:328" ph="FindUngeocoded...FindUngeocoded" />
+            <marker date="1493093163000" expanded="true" signature="329:367" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="349:356" ph="Boolean...Boolean" />
+            <marker date="1493093163000" expanded="true" signature="368:569" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="374:386" ph="allIncidents...allIncidents" />
+            <marker date="1493093163000" expanded="true" signature="374:565" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="386:484" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="394:400" ph="filter...filter" />
+            <marker date="1493093163000" expanded="true" signature="394:447" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
+            <marker date="1493093163000" expanded="true" signature="402:447" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="412:425" ph="geocodeFailed...geocodeFailed" />
+            <marker date="1493093163000" expanded="true" signature="455:462" ph="orderBy...orderBy" />
+            <marker date="1493093163000" expanded="true" signature="485:565" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="493:495" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="503:516" ph="streetAddress...streetAddress" />
+            <marker date="1493093163000" expanded="true" signature="524:528" ph="city...city" />
+            <marker date="1493093163000" expanded="true" signature="536:546" ph="reportedAt...reportedAt" />
+            <marker date="1493093163000" expanded="true" signature="554:559" ph="state...state" />
+            <marker date="1493093163000" expanded="true" signature="603:1036" ph="mutation...{&#10;    createIncident(&#10;      caseNumber: $caseNumber&#10;      description: $description&#10;      offense: $offense&#10;      reportedAt: $reportedAt&#10;      streetAddress: $streetAddress&#10;    ) {&#10;      id&#10;    }&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="612:626" ph="CreateIncident...CreateIncident" />
+            <marker date="1493093163000" expanded="true" signature="626:797" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="645:651" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="671:677" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="692:698" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="717:725" ph="DateTime...DateTime" />
+            <marker date="1493093163000" expanded="true" signature="747:753" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="766:772" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="786:792" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="798:1036" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="804:818" ph="createIncident...createIncident" />
+            <marker date="1493093163000" expanded="true" signature="804:1032" ph="createIncident...{&#10;      id&#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="818:1015" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="826:836" ph="caseNumber...caseNumber" />
+            <marker date="1493093163000" expanded="true" signature="856:867" ph="description...description" />
+            <marker date="1493093163000" expanded="true" signature="888:895" ph="offense...offense" />
+            <marker date="1493093163000" expanded="true" signature="912:922" ph="reportedAt...reportedAt" />
+            <marker date="1493093163000" expanded="true" signature="942:955" ph="streetAddress...streetAddress" />
+            <marker date="1493093163000" expanded="true" signature="978:982" ph="city...city" />
+            <marker date="1493093163000" expanded="true" signature="996:1001" ph="state...state" />
+            <marker date="1493093163000" expanded="true" signature="1016:1032" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="1024:1026" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="1079:1439" ph="mutation...{&#10;    updateIncident(&#10;      id: $id&#10;      lat: $lat&#10;      lng: $lng&#10;      prettyStreetAddress: $prettyStreetAddress&#10;      zipCode: $zipCode&#10;    )&#10;  }" />
+            <marker date="1493093163000" expanded="true" signature="1088:1103" ph="SaveGeocodeData...SaveGeocodeData" />
+            <marker date="1493093163000" expanded="true" signature="1089:1103" ph="UpdateIncident...UpdateIncident" />
+            <marker date="1493093163000" expanded="true" signature="1103:1236" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="1125:1132" ph="Boolean...Boolean" />
+            <marker date="1493093163000" expanded="true" signature="1143:1145" ph="ID...ID" />
+            <marker date="1493093163000" expanded="true" signature="1157:1162" ph="Float...Float" />
+            <marker date="1493093163000" expanded="true" signature="1173:1178" ph="Float...Float" />
+            <marker date="1493093163000" expanded="true" signature="1205:1211" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="1226:1232" ph="String...String" />
+            <marker date="1493093163000" expanded="true" signature="1237:1439" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="1243:1257" ph="updateIncident...updateIncident" />
+            <marker date="1493093163000" expanded="true" signature="1243:1435" ph="updateIncident...{&#10;      &#10;    }" />
+            <marker date="1493093163000" expanded="true" signature="1257:1418" ph="(...)" />
+            <marker date="1493093163000" expanded="true" signature="1265:1278" ph="geocodeFailed...geocodeFailed" />
+            <marker date="1493093163000" expanded="true" signature="1301:1303" ph="id...id" />
+            <marker date="1493093163000" expanded="true" signature="1315:1318" ph="lat...lat" />
+            <marker date="1493093163000" expanded="true" signature="1331:1334" ph="lng...lng" />
+            <marker date="1493093163000" expanded="true" signature="1347:1366" ph="prettyStreetAddress...prettyStreetAddress" />
+            <marker date="1493093163000" expanded="true" signature="1395:1402" ph="zipCode...zipCode" />
+            <marker date="1493093163000" expanded="true" signature="1419:1435" ph="{...}" />
+            <marker date="1493093163000" expanded="true" signature="1427:1429" ph="id...id" />
           </folding>
         </state>
       </provider>
@@ -1117,129 +1233,210 @@
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="23" lean-forward="false" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/incident.js">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+        <state relative-caret-position="359">
+          <caret line="108" column="44" lean-forward="true" selection-start-line="108" selection-start-column="44" selection-end-line="108" selection-end-column="44" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <marker date="1493061457000" expanded="true" signature="156:269" ph="query...{&#10;    Incident(caseNumber: $caseNumber) {&#10;      id&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="162:186" ph="FindIncidentByCaseNumber...FindIncidentByCaseNumber" />
-            <marker date="1493061457000" expanded="true" signature="186:208" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="200:206" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="209:269" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="215:223" ph="Incident...Incident" />
-            <marker date="1493061457000" expanded="true" signature="215:265" ph="Incident...{&#10;      id&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="223:248" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="224:234" ph="caseNumber...caseNumber" />
-            <marker date="1493061457000" expanded="true" signature="249:265" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="257:259" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="308:729" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="314:328" ph="FindUngeocoded...FindUngeocoded" />
-            <marker date="1493061457000" expanded="true" signature="329:394" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="347:352" ph="Float...Float" />
-            <marker date="1493061457000" expanded="true" signature="377:383" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="395:729" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="401:413" ph="allIncidents...allIncidents" />
-            <marker date="1493061457000" expanded="true" signature="401:725" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="413:644" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="421:427" ph="filter...filter" />
-            <marker date="1493061457000" expanded="true" signature="421:607" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
-            <marker date="1493061457000" expanded="true" signature="429:607" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="439:441" ph="OR...OR" />
-            <marker date="1493061457000" expanded="true" signature="439:599" ph="OR...[&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]" />
-            <marker date="1493061457000" expanded="true" signature="443:599" ph="[...]" />
-            <marker date="1493061457000" expanded="true" signature="455:474" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="457:460" ph="lat...lat" />
-            <marker date="1493061457000" expanded="true" signature="486:505" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="488:491" ph="lng...lng" />
-            <marker date="1493061457000" expanded="true" signature="517:553" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="519:538" ph="prettyStreetAddress...prettyStreetAddress" />
-            <marker date="1493061457000" expanded="true" signature="565:589" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="567:574" ph="zipCode...zipCode" />
-            <marker date="1493061457000" expanded="true" signature="615:622" ph="orderBy...orderBy" />
-            <marker date="1493061457000" expanded="true" signature="645:725" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="653:655" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="663:676" ph="streetAddress...streetAddress" />
-            <marker date="1493061457000" expanded="true" signature="684:688" ph="city...city" />
-            <marker date="1493061457000" expanded="true" signature="696:706" ph="reportedAt...reportedAt" />
-            <marker date="1493061457000" expanded="true" signature="714:719" ph="state...state" />
-            <marker date="1493061457000" expanded="true" signature="769:1172" ph="query...{&#10;    allIncidents(&#10;      filter: {&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      },&#10;      orderBy: reportedAt_ASC,&#10;      after: $after&#10;    ) {&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="775:789" ph="FindUngeocoded...FindUngeocoded" />
-            <marker date="1493061457000" expanded="true" signature="790:806" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="799:805" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="807:1172" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="816:828" ph="allIncidents...allIncidents" />
-            <marker date="1493061457000" expanded="true" signature="816:1165" ph="allIncidents...{&#10;      id,&#10;      streetAddress,&#10;      city,&#10;      state&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="828:1087" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="839:845" ph="filter...filter" />
-            <marker date="1493061457000" expanded="true" signature="839:1020" ph="filter...{&#10;        OR: [&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]&#10;      }" />
-            <marker date="1493061457000" expanded="true" signature="847:1020" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="860:862" ph="OR...OR" />
-            <marker date="1493061457000" expanded="true" signature="860:1009" ph="OR...[&#10;          { lat: null },&#10;          { lng: null },&#10;          { prettyStreetAddress: null },&#10;          { zipCode: null }&#10;        ]" />
-            <marker date="1493061457000" expanded="true" signature="864:1009" ph="[...]" />
-            <marker date="1493061457000" expanded="true" signature="879:892" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="881:884" ph="lat...lat" />
-            <marker date="1493061457000" expanded="true" signature="907:920" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="909:912" ph="lng...lng" />
-            <marker date="1493061457000" expanded="true" signature="935:964" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="937:956" ph="prettyStreetAddress...prettyStreetAddress" />
-            <marker date="1493061457000" expanded="true" signature="979:996" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="981:988" ph="zipCode...zipCode" />
-            <marker date="1493061457000" expanded="true" signature="1031:1038" ph="orderBy...orderBy" />
-            <marker date="1493061457000" expanded="true" signature="1065:1070" ph="after...after" />
-            <marker date="1493061457000" expanded="true" signature="1088:1165" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1099:1101" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="1112:1125" ph="streetAddress...streetAddress" />
-            <marker date="1493061457000" expanded="true" signature="1136:1140" ph="city...city" />
-            <marker date="1493061457000" expanded="true" signature="1151:1156" ph="state...state" />
-            <marker date="1493061457000" expanded="true" signature="1209:1642" ph="mutation...{&#10;    createIncident(&#10;      caseNumber: $caseNumber&#10;      description: $description&#10;      offense: $offense&#10;      reportedAt: $reportedAt&#10;      streetAddress: $streetAddress&#10;    ) {&#10;      id&#10;    }&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="1218:1232" ph="CreateIncident...CreateIncident" />
-            <marker date="1493061457000" expanded="true" signature="1232:1403" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1251:1257" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1277:1283" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1298:1304" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1323:1331" ph="DateTime...DateTime" />
-            <marker date="1493061457000" expanded="true" signature="1353:1359" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1372:1378" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1392:1398" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1404:1642" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1410:1424" ph="createIncident...createIncident" />
-            <marker date="1493061457000" expanded="true" signature="1410:1638" ph="createIncident...{&#10;      id&#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="1424:1621" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1432:1442" ph="caseNumber...caseNumber" />
-            <marker date="1493061457000" expanded="true" signature="1462:1473" ph="description...description" />
-            <marker date="1493061457000" expanded="true" signature="1494:1501" ph="offense...offense" />
-            <marker date="1493061457000" expanded="true" signature="1518:1528" ph="reportedAt...reportedAt" />
-            <marker date="1493061457000" expanded="true" signature="1548:1561" ph="streetAddress...streetAddress" />
-            <marker date="1493061457000" expanded="true" signature="1584:1588" ph="city...city" />
-            <marker date="1493061457000" expanded="true" signature="1602:1607" ph="state...state" />
-            <marker date="1493061457000" expanded="true" signature="1622:1638" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1630:1632" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="1676:1974" ph="mutation...{&#10;    updateIncident(&#10;      id: $id&#10;      lat: $lat&#10;      lng: $lng&#10;      prettyStreetAddress: $prettyStreetAddress&#10;      zipCode: $zipCode&#10;    )&#10;  }" />
-            <marker date="1493061457000" expanded="true" signature="1685:1699" ph="UpdateIncident...UpdateIncident" />
-            <marker date="1493061457000" expanded="true" signature="1699:1807" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1710:1712" ph="ID...ID" />
-            <marker date="1493061457000" expanded="true" signature="1724:1729" ph="Float...Float" />
-            <marker date="1493061457000" expanded="true" signature="1741:1746" ph="Float...Float" />
-            <marker date="1493061457000" expanded="true" signature="1774:1780" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1796:1802" ph="String...String" />
-            <marker date="1493061457000" expanded="true" signature="1808:1974" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1814:1828" ph="updateIncident...updateIncident" />
-            <marker date="1493061457000" expanded="true" signature="1814:1970" ph="updateIncident...{&#10;      &#10;    }" />
-            <marker date="1493061457000" expanded="true" signature="1828:1953" ph="(...)" />
-            <marker date="1493061457000" expanded="true" signature="1836:1838" ph="id...id" />
-            <marker date="1493061457000" expanded="true" signature="1850:1853" ph="lat...lat" />
-            <marker date="1493061457000" expanded="true" signature="1866:1869" ph="lng...lng" />
-            <marker date="1493061457000" expanded="true" signature="1882:1901" ph="prettyStreetAddress...prettyStreetAddress" />
-            <marker date="1493061457000" expanded="true" signature="1930:1937" ph="zipCode...zipCode" />
-            <marker date="1493061457000" expanded="true" signature="1954:1970" ph="{...}" />
-            <marker date="1493061457000" expanded="true" signature="1962:1964" ph="id...id" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#26#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="657" column="72" lean-forward="false" selection-start-line="657" selection-start-column="72" selection-end-line="657" selection-end-column="72" />
+          <folding>
+            <marker date="1493158171000" expanded="true" signature="2625:34654" ph="[...]" />
+            <marker date="1493158171000" expanded="true" signature="11805:17270" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="12195:13803" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="12245:13722" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="12490:12580" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="12507:12574" ph="{&quot;parseDate&quot;: parseDate...}" />
+            <marker date="1493158171000" expanded="true" signature="12659:12982" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="12694:12975" ph="[...]" />
+            <marker date="1493158171000" expanded="true" signature="12695:12974" ph="{&quot;reportedAt&quot;: `b:nth-of-type(1) | parseDate:${date.toISOString()}`...}" />
+            <marker date="1493158171000" expanded="true" signature="13009:13140" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13067:13132" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13153:13252" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13292:13431" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13502:13560" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13755:13800" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13844:14880" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13891:14785" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="13962:14166" ph="{&quot;__VIEWSTATE&quot;: 'input[name=&quot;__VIEWSTATE&quot;]@value'...}" />
+            <marker date="1493158171000" expanded="true" signature="14217:14356" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="14283:14348" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="14369:14474" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="14541:14690" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="14831:14877" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="14919:15353" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="14966:15275" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="15024:15115" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="15198:15218" ph="{&quot;scrape&quot;: scrape...}" />
+            <marker date="1493158171000" expanded="true" signature="15304:15350" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="16526:16766" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="16537:16763" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="16811:16953" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="16990:17175" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="17263:17268" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17273:17280" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17281:17286" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17314:17363" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="17356:17361" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17366:17373" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17374:17379" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17407:17464" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="17457:17462" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17467:17475" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17476:17481" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="17530:26014" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="17594:17611" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="17993:21307" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="18039:21219" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="18437:18556" ph="{&quot;startDay&quot;: undefined...}" />
+            <marker date="1493158171000" expanded="true" signature="18567:20272" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="18588:20266" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="18886:18914" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="18972:19029" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="19098:19181" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="19196:19886" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="19398:19769" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="19566:19696" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="19702:19757" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="19895:20258" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="20187:20248" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="20285:20324" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="20333:21215" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="21259:21304" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="21370:22616" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="21417:22526" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="21519:22225" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="21672:22219" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="21797:21902" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="22238:22422" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="22291:22367" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="22373:22416" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="22431:22522" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="22567:22613" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="23794:23819" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="23921:24119" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24197:24237" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24281:24323" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24357:24561" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24429:24540" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24446:24492" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24601:24865" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24625:24863" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="24909:24994" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="25026:25097" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="25134:25371" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="25403:26005" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="25532:25695" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="25560:25589" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="26007:26012" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="26017:26025" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="26026:26031" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="26080:28933" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="26144:26161" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="27332:28920" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="27384:28833" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="27427:27588" ph="{&quot;fetchPolicy&quot;: 'network-only'...}" />
+            <marker date="1493158171000" expanded="true" signature="27626:28828" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="27649:28219" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="27697:28207" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="27743:27855" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+            <marker date="1493158171000" expanded="true" signature="27950:28153" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="28250:28822" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="28298:28810" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="28345:28518" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+            <marker date="1493158171000" expanded="true" signature="28435:28506" ph="{&quot;id&quot;: configId...}" />
+            <marker date="1493158171000" expanded="true" signature="28590:28800" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="28857:28902" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="28926:28931" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="28936:28944" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="28945:28950" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="28999:33963" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="29063:29080" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31317:33950" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31369:33863" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31382:33858" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31419:31843" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31467:31831" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31513:31631" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+            <marker date="1493158171000" expanded="true" signature="31869:32507" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31917:32495" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="31963:32040" ph="{&quot;fetchPolicy&quot;: fetchPolicy...}" />
+            <marker date="1493158171000" expanded="true" signature="32152:32365" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="32371:32457" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="32533:33170" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="32581:33158" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="32628:32711" ph="{&quot;mutation&quot;: createMutation...}" />
+            <marker date="1493158171000" expanded="true" signature="32827:33024" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33030:33119" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33206:33852" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33254:33840" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33301:33393" ph="{&quot;mutation&quot;: saveGeocodeDataMutation...}" />
+            <marker date="1493158171000" expanded="true" signature="33509:33706" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33712:33801" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33887:33932" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="33956:33961" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="33966:33974" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="33975:33980" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34008:34061" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34054:34059" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34064:34072" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34073:34078" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34106:34160" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34153:34158" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34163:34171" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34172:34177" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34205:34255" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34248:34253" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34258:34266" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34267:34272" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34300:34354" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34347:34352" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34357:34365" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34366:34371" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34399:34447" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34440:34445" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34450:34458" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34459:34464" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34492:34551" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34544:34549" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34554:34562" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34563:34568" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34596:34642" ph="{...}" />
+            <marker date="1493158171000" expanded="true" signature="34635:34640" ph="/*...*/" />
+            <marker date="1493158171000" expanded="true" signature="34644:34652" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scraper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>

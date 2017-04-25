@@ -21,7 +21,6 @@ async function scrape (date) {
   const xRay = Xray({
     filters: {
       parseDate,
-      parseAddress,
       parseDescription,
       trim
     }
@@ -31,7 +30,7 @@ async function scrape (date) {
   const selector = {
     incidents: xRay('td.info', [{
       reportedAt: `b:nth-of-type(1) | parseDate:${date.toISOString()}`,
-      streetAddress: 'b:nth-of-type(2) | parseAddress | trim',
+      streetAddress: 'b:nth-of-type(2) | trim',
       offense: 'b:nth-of-type(3) | trim',
       caseNumber: 'b:nth-of-type(4) | trim',
       description: '@html | parseDescription | trim'
@@ -103,8 +102,6 @@ const parseDate = (value, defaultDate) => {
 
   return moment.tz(value, 'MMM DD YYYY hh:mmA', 'America/Los_Angeles').toISOString()
 }
-
-const parseAddress = value => value.replace('BLK', '').replace(/\s+/g, ' ')
 
 const parseDescription = value => {
   if (!value) return undefined
